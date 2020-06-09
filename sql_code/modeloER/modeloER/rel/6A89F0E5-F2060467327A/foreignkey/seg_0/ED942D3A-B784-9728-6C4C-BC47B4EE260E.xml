@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="ED942D3A-B784-9728-6C4C-BC47B4EE260E" containerWithKeyObject="27ED514F-6F82-A036-33CE-28BEEDA2D967" localFKIndex="2174CC85-BDFD-B157-5DF6-FB7FEC08F4D0" name="registro_delito_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>32FD6A62-537B-6D17-78AE-FFA123088FEF</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<referredTableLongName>delito</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>D4C32A90-6DC8-92CF-5D95-E2E9BE2DEB9E</referredTableID>
+<keyObject>AAED5519-17B4-7948-2A1E-66743F600CAD</keyObject>
+<referredKeyID>AAED5519-17B4-7948-2A1E-66743F600CAD</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_delito</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

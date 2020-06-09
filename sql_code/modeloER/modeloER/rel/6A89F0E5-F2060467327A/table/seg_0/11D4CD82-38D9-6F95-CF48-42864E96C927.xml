@@ -1,0 +1,191 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="11D4CD82-38D9-6F95-CF48-42864E96C927" name="persona">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>7AF1C389-FD91-8730-11F1-F582E7EB0213</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_persona" id="FFBC8462-10D7-0F0A-68E1-755C35961327">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>FD52E95C-3351-57E4-D26B-4FDA798A3E8D</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="internoen" id="E90F4AE6-AF44-2BE8-E2FF-61C28E0F91F9">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>5B0131E6-D486-AF24-94A5-F3E0E908EF0E</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1000</dataTypeSize>
+<ownDataTypeParameters>1000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="genero_id_genero" id="919E47B3-88E8-4F65-4B4F-42D6B78C02C0">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>815DF41A-2466-1E7B-740E-60309BA0C1B7</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1087F3C3-740F-5F04-8A47-3FFC5DC0DC1D" referredColumn="63AE4943-3D0B-9115-EDD5-8080EA5787B6"/>
+</associations>
+</Column>
+<Column name="nacionalidad_id_pais" id="46D2E347-4832-1872-3F6C-D00D9504CA6D">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>710BCE39-E5BA-499A-398C-2625F820EE2A</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1D22A031-B9D2-4809-BAE8-FA1AE9840F4F" referredColumn="9F3000AF-2D88-1033-1996-D05D23C7DFC9"/>
+</associations>
+</Column>
+<Column name="si_no_id_si_no" id="AA40940A-95C4-E7E9-DCEB-56F35C7ABE68">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<commentInRDBMS><![CDATA[reincidente]]></commentInRDBMS>
+<generatorID>B3DD2814-F763-DFED-B481-376DB16535A0</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="91A39CAA-C9FA-E773-E9DA-A65E23477CED" referredColumn="6A4FE97F-05ED-DF43-BEF8-F9723DCE93AA"/>
+</associations>
+</Column>
+<Column name="anio_nacimiento" id="B9E53FDA-3C56-311B-644D-133302A2233C">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>F7A77D03-B6B9-51E6-E943-FBF5A2000006</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="estado_civil_id_estado_civil" id="F08B7843-805D-6BB6-7EF9-68B751BFC5D8">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>B042A6D2-4F95-F529-2B94-9DCCD566342C</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1EFC956B-FB2E-8EE2-FC30-CE81CB9D02FF" referredColumn="B51D70AB-6FE9-1CD5-511B-0EAA6B9464A3"/>
+</associations>
+</Column>
+<Column name="nivel_educativo_id_nivel_educativo" id="1DB4F8ED-3E8A-78A0-3EC6-BD5F1D0EA7EE">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>571349D6-166F-5608-DC68-FB826DDB641F</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5D62B85D-7187-4B8A-50A4-D089307AAB62" referredColumn="1BED20B6-FDBC-F9C7-F602-3778465F5AC2"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="FF237728-D539-2DC4-AF3F-DCD57FE1778F" name="persona_PK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>E5F101ED-FF08-9C87-6719-D21BDBA996FD</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FFBC8462-10D7-0F0A-68E1-755C35961327"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6D2797C6-0493-B37B-E064-FF582CBF1BF2" name="persona_nacionalidad_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>31230303-ED1C-A1A7-D5C3-8ADE5D6E93B5</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="46D2E347-4832-1872-3F6C-D00D9504CA6D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5BFF5D36-4B00-6C70-AED3-C8FE5B367181" name="persona_si_no_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>BFE54D69-C55D-7565-B8EC-2E6416609FC7</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AA40940A-95C4-E7E9-DCEB-56F35C7ABE68"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C779467B-BB14-5C23-EA9E-C27582409BF8" name="persona_estado_civil_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>0E02D20D-DA12-A755-A9DC-059C6914842A</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F08B7843-805D-6BB6-7EF9-68B751BFC5D8"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F66BA4F8-BF56-664A-9670-97E69CC3F457" name="persona_genero_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>60F00750-EF04-2A36-0158-120CC778ED4A</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="919E47B3-88E8-4F65-4B4F-42D6B78C02C0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="38A79586-34A8-E86F-9839-6AFA94AF3491" name="persona_nivel_educativo_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>2FD28869-6DB1-6B12-60B6-A35FBC46B28D</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1DB4F8ED-3E8A-78A0-3EC6-BD5F1D0EA7EE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
