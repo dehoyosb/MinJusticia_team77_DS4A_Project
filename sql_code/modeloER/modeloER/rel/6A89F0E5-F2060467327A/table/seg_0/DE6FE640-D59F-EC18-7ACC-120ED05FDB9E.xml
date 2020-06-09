@@ -1,0 +1,115 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="DE6FE640-D59F-EC18-7ACC-120ED05FDB9E" name="establecimiento">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>847CF791-D533-1F5F-3ADF-757131F7AD58</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_establecimiento" id="F40225E3-82C3-648B-91EF-32E2B1D257B1">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>FF5CE3C4-D2B2-D18C-DAFD-3E827D9C2DA0</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nombre" id="9115B443-A5A7-4734-ED7F-9F922443EB81">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>47B2DC21-DB8E-91A9-36F5-38CFDF364EA7</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="regional_id_regional" id="A0E96294-88BA-32DA-6F93-B4686EFFDAF6">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>1034D858-200E-1BE4-830F-D873E16613F7</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9605E037-2843-D640-C456-A18E03D6CB92" referredColumn="68D576B4-7388-B200-D357-AD66AE88B932"/>
+</associations>
+</Column>
+<Column name="municipio_id_municipio" id="405B363C-7000-8D7A-4F35-E7E08D7FA781">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>15D75DFA-D0CF-C864-C5E6-5BF16E94152B</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="CCC1771B-CA17-A0A9-FC73-647AF99977A3" referredColumn="5527D9CA-4618-DC60-4E4D-DBEE9A5EFEE5"/>
+</associations>
+</Column>
+<Column name="codigo_establecimiento" id="E54DC414-B624-2F15-D814-0FC1E4BE586B">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>49FE1448-41F9-A949-C0DA-9B8A537D644B</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="FD89849D-E787-8753-7CC5-99161EE5D486" name="establecimiento_PK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>B0F3BB9B-7AA1-77AA-48BD-79D3E2D080B8</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F40225E3-82C3-648B-91EF-32E2B1D257B1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="D940B100-EBA9-1990-7F36-DB2E27756D72" name="establecimiento_regional_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>764C07E2-8F59-40FB-A155-D8479D2EC17C</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A0E96294-88BA-32DA-6F93-B4686EFFDAF6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="503EAA7C-C38E-0F4A-7982-3833271963F8" name="establecimiento_municipio_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>556A23A4-49A4-4DD7-A6A5-29EA5CBE8A3F</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="405B363C-7000-8D7A-4F35-E7E08D7FA781"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
