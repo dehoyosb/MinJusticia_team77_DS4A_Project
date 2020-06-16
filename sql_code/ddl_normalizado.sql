@@ -7,6 +7,7 @@ ALTER TABLE condicion_excepcional ADD CONSTRAINT condicion_excepcional_pk PRIMAR
 
 CREATE TABLE delito (
     id_delito  INTEGER NOT NULL,
+    id_subtitulo_delito integer not null,
     nombre     VARCHAR(1000)
 );
 
@@ -87,7 +88,7 @@ CREATE TABLE persona (
     id_persona                          INTEGER NOT NULL,
     internoen                           VARCHAR(1000),
     genero                    INTEGER NOT NULL,
-    nacionalidad                INTEGER NOT NULL,
+    nacionalidad                INTEGER not NULL,
     reincidente                         INTEGER NOT NULL,
     anio_nacimiento                     integer not null,
     estado_civil        INTEGER NOT NULL, 
@@ -161,7 +162,32 @@ CREATE TABLE sociodemograficos (
 ALTER TABLE sociodemograficos ADD CONSTRAINT sociodemograficos_pk PRIMARY KEY ( id_sociodemografico );
 
 
+CREATE TABLE subtitulo_delito (
+    id_subtitulo_delito             INTEGER NOT NULL,
+    nombre                          varchar(1000),
+    id_titulo_delito  INTEGER NOT NULL
+);
 
+ALTER TABLE subtitulo_delito ADD CONSTRAINT subtitulo_delito_pk PRIMARY KEY ( id_subtitulo_delito );
+
+CREATE TABLE titulo_delito (
+    id_titulo_delito  INTEGER NOT NULL,
+    nombre            varchar(1000)
+);
+
+ALTER TABLE titulo_delito ADD CONSTRAINT titulo_delito_pk PRIMARY KEY ( id_titulo_delito );
+
+
+
+
+ALTER TABLE delito
+    ADD CONSTRAINT delito_subtitulo_delito_fk FOREIGN KEY ( id_subtitulo_delito )
+        REFERENCES subtitulo_delito ( id_subtitulo_delito );
+
+
+ALTER TABLE subtitulo_delito
+    ADD CONSTRAINT subtitulo_delito_titulo_delito_fk FOREIGN KEY ( id_titulo_delito )
+        REFERENCES titulo_delito ( id_titulo_delito );
 
 ALTER TABLE establecimiento
     ADD CONSTRAINT establecimiento_municipio_fk FOREIGN KEY ( municipio )

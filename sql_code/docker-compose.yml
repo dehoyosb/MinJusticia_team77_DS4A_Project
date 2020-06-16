@@ -8,8 +8,18 @@ services:
            POSTGRES_DB: postgres
          ports:
            - "5432:5432"
+    python_app:
+         build: 
+           context: ./python_app
+           dockerfile: Dockerfile
+         ports:
+           - 8787:8787
+         depends_on:
+           - postgres
     jupyter:
-          image: jupyter/scipy-notebook
+          build: 
+           context: ./jupyter
+           dockerfile: Dockerfile
           volumes:
             - /home:/home/jovyan/work
           ports: 

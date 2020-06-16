@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="92B6E30A-A68A-4B73-FCBB-22744ABB7F61" name="delito">
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="2BF8AEE6-6A07-615E-F66F-05335D5E3DF7" name="titulo_delito">
 <createdBy>esneyder</createdBy>
-<createdTime>2020-06-09 21:02:28 UTC</createdTime>
+<createdTime>2020-06-16 15:48:12 UTC</createdTime>
 <ownerDesignName>modeloER</ownerDesignName>
 <engineerTo>
 <item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
@@ -15,9 +15,9 @@
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
-<Attribute name="id_delito" id="4E6278CD-9BF3-7B4E-F8FD-4E6CEB7BFF33">
+<Attribute name="id_titulo_delito" id="E966A3B4-2252-D2B7-B016-1EAF3102AF29">
 <createdBy>esneyder</createdBy>
-<createdTime>2020-06-09 21:06:46 UTC</createdTime>
+<createdTime>2020-06-16 15:48:12 UTC</createdTime>
 <ownerDesignName>modeloER</ownerDesignName>
 <engineerTo>
 <item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
@@ -27,9 +27,9 @@
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="nombre" id="4DF4E6C8-8334-2B2D-F7B1-B5CAAD0D12C1">
+<Attribute name="nombre" id="EE7A23CF-E9C6-B86A-352A-26A20A633F90">
 <createdBy>esneyder</createdBy>
-<createdTime>2020-06-09 21:07:04 UTC</createdTime>
+<createdTime>2020-06-16 15:48:12 UTC</createdTime>
 <ownerDesignName>modeloER</ownerDesignName>
 <engineerTo>
 <item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
@@ -41,32 +41,18 @@
 <dataTypeSize>1000</dataTypeSize>
 <ownDataTypeParameters>1000,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="id_subtitulo_delito" id="2381A5B4-8F2A-FC47-0D86-7E4B79440F3E">
-<createdBy>esneyder</createdBy>
-<createdTime>2020-06-16 15:49:14 UTC</createdTime>
-<generatorID>90655F50-4B5F-C6F4-E0A5-54EDF7601F1F</generatorID>
-<ownerDesignName>modeloER</ownerDesignName>
-<engineerTo>
-<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
-</engineerTo>
-<referedAttribute>5A24B834-6446-8F88-5A8D-C937425CD6A2</referedAttribute>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
-<identifier id="8FB6D97E-F420-57BF-1BB3-8D4FB1C05CDC" name="delito PK">
+<identifier id="4C76A7A4-2DF4-1A8A-9CF9-593E120EAF65" name="delito PK">
 <createdBy>esneyder</createdBy>
-<createdTime>2020-06-09 21:07:03 UTC</createdTime>
+<createdTime>2020-06-16 15:48:12 UTC</createdTime>
 <ownerDesignName>modeloER</ownerDesignName>
 <engineerTo>
 <item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
-<attributeRef>4E6278CD-9BF3-7B4E-F8FD-4E6CEB7BFF33</attributeRef>
+<attributeRef>E966A3B4-2252-D2B7-B016-1EAF3102AF29</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>
