@@ -1,0 +1,63 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D36E6425-FA52-ADF6-97CC-DED4ACC51528" name="departamento">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>4109D9C7-2916-7116-431A-007C50955531</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_departamento" id="4BB1BD15-A3D1-633E-8518-B9EFD6A3450C">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>06CD3310-024F-B618-1DA9-EBC14AE4F31C</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="codigo_dane" id="64E9E51C-E4E1-6B0B-36B5-B8439A14387A">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>6CD00218-F2E6-4D3D-1741-3610C2ECBC26</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nombre" id="47BE3D1B-FA43-42B3-AA9C-339D214FA292">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>29945C82-3254-42F9-C08C-6AE58923907F</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="331CACC4-598C-C74D-FBF8-ACD8C338C146" name="departamento_PK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>79C04237-B192-F801-E9B9-255405335B56</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4BB1BD15-A3D1-633E-8518-B9EFD6A3450C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

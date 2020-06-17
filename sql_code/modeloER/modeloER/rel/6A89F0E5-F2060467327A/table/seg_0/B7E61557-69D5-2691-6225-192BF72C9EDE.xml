@@ -1,0 +1,92 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B7E61557-69D5-2691-6225-192BF72C9EDE" name="sociodemografico_registros">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>313CAA61-A169-7767-52AD-88638C924097</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="registro_id_registro" id="4DE78F54-C7F0-C6F0-256F-BA775A6F11D7">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>D294A31C-7730-C90C-F227-052447407A06</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E2885CB3-3524-6681-A379-17E1561457B0" referredColumn="D96A6009-0B8C-1EC5-E08D-BF3C4B879670"/>
+</associations>
+</Column>
+<Column name="valor" id="E9744A9E-6B68-2555-7132-D6F977DDAFF4">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>C100396A-24BB-3098-BE44-B28C945C74A0</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1000</dataTypeSize>
+<ownDataTypeParameters>1000,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="sociodemograficos_id_sociodemografico" id="7EBA2CA4-C1BF-6AA2-E122-6AD10446B3FC">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>FBF44034-2330-612E-27C6-65E632C46755</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="12968BAB-8A22-AE30-4EEF-12B39B6BE42F" referredColumn="62460370-BB84-9464-DECA-096E371BED60"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="38598D91-C741-3947-AF9F-1334E84A7534" name="sociodemografico_registros_PK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>2FA7D71E-8CE8-2919-9DE3-06912808EB61</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4DE78F54-C7F0-C6F0-256F-BA775A6F11D7"/>
+<colUsage columnID="7EBA2CA4-C1BF-6AA2-E122-6AD10446B3FC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="82618EE4-2CB7-ADDD-9C88-C89B4ADCF3B2" name="sociodemografico_registros_sociodemograficos_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>124F8909-A2B1-B356-03E7-0ABD73CA305A</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7EBA2CA4-C1BF-6AA2-E122-6AD10446B3FC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="978A05A7-AD69-9F24-F9AA-3D68D9742313" name="sociodemografico_registros_registro_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>5B8FAFB8-97DB-59CF-0C77-A0DE82F88028</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4DE78F54-C7F0-C6F0-256F-BA775A6F11D7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

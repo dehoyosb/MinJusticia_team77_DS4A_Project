@@ -1,0 +1,78 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="313CAA61-A169-7767-52AD-88638C924097" name="sociodemografico_registros">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:04:20 UTC</createdTime>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id_registro" id="D294A31C-7730-C90C-F227-052447407A06">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:08:48 UTC</createdTime>
+<generatorID>5B8FAFB8-97DB-59CF-0C77-A0DE82F88028</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<referedAttribute>E595DC2D-5DBE-1556-1983-8A03018EB10D</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="valor" id="C100396A-24BB-3098-BE44-B28C945C74A0">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:08:56 UTC</createdTime>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>1000</dataTypeSize>
+<ownDataTypeParameters>1000,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_sociodemografico" id="FBF44034-2330-612E-27C6-65E632C46755">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:09:32 UTC</createdTime>
+<generatorID>124F8909-A2B1-B356-03E7-0ABD73CA305A</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<referedAttribute>64A00E6E-AE6C-BC45-0B25-7FE33049BF7C</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="2FA7D71E-8CE8-2919-9DE3-06912808EB61" name="sociodemografico_registros PK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:14:22 UTC</createdTime>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>D294A31C-7730-C90C-F227-052447407A06</attributeRef>
+<attributeRef>FBF44034-2330-612E-27C6-65E632C46755</attributeRef>
+<attributeRef>D294A31C-7730-C90C-F227-052447407A06</attributeRef>
+<attributeRef>FBF44034-2330-612E-27C6-65E632C46755</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

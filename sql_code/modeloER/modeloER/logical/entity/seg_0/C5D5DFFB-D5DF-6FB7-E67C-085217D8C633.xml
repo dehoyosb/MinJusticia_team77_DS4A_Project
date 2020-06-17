@@ -1,0 +1,59 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="C5D5DFFB-D5DF-6FB7-E67C-085217D8C633" name="estado">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:29:27 UTC</createdTime>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id_estado" id="B4932598-2720-55A5-3E9D-2CEA9EC42DEF">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:29:49 UTC</createdTime>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nombre" id="A1B2A4A9-5EA1-A271-4A78-B219F03B1F0F">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:30:01 UTC</createdTime>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="0808028C-2137-BC41-A7FA-77E8392786CA" name="estado PK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:30:00 UTC</createdTime>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>B4932598-2720-55A5-3E9D-2CEA9EC42DEF</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
