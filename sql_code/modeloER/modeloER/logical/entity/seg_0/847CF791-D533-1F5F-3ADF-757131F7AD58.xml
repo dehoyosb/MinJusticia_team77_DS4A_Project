@@ -1,0 +1,101 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="847CF791-D533-1F5F-3ADF-757131F7AD58" name="establecimiento">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:03:06 UTC</createdTime>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id_establecimiento" id="FF5CE3C4-D2B2-D18C-DAFD-3E827D9C2DA0">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:09:36 UTC</createdTime>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nombre" id="47B2DC21-DB8E-91A9-36F5-38CFDF364EA7">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:09:51 UTC</createdTime>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_regional" id="1034D858-200E-1BE4-830F-D873E16613F7">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:10:23 UTC</createdTime>
+<generatorID>764C07E2-8F59-40FB-A155-D8479D2EC17C</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<referedAttribute>29A05480-D104-EBB6-BE5B-E5D33374EA44</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_municipio" id="15D75DFA-D0CF-C864-C5E6-5BF16E94152B">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:11:03 UTC</createdTime>
+<generatorID>556A23A4-49A4-4DD7-A6A5-29EA5CBE8A3F</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<referedAttribute>A25D7955-7397-76D4-3847-9F4C6F80C7F3</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="codigo_establecimiento" id="49FE1448-41F9-A949-C0DA-9B8A537D644B">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:28:57 UTC</createdTime>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="B0F3BB9B-7AA1-77AA-48BD-79D3E2D080B8" name="establecimiento PK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:09:50 UTC</createdTime>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>FF5CE3C4-D2B2-D18C-DAFD-3E827D9C2DA0</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

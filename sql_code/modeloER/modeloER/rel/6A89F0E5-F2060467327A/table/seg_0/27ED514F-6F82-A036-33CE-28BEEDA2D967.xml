@@ -1,0 +1,482 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="27ED514F-6F82-A036-33CE-28BEEDA2D967" name="registro">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>71372C23-E70F-D8EA-9FE3-181F550A4C0A</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="persona_id_persona" id="6CB55DCA-70F8-C961-0895-6BAC472D8FFC">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>91AC7533-4D1D-5CD7-B21D-3E3881DEB646</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="42F92DC1-0C8B-A1E2-EB21-399D5ED5F80E" referredColumn="FFBC8462-10D7-0F0A-68E1-755C35961327"/>
+</associations>
+</Column>
+<Column name="delito_id_delito" id="5436EB35-61FC-6705-488B-45D005B8E291">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>949A9162-FA33-09C1-AC05-F7C742887684</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="ED942D3A-B784-9728-6C4C-BC47B4EE260E" referredColumn="8C496196-8A5B-8624-0DA9-B369A0B1D0C7"/>
+</associations>
+</Column>
+<Column name="estado_ingreso_id_estado_ingreso" id="9B0F67D4-2FCC-7F02-D407-4BB8A255F33F">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>83631EEA-E4F0-A6F3-1776-E32C53D4DBD9</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6B06E840-D18C-B384-8BD7-14255FF0AB34" referredColumn="2E4CE1FA-5452-EFA1-BE76-DEAC0FA267A3"/>
+</associations>
+</Column>
+<Column name="id_registro" id="D96A6009-0B8C-1EC5-E08D-BF3C4B879670">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>E595DC2D-5DBE-1556-1983-8A03018EB10D</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="fecha_captura" id="1D56F016-0EB8-382E-ADF2-47F2A0C88D2F">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>ACA415EB-B3A6-79CE-6F9A-3B7A7F321B00</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="fecha_ingreso" id="8EF12B08-CED3-98AB-DA5B-46B23331C196">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>255A093A-778D-577B-DA27-40D7B6AFCC54</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="establecimiento_id_establecimiento" id="05E21992-F1E3-6408-9218-DFE628772237">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>8C7BDED8-92C3-80FB-16A9-EF93D9F7F60B</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C95934BE-CC0D-3EB5-2E27-0BCB1A829341" referredColumn="F40225E3-82C3-648B-91EF-32E2B1D257B1"/>
+</associations>
+</Column>
+<Column name="si_no_id_si_no" id="117082CF-286C-3502-2CFD-A32F6ABC67AE">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<commentInRDBMS><![CDATA[tentativa]]></commentInRDBMS>
+<generatorID>B0B86E4E-737E-5D15-B1C0-F5C9EE2917BA</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D0650036-94EF-E5EC-FE57-9BDEA2DFB337" referredColumn="6A4FE97F-05ED-DF43-BEF8-F9723DCE93AA"/>
+</associations>
+</Column>
+<Column name="si_no_id_si_no1" id="9EC66287-1AE1-75DD-B7F3-7FC7C834FFCA">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<commentInRDBMS><![CDATA[agravado]]></commentInRDBMS>
+<generatorID>D8E51C21-F550-E884-22EC-6E91E96D437F</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A3ADF44F-95C1-88E3-C170-B0834A651098" referredColumn="6A4FE97F-05ED-DF43-BEF8-F9723DCE93AA"/>
+</associations>
+</Column>
+<Column name="si_no_id_si_no2" id="1B738E8F-6F0D-13CA-A6C9-85A48952B2CD">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<commentInRDBMS><![CDATA[calificado]]></commentInRDBMS>
+<generatorID>9A7D253E-F6FF-5BDB-2F04-B1A3BAC2D406</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9EB6FACE-C924-7871-60B4-568820B911A0" referredColumn="6A4FE97F-05ED-DF43-BEF8-F9723DCE93AA"/>
+</associations>
+</Column>
+<Column name="fecha_salida" id="0EF8CA50-85E6-F113-3E8F-FB87620E92A6">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>BF1FF343-DB69-299D-A9FF-4C280CF40F05</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="edad" id="BE210353-1045-A069-EC6A-31362B8687DA">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>6C275FF8-A197-EA9D-EEC1-C46B020903EA</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="municipio_id_municipio" id="9FE3507F-6DA1-2CEE-C051-4AD1F35C6366">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>398E4851-7034-3B03-D89D-7C73E8260F45</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C502E6B5-5DD5-C7C7-03FE-B21EE973C264" referredColumn="5527D9CA-4618-DC60-4E4D-DBEE9A5EFEE5"/>
+</associations>
+</Column>
+<Column name="si_no_id_si_no3" id="8E6A15B3-7428-B3FD-6E83-38CBCC4508F5">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<commentInRDBMS><![CDATA[actividades_estudio]]></commentInRDBMS>
+<generatorID>B0B85FDD-ACAC-CA59-BFB4-2481A33697EF</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="71DF672A-B3A6-220B-56B6-80048F7F62CC" referredColumn="6A4FE97F-05ED-DF43-BEF8-F9723DCE93AA"/>
+</associations>
+</Column>
+<Column name="si_no_id_si_no4" id="4B1C6CA7-BB38-B7CF-B43A-B7DB4DC5B232">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<commentInRDBMS><![CDATA[actividades_trabajo]]></commentInRDBMS>
+<generatorID>48D82A68-0B8E-C77E-A5E2-A47C869484A0</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0AB7FADA-9FC7-641A-7E3E-1E8A2A8C727B" referredColumn="6A4FE97F-05ED-DF43-BEF8-F9723DCE93AA"/>
+</associations>
+</Column>
+<Column name="si_no_id_si_no5" id="76DF39B1-B840-60A7-9FAE-834E9BF99685">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<commentInRDBMS><![CDATA[actividades_enseñanza]]></commentInRDBMS>
+<generatorID>DE1DE806-EB2E-6330-F353-6D5CEDE239A0</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A147E8AF-8E95-E630-F7C8-57DC78748FB2" referredColumn="6A4FE97F-05ED-DF43-BEF8-F9723DCE93AA"/>
+</associations>
+</Column>
+<Column name="si_no_id_si_no6" id="7A746EE2-CA5A-E82D-CF40-D6CB5EAB2398">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<commentInRDBMS><![CDATA[hijos menores
+]]></commentInRDBMS>
+<generatorID>F7AC0FC7-76B3-C407-0BBE-802C7B05A233</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FE5492C4-EEAA-C766-8311-AFABB685E24C" referredColumn="6A4FE97F-05ED-DF43-BEF8-F9723DCE93AA"/>
+</associations>
+</Column>
+<Column name="condicion_excepcional_id_condicion_excepcional" id="40C28F48-4847-2D74-EC61-50B5E8A15BF1">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>4972608E-6F12-150E-5271-3135DCCA7A37</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FA9B7297-25BF-A0C5-B055-F0ED9160F561" referredColumn="36CA6C20-E50F-445F-5E12-10C57F11F95E"/>
+</associations>
+</Column>
+<Column name="estado_id_estado" id="546CFFAC-D9E3-B722-2DB4-684E0DBC44E9">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>F65E74D8-2044-B702-754A-A8D481B15B0C</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A541E006-C646-E20C-2F21-00E529F4F8AB" referredColumn="357ED0E7-413F-39BC-91FB-36E99E5BD9D3"/>
+</associations>
+</Column>
+<Column name="situacion_juridica_situacion_juridica_ID" id="E14FE2E2-6F0B-6247-8CA1-5A402CC748D9">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<ownerDesignName>modeloER</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E381BBC2-2719-BB2C-7EEB-847740508946" referredColumn="D5428E04-7C32-02E6-0D11-9C8E4BFBE809"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="E36922DB-50AE-18A0-1B98-23184D925BAA" name="registro_PK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>A1A902C1-32DD-4B5D-4AEC-82DAEB380320</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D96A6009-0B8C-1EC5-E08D-BF3C4B879670"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4C3EEBCD-6D56-511F-BABD-7C722F239324" name="registro_persona_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>F1B46DF8-8928-E159-23F3-87479BF06488</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6CB55DCA-70F8-C961-0895-6BAC472D8FFC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="DBB3116D-002B-7DA0-41D2-E74FC7DDC178" name="registro_si_no_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>0746DDAC-D600-7D6F-E98B-EC7BBDF44A03</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="117082CF-286C-3502-2CFD-A32F6ABC67AE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="028D3F2F-3C19-54B0-D2DD-E7A9E58FA85B" name="registro_si_no_FKv2">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>684E4F8E-A790-C845-8C1D-B563FD555860</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9EC66287-1AE1-75DD-B7F3-7FC7C834FFCA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3F303638-C2ED-8907-108D-72B8F8D8F956" name="registro_si_no_FKv3">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>1BBE2CA6-D43E-D269-A1DD-F77DDF1B860A</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1B738E8F-6F0D-13CA-A6C9-85A48952B2CD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1A99E6E1-1CCC-144F-B38E-F50067B5A978" name="registro_municipio_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>B0E547A9-9A9B-9298-9486-408AF0877EA8</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9FE3507F-6DA1-2CEE-C051-4AD1F35C6366"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="69C45EF9-D469-57A3-0EF1-A3110F7417AD" name="registro_si_no_FKv4">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>218414B6-2242-6E5E-A502-443BB88A6040</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8E6A15B3-7428-B3FD-6E83-38CBCC4508F5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="759A0D34-6A96-B8DC-6278-A52237E72CF8" name="registro_si_no_FKv5">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>AD17131A-8459-B490-6A4B-A91AE2B27C4D</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4B1C6CA7-BB38-B7CF-B43A-B7DB4DC5B232"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0B7D457F-B6B9-D2A7-E40B-F3B7653946B7" name="registro_si_no_FKv6">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>7E377564-80DF-5AAE-D593-03CFFBACB4BB</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="76DF39B1-B840-60A7-9FAE-834E9BF99685"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="72A92172-2474-A132-CE7E-5074C4AA19B3" name="registro_si_no_FKv7">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>25162664-275D-97B2-C198-F606B01006DD</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7A746EE2-CA5A-E82D-CF40-D6CB5EAB2398"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="75E0F739-8A1C-1257-2065-D1BF72DC06F8" name="registro_condicion_excepcional_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>D5C879C9-E1EB-A302-EB3B-99D481EA00E9</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="40C28F48-4847-2D74-EC61-50B5E8A15BF1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6CA617B6-4E57-FBB4-A6BC-39546A5A0CC4" name="registro_estado_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>37633D40-3C34-A7D2-E3EA-F2DA17643DDE</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="546CFFAC-D9E3-B722-2DB4-684E0DBC44E9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="ED374BDC-ADE0-4730-363E-F3C813CAF4BC" name="registro_situacion_juridica_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>009C579B-C77D-0871-E1C4-CFBFCB971D40</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E14FE2E2-6F0B-6247-8CA1-5A402CC748D9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2174CC85-BDFD-B157-5DF6-FB7FEC08F4D0" name="registro_delito_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>32FD6A62-537B-6D17-78AE-FFA123088FEF</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5436EB35-61FC-6705-488B-45D005B8E291"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="ECEC3145-3661-9E34-5299-694476BAE05C" name="registro_estado_ingreso_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>424DB71F-6F12-98B7-7261-C6F67FCAC977</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9B0F67D4-2FCC-7F02-D407-4BB8A255F33F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="07F0C545-13DD-EA2B-2F79-66EFB78EFED4" name="registro_establecimiento_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>AAE7817D-C9CF-9966-62EC-1AA0FD9719C6</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="05E21992-F1E3-6408-9218-DFE628772237"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
