@@ -51,6 +51,7 @@ INSERT INTO public.condicion_excepcional (id_condicion_excepcional, nombre) VALU
 INSERT INTO public.condicion_excepcional (id_condicion_excepcional, nombre) VALUES(51,'RAIZALES');
 INSERT INTO public.condicion_excepcional (id_condicion_excepcional, nombre) VALUES(52,'ROM');
 INSERT INTO public.condicion_excepcional (id_condicion_excepcional, nombre) VALUES(53,'TRANSEXUAL');
+INSERT INTO public.condicion_excepcional (id_condicion_excepcional, nombre) VALUES(54,'NINGUNO');
 
 
 INSERT INTO public.titulo_delito (id_titulo_delito, nombre) VALUES(1,'ACCION DE TUTELA');

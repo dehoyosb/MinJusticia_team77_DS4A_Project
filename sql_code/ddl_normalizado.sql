@@ -1,3 +1,8 @@
+
+
+
+
+
 CREATE TABLE condicion_excepcional (
     id_condicion_excepcional  INTEGER NOT NULL,
     nombre                    VARCHAR(100)
@@ -288,3 +293,96 @@ ALTER TABLE sociodemografico_registros
 ALTER TABLE sociodemografico_registros
     ADD CONSTRAINT sociodemografico_registros_sociodemograficos_fk FOREIGN KEY ( sociodemograficos )
         REFERENCES sociodemograficos ( id_sociodemografico );
+        
+       
+
+-- procedimientos almacenados para las tablas de personas
+
+create sequence public.personas_seq start 1;
+
+--drop tcompararpersonas;
+CREATE OR REPLACE FUNCTION public.tcompararpersonas()
+ RETURNS integer
+ LANGUAGE plpgsql
+AS $function$
+begin
+INSERT INTO public.persona
+(id_persona, internoen, genero, nacionalidad, reincidente, anio_nacimiento, estado_civil, nivel_educativo)
+SELECT nextval('public.personas_seq') as id_persona,
+"INTERNOEN" as internoen, 
+g.id_genero as genero , 
+case when n.id_pais is null then 22 else n.id_pais end as nacionalidad ,
+2 as reincidente, 
+"ANO_NACIMIENTO" as anio_nacimiento, 
+case when ec.id_estado_civil is null then 3 else ec.id_estado_civil end as estado_civil, 
+ne.id_nivel_educativo as nivel_educativo
+FROM public.personas_tmp ptmp
+left join genero g on g.nombre = ptmp."GENERO" 
+left join nacionalidad n on n.pais =ptmp."PAIS_INTERNO" 
+left join estado_civil ec on ec.nombre = ptmp."ESTADO_CIVIL" 
+left join nivel_educativo ne on ne.nombre =ptmp."NIVEL_EDUCATIVO" 
+where "INTERNOEN" not in (select internoen from public.persona p );
+drop table public.personas_tmp;
+return 1;
+END;
+$function$
+;
+
+
+-- procedimientos almacenados para las tablas de general
+       
+       
+create sequence public.registro_seq start 1;
+
+--drop tcompararreg;
+CREATE OR REPLACE FUNCTION public.tcompararreg()
+ RETURNS integer
+ LANGUAGE plpgsql
+AS $function$
+begin
+INSERT INTO public.registro
+(persona_id_persona, delito_id_delito, estado_ingreso, id_registro, fecha_captura, fecha_ingreso, establecimiento, 
+tentativa, agravado, calificado, fecha_salida, edad, municipio_id_municipio, actividades_estudio, actividades_trabajo, 
+actividades_enseñanza, hijos_menores, condicion_excepcional, estado_id_estado, situacion_juridica)
+
+SELECT 
+p.id_persona as persona_id_persona,
+d.id_delito as delito_id_delito, 
+case when ei.id_estado_ingreso is null then 4 else ei.id_estado_ingreso end as estado_ingreso, 
+nextval('public.registro_seq') as id_registro,
+to_date("FECHA_CAPTURA", 'dd/mm/yy') as fecha_captura, 
+to_date("FECHA_INGRESO", 'dd/mm/yy') as fecha_ingreso, 
+es.id_establecimiento as establecimiento, 
+ten.id_si_no as tentativa, 
+case when agr.id_si_no is null then 1 else  agr.id_si_no end as agravado,
+case when cal.id_si_no is null then 1 else cal.id_si_no end as calificado,
+to_date("FECHA_SALIDA", 'dd/mm/yy') as fecha_salida, 
+"EDAD" as edad,
+1 as municipio_id_municipio, 
+case when "ACTIVIDADES_ESTUDIO" = 'SI' then 2 else 1 end as actividades_estudio,
+case when "ACTIVIDADES_TRABAJO"= 'SI' then 2 else 1 end as actividades_trabajo, 
+case when "ACTIVIDADES_ENSEÑANZA" = 'SI' then 2 else 1 end as actividades_enseñanza,
+case when "HIJOS_MENORES"  = 'SI' then 2 else 1 end as hijos_menores, 
+case when ce.id_condicion_excepcional is null then 54 else ce.id_condicion_excepcional end as condicion_excepcional, 
+est.id_estado as estado_id_estado, 
+sj.id_situacion_juridica as situacion_juridica
+FROM public.registros_tmp reg
+left join persona p on p.internoen = reg."INTERNOEN" 
+left join delito d on d.nombre = reg."DELITO" 
+left join estado_ingreso ei on ei.nombre = reg."ESTADO_INGRESO" 
+left join establecimiento es on es.nombre = reg."ESTABLECIMIENTO" 
+left join si_no ten on ten.codigo = reg."TENTATIVA"
+left join si_no agr on ten.codigo = reg."AGRAVADO" 
+left join si_no cal on ten.codigo = reg."CALIFICADO" 
+left join condicion_excepcional ce on ce.nombre = reg."CONDIC_EXPECIONAL" 
+left join estado est on est.nombre = reg."ESTADO" 
+left join situacion_juridica sj on sj.nombre = reg."SITUACION_JURIDICA" ;
+
+drop table public.registros_tmp;
+return 1;
+END;
+$function$
+;
+       
+
+       
