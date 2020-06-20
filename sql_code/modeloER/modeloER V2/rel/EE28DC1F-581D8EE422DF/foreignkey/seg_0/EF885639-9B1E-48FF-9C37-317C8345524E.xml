@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="EF885639-9B1E-48FF-9C37-317C8345524E" containerWithKeyObject="1D11AC16-7C1F-31BE-E3B4-73890FA77C56" localFKIndex="CAFD34F5-CE4B-9680-B926-9AE11DA57FDB" name="registro_si_no_fkv2">
+<sourceDDLFile>ddl_normalizado.sql</sourceDDLFile>
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<importedID>DC2173AD-6FDC-7B58-5084-60D3536B67DF</importedID>
+<referredTableLongName>si_no</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>621CABE8-214C-272E-3727-DC4C272CF7F4</referredTableID>
+<keyObject>0040FB76-FC22-F7CB-AA64-A8CE5E39B0EB</keyObject>
+<referredKeyID>0040FB76-FC22-F7CB-AA64-A8CE5E39B0EB</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_si_no</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

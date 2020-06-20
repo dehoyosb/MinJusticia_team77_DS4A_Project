@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="registro_situacion_juridica_fk" directorySegmentName="seg_0" id="17FC88C4-5A1B-B4C5-C5DE-42AF3B8DF14A">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:01 UTC</createdTime>
+<generatorID>E2A05E60-BABD-9D95-C8F4-4522FCD209B9</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<sourcePk>4FE43D14-9702-3F01-8505-914BDE4E8D16</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>45C4AD6E-0DEE-D239-FE49-2BBECF4F9B78</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>25334232-A00E-8E18-7022-EF0793CC8D61</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

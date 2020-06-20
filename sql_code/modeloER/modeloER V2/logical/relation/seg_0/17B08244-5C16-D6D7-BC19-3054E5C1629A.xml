@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="registro_municipio_fk" directorySegmentName="seg_0" id="17B08244-5C16-D6D7-BC19-3054E5C1629A">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:01 UTC</createdTime>
+<generatorID>E2E1410F-BD32-26D4-06F2-B1A7B6BEAE98</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<sourcePk>251EB5B6-03AD-A0D6-BD8A-5093B1399357</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>CA8B5669-E957-DD39-37C7-D26842DA3EB6</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>25334232-A00E-8E18-7022-EF0793CC8D61</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

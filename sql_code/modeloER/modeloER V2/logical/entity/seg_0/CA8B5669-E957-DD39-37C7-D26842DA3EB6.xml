@@ -1,0 +1,90 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="CA8B5669-E957-DD39-37C7-D26842DA3EB6" name="municipio">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:00 UTC</createdTime>
+<generatorID>D9800444-C23D-8A2E-8585-CD54DCA7D0F2</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id municipio" id="104E0C46-EA7E-D180-E4CF-E3E4588E230B">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:00 UTC</createdTime>
+<generatorID>42E1DC75-6C51-AABA-1888-0E180587BC6C</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>31BC5F62-8397-B7C4-A260-B59F56AEF2E5</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="codigo dane" id="2DC5CC3C-03A2-6D34-79D8-F1EA7E517785">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:00 UTC</createdTime>
+<generatorID>FA5F98F7-C712-421F-8FD7-5A7722BEC63F</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>0CDFAEEC-61C3-CD45-D80D-7F6577603CC3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nombre" id="2BCA1F51-0AF1-5CCF-88C6-434ED66A98EF">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:00 UTC</createdTime>
+<generatorID>D1FA9F21-A37B-66AA-3660-82E6BCE9D5A7</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>25CD8D09-585A-F0A6-3B27-E55BB6323159</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="departamento" id="28138937-2DD9-1B7C-5D61-14A0F9CA964E">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:00 UTC</createdTime>
+<generatorID>F2104435-ADF5-0D3F-9D6F-53F33710F7EB</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<referedAttribute>9EAE8A92-18D2-F20E-DBE9-AD3215030129</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>31BC5F62-8397-B7C4-A260-B59F56AEF2E5</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="251EB5B6-03AD-A0D6-BD8A-5093B1399357" name="municipio pk">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:00 UTC</createdTime>
+<generatorID>3D5E6551-9057-A197-C8CE-7FCA6DFC6B03</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>104E0C46-EA7E-D180-E4CF-E3E4588E230B</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
