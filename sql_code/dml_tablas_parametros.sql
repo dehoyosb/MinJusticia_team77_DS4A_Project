@@ -1,3 +1,5 @@
+/*
+
 INSERT INTO public.condicion_excepcional (id_condicion_excepcional, nombre) VALUES(1,'ADULTO MAYOR');
 INSERT INTO public.condicion_excepcional (id_condicion_excepcional, nombre) VALUES(2,'ADULTO MAYOR -AFRO COLOMBIANO');
 INSERT INTO public.condicion_excepcional (id_condicion_excepcional, nombre) VALUES(3,'ADULTO MAYOR -BISEXUAL');
@@ -52,7 +54,7 @@ INSERT INTO public.condicion_excepcional (id_condicion_excepcional, nombre) VALU
 INSERT INTO public.condicion_excepcional (id_condicion_excepcional, nombre) VALUES(52,'ROM');
 INSERT INTO public.condicion_excepcional (id_condicion_excepcional, nombre) VALUES(53,'TRANSEXUAL');
 INSERT INTO public.condicion_excepcional (id_condicion_excepcional, nombre) VALUES(54,'NINGUNO');
-
+*/
 
 INSERT INTO public.titulo_delito (id_titulo_delito, nombre) VALUES(1,'ACCION DE TUTELA');
 INSERT INTO public.titulo_delito (id_titulo_delito, nombre) VALUES(2,'CONTRA EL ORDEN ECONOMICO SOCIAL');
@@ -762,8 +764,9 @@ INSERT INTO public.nivel_educativo (id_nivel_educativo, nombre) VALUES(12,'TECNO
 
 
 
-INSERT INTO public.si_no (id_si_no, codigo, nombre) VALUES(1,'N', 'No');
-INSERT INTO public.si_no (id_si_no, codigo, nombre) VALUES(2,'S', 'Si');
+INSERT INTO public.si_no (id_si_no, codigo, nombre) VALUES(1,'N', 'NO');
+INSERT INTO public.si_no (id_si_no, codigo, nombre) VALUES(2,'S', 'SI');
+INSERT INTO public.si_no (id_si_no, codigo, nombre) VALUES(3,'NA', 'No Aplica');
 
 
 INSERT INTO public.situacion_juridica (id_situacion_juridica, nombre) VALUES(1,'CO');
@@ -794,5 +797,21 @@ INSERT INTO public.estado_civil (id_estado_civil, nombre) VALUES(8,'VIUDO(A)');
 
 INSERT INTO public.genero (id_genero, nombre) VALUES(1, 'FEMENINO');
 INSERT INTO public.genero (id_genero, nombre) VALUES(2, 'MASCULINO');
+
+
+
+INSERT INTO public.diversidad_sexual (id_diversidad_sexual, nombre) VALUES(1, 'BISEXUAL');
+INSERT INTO public.diversidad_sexual (id_diversidad_sexual, nombre) VALUES(2, 'GAYS');
+INSERT INTO public.diversidad_sexual (id_diversidad_sexual, nombre) VALUES(3, 'INTERSEXUAL');
+INSERT INTO public.diversidad_sexual (id_diversidad_sexual, nombre) VALUES(4, 'LESBIANA');
+INSERT INTO public.diversidad_sexual (id_diversidad_sexual, nombre) VALUES(5, 'TRANSEXUAL');
+
+
+INSERT INTO public.reconocimiento_etnico (id_reconocimiento_etnico, nombre) VALUES(1, 'AFRO COLOMBIANO');
+INSERT INTO public.reconocimiento_etnico (id_reconocimiento_etnico, nombre) VALUES(2, 'INDIGENA');
+INSERT INTO public.reconocimiento_etnico (id_reconocimiento_etnico, nombre) VALUES(3, 'RAIZALES');
+INSERT INTO public.reconocimiento_etnico (id_reconocimiento_etnico, nombre) VALUES(4, 'ROM');
+INSERT INTO public.reconocimiento_etnico (id_reconocimiento_etnico, nombre) VALUES(5, 'NINGUNO');
+
 
 
