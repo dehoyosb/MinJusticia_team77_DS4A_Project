@@ -1,0 +1,53 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="9E0BD43D-CF3E-A973-2ED3-F4F326621D74" name="sociodemograficos">
+<sourceDDLFile>ddl_normalizado.sql</sourceDDLFile>
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<importedID>DCA228E9-6617-02DA-A96D-E7A8B671A520</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_sociodemografico" id="0FB2C278-5783-0EED-1AD7-C2ED1E55C32C">
+<sourceDDLFile>ddl_normalizado.sql</sourceDDLFile>
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<importedID>721C24DD-6738-0BC2-7FA7-79EC26E22EEA</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>31BC5F62-8397-B7C4-A260-B59F56AEF2E5</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nombre" id="BBF5A39D-2FFA-C689-A8B4-C45785FAA59A">
+<sourceDDLFile>ddl_normalizado.sql</sourceDDLFile>
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<importedID>8755D1AC-A59A-7EBF-57B7-D659E2C01A6B</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>FA072A2A-9C74-F5C6-EF48-D82521AC6CA0</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="BA336362-1891-DD34-7312-A67B6F0230EA" name="sociodemograficos_pk">
+<sourceDDLFile>ddl_normalizado.sql</sourceDDLFile>
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<importedID>DD79AB96-99F5-CB53-08F1-0364CF0AD307</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0FB2C278-5783-0EED-1AD7-C2ED1E55C32C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

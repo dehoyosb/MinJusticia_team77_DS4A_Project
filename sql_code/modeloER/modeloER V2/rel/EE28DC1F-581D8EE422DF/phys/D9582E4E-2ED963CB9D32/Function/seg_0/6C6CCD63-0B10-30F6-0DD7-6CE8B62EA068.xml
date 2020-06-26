@@ -1,0 +1,93 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FunctionOracle class="oracle.dbtools.crest.model.design.storage.oracle.FunctionOracle" name="tcompararpersonas" directorySegmentName="seg_0" id="6C6CCD63-0B10-30F6-0DD7-6CE8B62EA068">
+<sourceDDLFile>ddl_normalizado.sql</sourceDDLFile>
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:41 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<owner><![CDATA[PUBLIC]]></owner>
+<source>CREATE OR REPLACE FUNCTION &quot;PUBLIC&quot;.tcompararpersonas()
+ RETURNS integer
+ LANGUAGE plpgsql
+AS $function$
+begin
+INSERT INTO public.persona
+(id_persona, internoen, genero, nacionalidad, reincidente, anio_nacimiento, estado_civil, nivel_educativo)
+SELECT nextval(&apos;public.personas_seq&apos;) as id_persona,
+&quot;INTERNOEN&quot; as internoen, 
+g.id_genero as genero , 
+case when n.id_pais is null then 22 else n.id_pais end as nacionalidad ,
+2 as reincidente, 
+&quot;ANO_NACIMIENTO&quot; as anio_nacimiento, 
+case when ec.id_estado_civil is null then 3 else ec.id_estado_civil end as estado_civil, 
+ne.id_nivel_educativo as nivel_educativo
+FROM public.personas_tmp ptmp
+left join genero g on g.nombre = ptmp.&quot;GENERO&quot; 
+left join nacionalidad n on n.pais =ptmp.&quot;PAIS_INTERNO&quot; 
+left join estado_civil ec on ec.nombre = ptmp.&quot;ESTADO_CIVIL&quot; 
+left join nivel_educativo ne on ne.nombre =ptmp.&quot;NIVEL_EDUCATIVO&quot; 
+where &quot;INTERNOEN&quot; not in (select internoen from public.persona p );
+drop table public.personas_tmp;
+return 1;
+END;
+$function$
+;
+
+
+-- procedimientos almacenados para las tablas de general
+       
+       
+create sequence public.registro_seq start 1;
+
+--drop tcompararreg;
+CREATE OR REPLACE FUNCTION public.tcompararreg()
+ RETURNS integer
+ LANGUAGE plpgsql
+AS $function$
+begin
+INSERT INTO public.registro
+(persona_id_persona, delito_id_delito, estado_ingreso, id_registro, fecha_captura, fecha_ingreso, establecimiento, 
+tentativa, agravado, calificado, fecha_salida, edad, municipio_id_municipio, actividades_estudio, actividades_trabajo, 
+actividades_enseñanza, hijos_menores, condicion_excepcional, estado_id_estado, situacion_juridica)
+
+SELECT 
+p.id_persona as persona_id_persona,
+d.id_delito as delito_id_delito, 
+case when ei.id_estado_ingreso is null then 4 else ei.id_estado_ingreso end as estado_ingreso, 
+nextval(&apos;public.registro_seq&apos;) as id_registro,
+to_date(&quot;FECHA_CAPTURA&quot;, &apos;dd/mm/yy&apos;) as fecha_captura, 
+to_date(&quot;FECHA_INGRESO&quot;, &apos;dd/mm/yy&apos;) as fecha_ingreso, 
+es.id_establecimiento as establecimiento, 
+ten.id_si_no as tentativa, 
+case when agr.id_si_no is null then 1 else  agr.id_si_no end as agravado,
+case when cal.id_si_no is null then 1 else cal.id_si_no end as calificado,
+to_date(&quot;FECHA_SALIDA&quot;, &apos;dd/mm/yy&apos;) as fecha_salida, 
+&quot;EDAD&quot; as edad,
+1 as municipio_id_municipio, 
+case when &quot;ACTIVIDADES_ESTUDIO&quot; = &apos;SI&apos; then 2 else 1 end as actividades_estudio,
+case when &quot;ACTIVIDADES_TRABAJO&quot;= &apos;SI&apos; then 2 else 1 end as actividades_trabajo, 
+case when &quot;ACTIVIDADES_ENSEÑANZA&quot; = &apos;SI&apos; then 2 else 1 end as actividades_enseñanza,
+case when &quot;HIJOS_MENORES&quot;  = &apos;SI&apos; then 2 else 1 end as hijos_menores, 
+case when ce.id_condicion_excepcional is null then 54 else ce.id_condicion_excepcional end as condicion_excepcional, 
+est.id_estado as estado_id_estado, 
+sj.id_situacion_juridica as situacion_juridica
+FROM public.registros_tmp reg
+left join persona p on p.internoen = reg.&quot;INTERNOEN&quot; 
+left join delito d on d.nombre = reg.&quot;DELITO&quot; 
+left join estado_ingreso ei on ei.nombre = reg.&quot;ESTADO_INGRESO&quot; 
+left join establecimiento es on es.nombre = reg.&quot;ESTABLECIMIENTO&quot; 
+left join si_no ten on ten.codigo = reg.&quot;TENTATIVA&quot;
+left join si_no agr on ten.codigo = reg.&quot;AGRAVADO&quot; 
+left join si_no cal on ten.codigo = reg.&quot;CALIFICADO&quot; 
+left join condicion_excepcional ce on ce.nombre = reg.&quot;CONDIC_EXPECIONAL&quot; 
+left join estado est on est.nombre = reg.&quot;ESTADO&quot; 
+left join situacion_juridica sj on sj.nombre = reg.&quot;SITUACION_JURIDICA&quot; ;
+
+drop table public.registros_tmp;
+return 1;
+END;
+$function$
+;
+       
+
+       </source>
+</FunctionOracle>

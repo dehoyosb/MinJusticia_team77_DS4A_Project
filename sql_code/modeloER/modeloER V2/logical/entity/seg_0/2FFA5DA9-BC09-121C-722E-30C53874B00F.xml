@@ -1,0 +1,62 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="2FFA5DA9-BC09-121C-722E-30C53874B00F" name="estado ingreso">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:00 UTC</createdTime>
+<generatorID>462B9DCD-99E2-5C4A-6F59-036F1ADBBAB9</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id estado ingreso" id="9A21A01E-512C-FAE5-CE59-69309A065871">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:00 UTC</createdTime>
+<generatorID>653E97D2-EBAF-5430-682F-6F1F54D79C64</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>31BC5F62-8397-B7C4-A260-B59F56AEF2E5</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nombre" id="5D7B5A2D-C26C-14BC-821E-7BD9787B1D8A">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:00 UTC</createdTime>
+<generatorID>3A6159D6-37A4-4DD3-9D12-773ED9A2E4A5</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>25CD8D09-585A-F0A6-3B27-E55BB6323159</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="8C4482DA-689A-1F59-F3CC-FDC24955D21D" name="estado ingreso pk">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:00 UTC</createdTime>
+<generatorID>5064F744-05B9-8207-3CF2-F108B077D060</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>9A21A01E-512C-FAE5-CE59-69309A065871</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
