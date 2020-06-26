@@ -10,7 +10,8 @@ RUN conda install -c conda-forge jupyter_contrib_nbextensions
 RUN conda install --quiet --yes \
     'pyodbc' \
     'pandas' \
-    'Psycopg2' && \
+    'Psycopg2' \
+    'lifelines' && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 

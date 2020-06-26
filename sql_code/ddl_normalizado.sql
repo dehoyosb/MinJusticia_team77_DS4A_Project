@@ -419,10 +419,12 @@ $function$
 
 -- procedimientos almacenados para las tablas de general
        
-       
+
+--select count(*) from public.registros_tmp rt 
+
 create sequence public.registro_seq start 1;
 
---drop tcompararreg;
+--drop function public.tcompararreg;
 CREATE OR REPLACE FUNCTION public.tcompararreg()
  RETURNS integer
  LANGUAGE plpgsql
@@ -461,20 +463,18 @@ case when disc.id_si_no is null then 1 else  disc.id_si_no end as discapacidad,
 case when adm.id_si_no is null then 1 else  adm.id_si_no end as adulto_mayor
 FROM public.registros_tmp reg
 left join persona p on p.internoen = reg."INTERNOEN" 
-left join delito d on d.nombre = reg."DELITO" 
+left join (select id_delito, concat(del.nombre, sub_del.nombre ) as compuesto from delito del left join subtitulo_delito sub_del on del.id_subtitulo_delito = sub_del.id_subtitulo_delito) d on d.compuesto = concat(reg."DELITO", reg."SUBTITULO_DELITO")
 left join estado_ingreso ei on ei.nombre = reg."ESTADO_INGRESO" 
 left join establecimiento es on es.nombre = reg."ESTABLECIMIENTO" 
 left join si_no ten on ten.codigo = reg."TENTATIVA"
-left join si_no agr on ten.codigo = reg."AGRAVADO" 
-left join si_no cal on ten.codigo = reg."CALIFICADO" 
---left join condicion_excepcional ce on ce.nombre = reg."CONDIC_EXPECIONAL" 
+left join si_no agr on agr.codigo = reg."AGRAVADO" 
+left join si_no cal on cal.codigo = reg."CALIFICADO" 
 left join estado est on est.nombre = reg."ESTADO"
 left join situacion_juridica sj on sj.nombre = reg."SITUACION_JURIDICA"
-left join si_no mg on ten.codigo = reg.madre_gestante 
-left join si_no ml on ten.codigo = reg.madre_lactante 
-left join si_no disc on ten.codigo = reg.discapacidad 
-left join si_no adm on ten.codigo = reg.adulto_mayor;
-drop table public.registros_tmp;
+left join si_no mg on mg.codigo = reg.madre_gestante 
+left join si_no ml on ml.codigo = reg.madre_lactante 
+left join si_no disc on disc.codigo = reg.discapacidad 
+left join si_no adm on adm.codigo = reg.adulto_mayor;
 return 1;
 END;
 $function$
