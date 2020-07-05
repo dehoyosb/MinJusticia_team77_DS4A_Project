@@ -6,72 +6,29 @@ import dash_bootstrap_components as dbc
 import plotly.express as px
 import pandas as pd
 import json
+import sys
+#sys.path.insert(1, '/tabContents')
+
 
 #Create the app
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-#Create the tabs and content
+#Import the tabs content for the individual file
 
-tab1_content = dbc.Card(
-    dbc.CardBody(
-        [
-            html.P("This is tab 1!", className="card-text"),
-            dbc.Button("Click here", color="success"),
-        ]
-    ),
-    className="mt-3",
-)
-
-tab2_content = dbc.Card(
-    dbc.CardBody(
-        [
-            html.P("This is tab 2!", className="card-text"),
-            dbc.Button("Don't click here", color="danger"),
-        ]
-    ),
-    className="mt-3",
-)
+from tabContents.tab1 import tab1_content
+from tabContents.tab2 import tab2_content
+from tabContents.tab3 import tab3_content
+from tabContents.tab4 import tab4_content
+from tabContents.tab5 import tab5_content
 
 
-tab3_content = dbc.Card(
-    dbc.CardBody(
-        [
-            html.P("This is tab 2!", className="card-text"),
-            dbc.Button("Don't click here", color="danger"),
-        ]
-    ),
-    className="mt-3",
-)
-
-tab4_content = dbc.Card(
-    dbc.CardBody(
-        [
-            html.P("This is tab 2!", className="card-text"),
-            dbc.Button("Don't click here", color="danger"),
-        ]
-    ),
-    className="mt-3",
-)
-
-tab5_content = dbc.Card(
-    dbc.CardBody(
-        [
-            html.P("This is tab 2!", className="card-text"),
-            dbc.Button("Don't click here", color="danger"),
-        ]
-    ),
-    className="mt-3",
-)
-
-#########
-###  create sidebar 
 
 #Create Layout
 app.layout = html.Div([
+    # create the navbar, the first bar
     dbc.Navbar(
     [
         html.A(
-            # Use row and col to control vertical alignment of logo / brand
             dbc.Row(
                 [
                     dbc.Col(html.Img(src=app.get_asset_url("minjusticia_logo.jpg"), height="40px")),
@@ -83,14 +40,15 @@ app.layout = html.Div([
             href="http://www.minjusticia.gov.co",
         ),
         dbc.NavbarToggler(id="navbar-toggler")#,
-        #dbc.Collapse(search_bar, id="navbar-collapse", navbar=True),
     ],
     color='#345bc6',
     dark=True,
 ),
+
 dbc.Row(
     [
-dbc.Col(
+    ###  create sidebar 
+    dbc.Col(
     [
         html.H2("Filters", className="display-4"),
         html.Hr(),
@@ -100,6 +58,7 @@ dbc.Col(
     ],
     width=2
 ),
+    # create the app content, simply add every tab created in the folder
 dbc.Col([
     dbc.Tabs(
     [
