@@ -41,6 +41,20 @@
 <dataTypeSize>1000</dataTypeSize>
 <ownDataTypeParameters>1000,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="id_subtitulo_delito" id="2381A5B4-8F2A-FC47-0D86-7E4B79440F3E">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-16 15:49:14 UTC</createdTime>
+<generatorID>90655F50-4B5F-C6F4-E0A5-54EDF7601F1F</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<engineerTo>
+<item key="6A89F0E5-EF98-B660-3A33-F2060467327A" value="true"/>
+</engineerTo>
+<referedAttribute>5A24B834-6446-8F88-5A8D-C937425CD6A2</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="8FB6D97E-F420-57BF-1BB3-8D4FB1C05CDC" name="delito PK">

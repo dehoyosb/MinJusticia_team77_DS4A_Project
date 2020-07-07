@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="registro_condicion_excepcional_fk" directorySegmentName="seg_0" id="FB4E8450-762A-CC67-357F-D6C087A26398">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:00 UTC</createdTime>
+<generatorID>282E6E85-6561-52FE-5905-88AB0822EC43</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<sourcePk>54563A2E-F70D-8F34-5189-5E121D716802</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>EC12BDDC-51AB-823E-6455-B81DF7ED89F0</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>25334232-A00E-8E18-7022-EF0793CC8D61</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>
