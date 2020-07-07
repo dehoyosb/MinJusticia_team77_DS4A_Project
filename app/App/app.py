@@ -39,7 +39,23 @@ app.layout = html.Div([
             ),
             href="http://www.minjusticia.gov.co",
         ),
-        dbc.NavbarToggler(id="navbar-toggler")#,
+
+        dbc.NavbarToggler(id="navbar-toggler"),
+        dbc.DropdownMenu(
+            children=[
+                dbc.DropdownMenuItem("Development Team", header=True),
+                dbc.DropdownMenuItem("Page 2", href="#"),
+                dbc.DropdownMenuItem("Page 3", href="#"),
+            ],
+            right=True,
+            nav=True,
+            in_navbar=True,
+            label="Team",
+            color= '#fff',
+            style={'color':'#fff','text-align':'left'}
+        ),
+
+        html.A("ESP", href="http://www.minjusticia.gov.co", style={'color':'#fff','text-align':'right'})
     ],
     color='#345bc6',
     dark=True,

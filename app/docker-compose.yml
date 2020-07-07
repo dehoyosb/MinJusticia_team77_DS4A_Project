@@ -11,29 +11,9 @@ services:
            - "5432:5432"
     python_app:
          build: 
-           context: ./App
+           context: .
            dockerfile: Dockerfile
          ports:
-           - 8787:8787
+           - 5000:5000
          depends_on:
            - postgres
-    jupyter:
-          build: 
-           context: ./jupyter
-           dockerfile: Dockerfile
-          volumes:
-            - /home:/home/jovyan/work
-            #- <ruta a mis documentos>:/home/jovyan/work # En windows
-          ports: 
-            - "8888:8888"
-            - "8050:8050"
-    pgadmin:
-         container_name: pgadmin_container
-         image: dpage/pgadmin4
-         environment:
-           PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-team77@pgadmin.org}
-           PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-mintic2020.}
-         volumes:
-           - /home/:/var/lib/pgadmin/storage/home/
-         ports:
-           - "${PGADMIN_PORT:-5050}:80"
