@@ -11,18 +11,9 @@ services:
            - "5432:5432"
     python_app:
          build: 
-           context: ./python_app
+           context: .
            dockerfile: Dockerfile
          ports:
-           - 8787:8787
+           - 5000:5000
          depends_on:
            - postgres
-    jupyter:
-          build: 
-           context: ./jupyter
-           dockerfile: Dockerfile
-          volumes:
-            - /home:/home/jovyan/work
-          ports: 
-            - "8888:8888"
-            - "8050:8050"

@@ -15,7 +15,8 @@ ALTER TABLE condicion_excepcional ADD CONSTRAINT condicion_excepcional_pk PRIMAR
 
 CREATE TABLE reconocimiento_etnico (
     id_reconocimiento_etnico  INTEGER NOT NULL,
-    nombre                    VARCHAR(100)
+    nombre                    VARCHAR(100),
+    name_eng                    VARCHAR(100)
 );
 
 ALTER TABLE reconocimiento_etnico ADD CONSTRAINT reconocimiento_etnico_pk PRIMARY KEY ( id_reconocimiento_etnico );
@@ -35,7 +36,8 @@ ALTER TABLE diversidad_sexual ADD CONSTRAINT diversidad_sexual_pk PRIMARY KEY ( 
 CREATE TABLE delito (
     id_delito  INTEGER NOT NULL,
     id_subtitulo_delito integer not null,
-    nombre     VARCHAR(1000)
+    nombre     VARCHAR(1000),
+    name_eng     VARCHAR(1000)
 );
 
 ALTER TABLE delito ADD CONSTRAINT delito_pk PRIMARY KEY ( id_delito );
@@ -61,28 +63,32 @@ ALTER TABLE establecimiento ADD CONSTRAINT establecimiento_pk PRIMARY KEY ( id_e
 
 CREATE TABLE estado (
     id_estado  INTEGER NOT NULL,
-    nombre     VARCHAR(100)
+    nombre     VARCHAR(100),
+    name_eng     VARCHAR(100)
 );
 
 ALTER TABLE estado ADD CONSTRAINT estado_pk PRIMARY KEY ( id_estado );
 
 CREATE TABLE estado_civil (
     id_estado_civil  INTEGER NOT NULL,
-    nombre           VARCHAR(100)
+    nombre           VARCHAR(100),
+    name_eng           VARCHAR(100)
 );
 
 ALTER TABLE estado_civil ADD CONSTRAINT estado_civil_pk PRIMARY KEY ( id_estado_civil );
 
 CREATE TABLE estado_ingreso (
     id_estado_ingreso  INTEGER NOT NULL,
-    nombre             VARCHAR(100)
+    nombre             VARCHAR(100),
+    name_eng             VARCHAR(100)
 );
 
 ALTER TABLE estado_ingreso ADD CONSTRAINT estado_ingreso_pk PRIMARY KEY ( id_estado_ingreso );
 
 CREATE TABLE genero (
     id_genero  INTEGER NOT NULL,
-    nombre     VARCHAR(100)
+    nombre     VARCHAR(100),
+    name_eng     VARCHAR(100)
 );
 
 ALTER TABLE genero ADD CONSTRAINT genero_pk PRIMARY KEY ( id_genero );
@@ -98,14 +104,16 @@ ALTER TABLE municipio ADD CONSTRAINT municipio_pk PRIMARY KEY ( id_municipio );
 
 CREATE TABLE nacionalidad (
     id_pais  INTEGER NOT NULL,
-    pais     VARCHAR(100)
+    pais     VARCHAR(100),
+    country varchar(100)
 );
 
 ALTER TABLE nacionalidad ADD CONSTRAINT nacionalidad_pk PRIMARY KEY ( id_pais );
 
 CREATE TABLE nivel_educativo (
     id_nivel_educativo  INTEGER NOT NULL,
-    nombre              VARCHAR(100)
+    nombre              VARCHAR(100),
+    name_eng               VARCHAR(100)
 );
 
 ALTER TABLE nivel_educativo ADD CONSTRAINT nivel_educativo_pk PRIMARY KEY ( id_nivel_educativo );
@@ -177,14 +185,16 @@ ALTER TABLE registro ADD CONSTRAINT registro_pk PRIMARY KEY ( id_registro );
 CREATE TABLE si_no (
     id_si_no  INTEGER NOT NULL,
     codigo varchar(2),
-    nombre    VARCHAR(100)
+    nombre    VARCHAR(100),
+    name_eng    VARCHAR(100)
 );
 
 ALTER TABLE si_no ADD CONSTRAINT si_no_pk PRIMARY KEY ( id_si_no );
 
 CREATE TABLE situacion_juridica (
     id_situacion_juridica  INTEGER,
-    nombre                 VARCHAR(1000)
+    nombre                 VARCHAR(1000),
+    name_eng                 VARCHAR(100)
 );
 
 ALTER TABLE situacion_juridica ADD CONSTRAINT situacion_juridica_pk PRIMARY KEY ( id_situacion_juridica );
@@ -209,14 +219,16 @@ ALTER TABLE sociodemograficos ADD CONSTRAINT sociodemograficos_pk PRIMARY KEY ( 
 CREATE TABLE subtitulo_delito (
     id_subtitulo_delito             INTEGER NOT NULL,
     nombre                          varchar(1000),
-    id_titulo_delito  INTEGER NOT NULL
+    id_titulo_delito  INTEGER NOT null,
+    name_eng                    VARCHAR(1000)
 );
 
 ALTER TABLE subtitulo_delito ADD CONSTRAINT subtitulo_delito_pk PRIMARY KEY ( id_subtitulo_delito );
 
 CREATE TABLE titulo_delito (
     id_titulo_delito  INTEGER NOT NULL,
-    nombre            varchar(1000)
+    nombre            varchar(1000),
+    name_eng            VARCHAR(1000)
 );
 
 ALTER TABLE titulo_delito ADD CONSTRAINT titulo_delito_pk PRIMARY KEY ( id_titulo_delito );
