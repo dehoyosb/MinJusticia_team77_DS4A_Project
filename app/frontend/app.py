@@ -8,6 +8,7 @@ import pandas as pd
 import json
 import sys
 from datetime import datetime as dt
+from ..backend.utils import DbEngine
 
 #sys.path.insert(1, '/tabContents')
 
@@ -217,4 +218,11 @@ dbc.Col([
 
 #Initiate the server where the app will work
 if __name__ == "__main__":
+    db_engine = DbEngine(user = 'team77', 
+                        password = 'mintic2020.',
+                        ip = '172.17.0.3', 
+                        port = '5432', 
+                        db = 'minjusticia')
+    engine = db_engine.connect()
+    queries = Queries(engine)
     app.run_server(debug=True,host='0.0.0.0', port=5000)
