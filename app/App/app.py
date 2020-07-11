@@ -8,7 +8,6 @@ import pandas as pd
 import json
 import sys
 from datetime import datetime as dt
-
 #sys.path.insert(1, '/tabContents')
 
 
@@ -23,6 +22,16 @@ from tabContents.tab3 import tab3_content
 from tabContents.tab4 import tab4_content
 from tabContents.tab5 import tab5_content
 
+#import filters
+
+from tabContents.filters import filter_reclusion_dep
+from tabContents.filters import filter_prison_date_range
+from tabContents.filters import filter_crime
+from tabContents.filters import filter_sentence_type
+from tabContents.filters import filter_gender
+from tabContents.filters import filter_range_age
+from tabContents.filters import filter_excep_cond
+from tabContents.filters import filter_reclusion_entity
 
 
 #Create Layout
@@ -42,22 +51,27 @@ app.layout = html.Div([
             href="http://www.minjusticia.gov.co",
         ),
 
-        dbc.NavbarToggler(id="navbar-toggler"),
-        dbc.DropdownMenu(
-            children=[
-                dbc.DropdownMenuItem("Development Team", header=True),
-                dbc.DropdownMenuItem("Page 2", href="#"),
-                dbc.DropdownMenuItem("Page 3", href="#"),
-            ],
-            right=True,
-            nav=True,
-            in_navbar=True,
-            label="Team",
-            color= '#fff',
-            style={'color':'#fff','text-align':'left'}
+
+        #dbc.NavbarToggler(id="navbar-toggler"),
+        dbc.Col([
+            dbc.Row([
+                dbc.DropdownMenu(
+                    children=[
+                         dbc.DropdownMenuItem("Development Team", header=True),
+                         dbc.DropdownMenuItem("Page 2", href="#"),
+                         dbc.DropdownMenuItem("Page 3", href="#"),
+                     ],
+                    right=False,
+                    nav=True,
+                    in_navbar=True,
+                    label="Team",
+                    color= '#fff',
+                    toggle_style={"color": "white"}
         ),
 
-        html.A("ESP", href="http://www.minjusticia.gov.co", style={'color':'#fff','text-align':'right'})
+        html.A("ESP", href="http://www.minjusticia.gov.co", style={'color':'#fff'}),
+        ]),],
+        width={"size": 3, "order": "last", "offset": 5},)
     ],
     color='#345bc6',
     dark=True,
@@ -72,114 +86,73 @@ dbc.Row(
     [
         html.H4("Filters"),
         html.Hr(),
-        html.P(
-            "Prision income date range", className="lead"
-        ),
-		dcc.DatePickerRange(
-							id='my-date-picker-range',
-							min_date_allowed=dt(2010, 1, 1),
-							max_date_allowed=dt(2021, 1, 1),
-							initial_visible_month=dt(2020, 7, 1)#,
-							#end_date=dt(2020, 7, 15).date()
-		),
-		html.P(
-            "                 ", className="lead"
-        ),
-		html.P(
-            "Reclusion Department", className="lead"
-        ),
-		dcc.Dropdown(
-        id='reclusion_dep',
-        options=[
-            {'label': 'New York City', 'value': 'NYC'},
-            {'label': 'Montreal', 'value': 'MTL'},
-            {'label': 'San Francisco', 'value': 'SF'}
-        ],
-        value='NYC'
+         # first group of filters
+html.Div(
+    [
+     dbc.Card(
+        [
+            dbc.CardHeader(
+                html.H2(
+                    dbc.Button(
+                        "+ Reclusion Ubication",
+                        color="light",
+                        id=f"group-1-toggle",
+                    )
+                )
+            ),
+            dbc.Collapse(
+                dbc.CardBody([html.Div(filter_reclusion_dep),
+                    html.Div(filter_reclusion_entity)]),
+                id="collapse-1",
+            ),
+        ]
     ),
-	
-	html.P(
-            "                 ", className="lead"
-        ),
-		html.P(
-            "Crime", className="lead"
-        ),
-		dcc.Dropdown(
-        id='crime',
-        options=[
-            {'label': 'New York City', 'value': 'NYC'},
-            {'label': 'Montreal', 'value': 'MTL'},
-            {'label': 'San Francisco', 'value': 'SF'}
-        ],
-        value='NYC'
+
+
+    dbc.Card(
+        [
+            dbc.CardHeader(
+                html.H2(
+                    dbc.Button(
+                        "+ Sociodemographic",
+                        color="light",
+                        id=f"group-2-toggle",
+                    )
+                )
+            ),
+            dbc.Collapse(
+                dbc.CardBody([html.Div(filter_gender),
+                    html.Div(filter_range_age),
+                    html.Div(filter_excep_cond)]),
+                id="collapse-2",
+            ),
+        ]
     ),
-	
-	html.P(
-            "                 ", className="lead"
-        ),
-		html.P(
-            "Sentence Type", className="lead"
-        ),
-		dcc.Dropdown(
-        id='sentence_type',
-        options=[
-            {'label': 'New York City', 'value': 'NYC'},
-            {'label': 'Montreal', 'value': 'MTL'},
-            {'label': 'San Francisco', 'value': 'SF'}
-        ],
-        value='NYC'
+
+
+      dbc.Card(
+        [
+            dbc.CardHeader(
+                html.H2(
+                    dbc.Button(
+                        "+ Prison feature",
+                        color="light",
+                        id=f"group-3-toggle",
+                    )
+                )
+            ),
+            dbc.Collapse(
+                dbc.CardBody([
+                    html.Div(filter_prison_date_range),
+                    html.Div(filter_crime),
+                    html.Div(filter_sentence_type)]),
+                id="collapse-3",
+            ),
+        ]
     ),
-	
-	html.P(
-            "                 ", className="lead"
-        ),
-		html.P(
-            "Gender", className="lead"
-        ),
-	
-	dcc.Checklist(
-		id='gender',
-		options=[
-			{'label': 'Male', 'value': '2'},
-			{'label': 'Female', 'value': '1'},
-		],
-		value=['1', '2'],
-		labelStyle={'display': 'inline-block', 'align': 'center', 'padding-left' : '30px'}
+
+], className="accordion"
 ),
-	html.P(
-            "                 ", className="lead"
-        ),
-		html.P(
-            "Range Age", className="lead"
-        ),
-	dcc.RangeSlider(
-					id='range_age',
-					count=1,
-					min=15,
-					max=100,
-					step=1,
-					value=[15, 100],
-					marks={15:'15', 20: '20', 30:'30', 40:'40',50:'50',60:'60',70:'70',80:'80',90:'90',100:'100'},
-					tooltip={'always_visible': True}
-
-), 
-
-html.P(
-            "                 ", className="lead"
-        ),
-		html.P(
-            "Exceptional Conditions", className="lead"
-        ),
-	
-	dcc.Checklist(
-		id='excep_cond',
-		options=[
-			{'label': 'Yes', 'value': '2'},
-		],
-		#value=['1', '2'],
-		labelStyle={'display': 'inline-block', 'align': 'center', 'padding-left' : '30px'}
-), 
-	
     ],
     width={"size": 'auto'#,
 		   #"offset": 1
@@ -193,25 +166,50 @@ dbc.Col([
     [
         dbc.Tab(tab1_content, label="Overview"),
         dbc.Tab(tab2_content, label="Socio Demographic"),
-        dbc.Tab(tab3_content, label="Clustering"),
+        dbc.Tab(tab3_content, label="Reoffenders Classification"),
         dbc.Tab(tab4_content, label="Trends"),
-        dbc.Tab(tab5_content, label="Predictive"),
+        #dbc.Tab(tab5_content, label="Predictive"),
     ]
 )])
 
 ])])
 
 
-#@app.callback(
-#    Output('main-figure','figure'),
-#    [Input('fig-slider','value')])
-#def slider_interaction(slider_val):
-#    if slider_val==0:
-#        fig=Map_Fig
-#    else:
-#        fig=Scatter_Fig
-#
-#    return fig 
+
+@app.callback(
+    [Output("collapse-1", "is_open"),Output("collapse-2", "is_open"),Output("collapse-3", "is_open")],
+    [Input("group-1-toggle", "n_clicks"), Input("group-2-toggle", "n_clicks"), Input("group-3-toggle", "n_clicks")],
+    [State("collapse-1", "is_open"), State("collapse-2", "is_open"), State("collapse-3", "is_open")],
+)
+def toggle_accordion(n1, n2, n3, is_open1, is_open2, is_open3 ):
+    ctx = dash.callback_context
+
+    if not ctx.triggered:
+        return False, False, False
+    else:
+        button_id = ctx.triggered[0]["prop_id"].split(".")[0]
+
+    if button_id == "group-1-toggle" and n1:
+        return not is_open1, False, False
+    elif button_id == "group-2-toggle" and n2:
+        return False, not is_open2, False
+    elif button_id == "group-3-toggle" and n3:
+        return False, False, not is_open3
+    return False, False, False
+
+
+
+
+
+
+
+@app.callback(
+    [Output('result', 'children'),
+    Output('result2', 'children')],
+    [Input('reclusion_dep','value')])
+def update_result(x):
+    return ["The value is; {}".format(x), "The value 2 is; {}".format(x)]
+
 
 
 
