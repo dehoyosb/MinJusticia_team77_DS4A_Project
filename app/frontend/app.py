@@ -8,6 +8,8 @@ import pandas as pd
 import json
 import sys
 from datetime import datetime as dt
+from ..backend.utils import DbEngine
+
 #sys.path.insert(1, '/tabContents')
 
 
@@ -16,22 +18,22 @@ app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 #Import the tabs content for the individual file
 
-from tabContents.tab1 import tab1_content
-from tabContents.tab2 import tab2_content
-from tabContents.tab3 import tab3_content
-from tabContents.tab4 import tab4_content
-from tabContents.tab5 import tab5_content
+from .tabContents.tab1 import tab1_content
+from .tabContents.tab2 import tab2_content
+from .tabContents.tab3 import tab3_content
+from .tabContents.tab4 import tab4_content
+from .tabContents.tab5 import tab5_content
 
 #import filters
 
-from tabContents.filters import filter_reclusion_dep
-from tabContents.filters import filter_prison_date_range
-from tabContents.filters import filter_crime
-from tabContents.filters import filter_sentence_type
-from tabContents.filters import filter_gender
-from tabContents.filters import filter_range_age
-from tabContents.filters import filter_excep_cond
-from tabContents.filters import filter_reclusion_entity
+from .tabContents.filters import filter_reclusion_dep
+from .tabContents.filters import filter_prison_date_range
+from .tabContents.filters import filter_crime
+from .tabContents.filters import filter_sentence_type
+from .tabContents.filters import filter_gender
+from .tabContents.filters import filter_range_age
+from .tabContents.filters import filter_excep_cond
+from .tabContents.filters import filter_reclusion_entity
 
 
 #Create Layout
@@ -215,4 +217,11 @@ def update_result(x):
 
 #Initiate the server where the app will work
 if __name__ == "__main__":
+    db_engine = DbEngine(user = 'team77', 
+                        password = 'mintic2020.',
+                        ip = '172.17.0.3', 
+                        port = '5432', 
+                        db = 'minjusticia')
+    engine = db_engine.connect()
+    queries = Queries(engine)
     app.run_server(debug=True,host='0.0.0.0', port=5000)
