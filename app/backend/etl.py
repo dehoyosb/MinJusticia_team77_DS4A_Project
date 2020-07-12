@@ -54,7 +54,7 @@ class ETL():
                         'FECHA_INGRESO','ESTABLECIMIENTO','TENTATIVA','SUBTITULO_DELITO',
                         'AGRAVADO', 'CALIFICADO','FECHA_SALIDA','EDAD','DEPARTAMENTO', 'CIUDAD',
                         'ACTIVIDADES_TRABAJO', 'ACTIVIDADES_ESTUDIO', 'ACTIVIDADES_ENSEÑANZA',
-                        'HIJOS_MENORES', 'CONDIC_EXPECIONAL','ESTADO','SITUACION_JURIDICA']]
+                        'HIJOS_MENORES', 'CONDIC_EXPECIONAL','ESTADO','SITUACION_JURIDICA','DELITO','TENTATIVA','AGRAVADO', 'CALIFICADO']]
         
         ############## No exceptional condition
         data_reg['CONDIC_EXPECIONAL'] = data_reg['CONDIC_EXPECIONAL'].fillna('NINGUNO')
@@ -78,8 +78,8 @@ class ETL():
         
         #severity index
 
-                # Count number of observations by crime type and category
-        top10 = list(data.DELITO.value_counts().to_frame().reset_index().rename(columns = {'index':'DELITONAME'}).head(10)['DELITONAME'])
+        # Count number of observations by crime type and category
+        top10 = list(data_reg.DELITO.value_counts().to_frame().reset_index().rename(columns = {'index':'DELITONAME'}).head(10)['DELITONAME'])
         #https://leyes.co/codigo_penal.htm
         #values as [min_month,max_month,decree]
         dict_pena ={'HURTO': [16,108,239],
@@ -108,10 +108,10 @@ class ETL():
                        'LESIONES PERSONALES':8,
                        'FABRICACION  TRAFICO Y PORTE DE ARMAS Y MUNICIONES DE USO PRIVATIVO DE LAS FUERZAS ARMADAS':5
                       }
-        data['crime_score'] = data['DELITO'].apply(lambda x: crime_score[x] if x in top10 else 0)
-        display(df_severity_t,data.head(1))
+        data_reg['crime_score'] = data_reg['DELITO'].apply(lambda x: crime_score[x] if x in top10 else 0)
+        display(df_severity_t,data_reg.head(1))
         #Calificado,Agravado,tentativa
-        CAT_cases = data[['TENTATIVA','AGRAVADO', 'CALIFICADO']].drop_duplicates().reset_index(drop=True)
+        CAT_cases = data_reg[['TENTATIVA','AGRAVADO', 'CALIFICADO']].drop_duplicates().reset_index(drop=True)
         CAT_cases['multiplier']= 'TBD'
         CAT_cases.loc[5,'multiplier'] = 1  # TENTATIVA
         CAT_cases.loc[0,'multiplier'] = 2    # CONSUMADO
@@ -124,19 +124,18 @@ class ETL():
         display(CAT_cases)
         # Feature engineering
         # Generate score
-        data['CONSUMADO_b']  = data.TENTATIVA .apply(lambda x: 4 if x=="N" else 0)
-        data['TENTATIVA_b'] = data.TENTATIVA .apply(lambda x: 3 if x=="S" else 0)
-        data['CALIFICADO_b'] = data.CALIFICADO.apply(lambda x: 2 if x=="S" else 0)
-        data['AGRAVADO_b ']  = data.AGRAVADO  .apply(lambda x: 1 if x=="S" else 0)
+        data_reg['CONSUMADO_b']  = data_reg.TENTATIVA.apply(lambda x: 4 if x=="N" else 0)
+        data_reg['TENTATIVA_b'] = data_reg.TENTATIVA.apply(lambda x: 3 if x=="S" else 0)
+        data_reg['CALIFICADO_b'] = data_reg.CALIFICADO.apply(lambda x: 2 if x=="S" else 0)
+        data_reg['AGRAVADO_b']  = data_reg['AGRAVADO'].apply(lambda x: 1 if x=="S" else 0)
         # Multiplier score
-        data['crime_multiplier'] = (data.CONSUMADO_b + data.TENTATIVA_b + data.CALIFICADO_b + data.AGRAVADO_b)/7
+        data_reg['crime_multiplier'] = (data_reg['CONSUMADO_b'] + data_reg['TENTATIVA_b'] + data_reg['CALIFICADO_b'] + data_reg['AGRAVADO_b'])/7
         # Severity 
-        data['severity'] = data.crime_score*data.crime_multiplier
-        data_reg['severity'] = data.crime_score*data.crime_multiplier
+        data_reg['severity'] = data_reg['crime_score']*data_reg['crime_multiplier']
 
         ############## registro
         data_reg.to_sql('registros_tmp', con=self.queries.engine)
-        self.queries.run('select * from registros_tmp limit 5')
+        #self.queries.run('select * from registros_tmp limit 5')
         self.queries.run('SELECT public.tcompararreg();')
 
 
