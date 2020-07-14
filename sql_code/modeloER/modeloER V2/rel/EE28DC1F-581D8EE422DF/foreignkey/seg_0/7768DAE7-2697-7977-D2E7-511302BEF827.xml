@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="7768DAE7-2697-7977-D2E7-511302BEF827" containerWithKeyObject="CDEC28CE-27D6-0868-5A5C-9BB882AE9D3E" localFKIndex="E48D3591-2C32-131E-BF28-9A7AEFC26325" name="persona_nivel_educativo_fk">
+<sourceDDLFile>ddl_normalizado.sql</sourceDDLFile>
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<importedID>2DCC7B1B-B9A4-A3D8-5294-30E46D1DF597</importedID>
+<referredTableLongName>nivel_educativo</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>BB13E8E6-C23A-7E3D-2798-CB2AF0038450</referredTableID>
+<keyObject>A0DC01AA-D14F-90DC-C5E0-A9BD8E983989</keyObject>
+<referredKeyID>A0DC01AA-D14F-90DC-C5E0-A9BD8E983989</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_nivel_educativo</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

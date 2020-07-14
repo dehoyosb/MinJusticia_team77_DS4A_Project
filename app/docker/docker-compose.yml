@@ -1,0 +1,19 @@
+version: "3"
+#DOCKER_HOST tcp://172.31.39.76
+services:
+    postgres:
+         image: postgres:9.3
+         environment:
+           POSTGRES_USER: team77
+           POSTGRES_PASSWORD: mintic2020.
+           POSTGRES_DB: postgres
+         ports:
+           - "5432:5432"
+    python_app:
+         build: 
+           context: .
+           dockerfile: Dockerfile
+         ports:
+           - 5000:5000
+         depends_on:
+           - postgres
