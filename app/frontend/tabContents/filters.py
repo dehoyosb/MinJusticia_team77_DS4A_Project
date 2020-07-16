@@ -62,12 +62,8 @@ filter_crime=html.Div([html.P(
 					        ),
 							dcc.Dropdown(
 					        id='crime',
-					        options=[
-					            {'label': 'New York City', 'value': 'NYC'},
-					            {'label': 'Montreal', 'value': 'MTL'},
-					            {'label': 'San Francisco', 'value': 'SF'}
-					        ],
-					        value='NYC'
+					        options = [],
+					        value=[]
 					    ),])
 
 

@@ -7,10 +7,13 @@ import plotly.express as px
 import pandas as pd
 import json
 import sys
+from os import path
+sys.path.append(path.join(path.dirname(__file__), '..'))
 from datetime import datetime as dt
-from ..backend.utils import DbEngine
+from utils.utils import DbEngine, Queries
 
-#sys.path.insert(1, '/tabContents')
+
+
 
 
 #Create the app
@@ -18,22 +21,22 @@ app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 #Import the tabs content for the individual file
 
-from .tabContents.tab1 import tab1_content
-from .tabContents.tab2 import tab2_content
-from .tabContents.tab3 import tab3_content
-from .tabContents.tab4 import tab4_content
-from .tabContents.tab5 import tab5_content
+from tabContents.tab1 import tab1_content
+from tabContents.tab2 import tab2_content
+from tabContents.tab3 import tab3_content
+from tabContents.tab4 import tab4_content
+from tabContents.tab5 import tab5_content
 
 #import filters
 
-from .tabContents.filters import filter_reclusion_dep
-from .tabContents.filters import filter_prison_date_range
-from .tabContents.filters import filter_crime
-from .tabContents.filters import filter_sentence_type
-from .tabContents.filters import filter_gender
-from .tabContents.filters import filter_range_age
-from .tabContents.filters import filter_excep_cond
-from .tabContents.filters import filter_reclusion_entity
+from tabContents.filters import filter_reclusion_dep
+from tabContents.filters import filter_prison_date_range
+from tabContents.filters import filter_crime
+from tabContents.filters import filter_sentence_type
+from tabContents.filters import filter_gender
+from tabContents.filters import filter_range_age
+from tabContents.filters import filter_excep_cond
+from tabContents.filters import filter_reclusion_entity
 
 
 #Create Layout
@@ -198,6 +201,17 @@ def toggle_accordion(n1, n2, n3, is_open1, is_open2, is_open3 ):
     elif button_id == "group-3-toggle" and n3:
         return False, False, not is_open3
     return False, False, False
+
+
+# update filters options 
+
+#@app.callback(
+#	Output('crime', 'options'),
+#	[Input("group-3-toggle", "n_clicks")],
+#)
+#def update_crime_dropdown(n):
+#		options = queries.run("""select id_delito, nombre, name_eng from delito""")
+#    return [{'label': 'New York City', 'value': 'NYC'},{'label': 'Montreal', 'value': 'MTL'},{'label': 'San Francisco', 'value': 'SF'}]
 
 
 
