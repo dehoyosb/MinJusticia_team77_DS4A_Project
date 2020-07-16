@@ -26,10 +26,13 @@ class DbEngine():
 class Queries():
     def __init__(self, engine):
         self.engine = engine
+        self.query_dict = {'encoding': 'select * from persona \
+                                        left join registro on persona.id_persona = registro.persona_id_persona \
+                                        left join delito on delito.id_delito = registro.delito_id_delito'}
     
     def run(self, sql):
-        result = self.engine.connect().execution_options(isolation_level="AUTOCOMMIT").execute((text(sql)))
+        result = self.engine.connect().execution_options(isolation_level="AUTOCOMMIT").execute((text(self.query_dict[sql])))
         return pd.DataFrame(result.fetchall(), columns=result.keys())
     
     def insert(self, sql):
-        return self.engine.connect().execution_options(isolation_level="AUTOCOMMIT").execute((text(sql)))
+        return self.engine.connect().execution_options(isolation_level="AUTOCOMMIT").execute((text(self.query_dict[sql])))
