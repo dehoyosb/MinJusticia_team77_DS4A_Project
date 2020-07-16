@@ -429,9 +429,17 @@ $function$
 ;
 
 
+
+--------------------------------------------------------
+---------- add severity index
+
+ALTER TABLE registro
+ADD COLUMN severity float;
+
+
+
 -- procedimientos almacenados para las tablas de general
        
-
 --select count(*) from public.registros_tmp rt 
 
 create sequence public.registro_seq start 1;
@@ -446,7 +454,7 @@ INSERT INTO public.registro
 (persona_id_persona, delito_id_delito, estado_ingreso, id_registro, fecha_captura, fecha_ingreso, establecimiento, 
 tentativa, agravado, calificado, fecha_salida, edad, municipio_id_municipio, actividades_estudio, actividades_trabajo, 
 actividades_enseñanza, hijos_menores, condicion_excepcional, estado_id_estado, situacion_juridica,madre_gestante, 
-madre_lactante,discapacidad,adulto_mayor)
+madre_lactante,discapacidad,adulto_mayor, severity)
 
 SELECT 
 p.id_persona as persona_id_persona,
@@ -472,7 +480,8 @@ sj.id_situacion_juridica as situacion_juridica,
 case when mg.id_si_no is null then 1 else  mg.id_si_no end as madre_gestante,
 case when ml.id_si_no is null then 1 else  ml.id_si_no end as madre_lactante,
 case when disc.id_si_no is null then 1 else  disc.id_si_no end as discapacidad,
-case when adm.id_si_no is null then 1 else  adm.id_si_no end as adulto_mayor
+case when adm.id_si_no is null then 1 else  adm.id_si_no end as adulto_mayor,
+reg.severity as severity
 FROM public.registros_tmp reg
 left join persona p on p.internoen = reg."INTERNOEN" 
 left join (select id_delito, concat(del.nombre, sub_del.nombre ) as compuesto from delito del left join subtitulo_delito sub_del on del.id_subtitulo_delito = sub_del.id_subtitulo_delito) d on d.compuesto = concat(reg."DELITO", reg."SUBTITULO_DELITO")
@@ -493,4 +502,4 @@ $function$
 ;
        
 
-       
+
