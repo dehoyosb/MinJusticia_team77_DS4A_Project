@@ -9,9 +9,7 @@ class Encoding():
         self.queries = query_obj
         
     def get_data(self):
-        return self.queries.run('select * from persona \
-                                 left join registro on persona.id_persona = registro.persona_id_persona \
-                                 left join delito on delito.id_delito = registro.delito_id_delito')
+        return self.queries.run('encoding')
     
     def one_hot(self, df):
         
