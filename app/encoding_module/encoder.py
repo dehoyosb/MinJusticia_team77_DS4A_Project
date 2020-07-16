@@ -8,8 +8,8 @@ class Encoding():
     def __init__(self, query_obj):
         self.queries = query_obj
         
-    def get_data(self):
-        return self.queries.run('encoding')
+    def get_data(self, sql):
+        return self.queries.run(sql)
     
     def one_hot(self, df):
         
