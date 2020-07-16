@@ -41,6 +41,10 @@ from tabContents.filters import filter_reclusion_entity
 
 #Create Layout
 app.layout = html.Div([
+        html.Link(
+            rel='stylesheet',
+            href='/assets/css/styles.css'
+        ),
     # create the navbar, the first bar
     dbc.Navbar(
     [
@@ -60,25 +64,26 @@ app.layout = html.Div([
         #dbc.NavbarToggler(id="navbar-toggler"),
         dbc.Col([
             dbc.Row([
-                dbc.DropdownMenu(
-                    children=[
-                         dbc.DropdownMenuItem("Development Team", header=True),
-                         dbc.DropdownMenuItem("Page 2", href="#"),
-                         dbc.DropdownMenuItem("Page 3", href="#"),
-                     ],
-                    right=False,
-                    nav=True,
-                    in_navbar=True,
-                    label="Team",
-                    color= '#fff',
-                    toggle_style={"color": "white"}
-        ),
+#                dbc.DropdownMenu(
+#                    children=[
+#                         dbc.DropdownMenuItem("Development Team", header=True),
+#                         dbc.DropdownMenuItem("Page 2", href="#"),
+#                         dbc.DropdownMenuItem("Page 3", href="#"),
+#                     ],
+#                    right=False,
+#                    nav=True,
+#                    in_navbar=True,
+#                    label="Team",
+#                    color= '#fff',
+#                    toggle_style={"color": "white"}
+ #       ),
+ 		dbc.Col([html.A("Development Team", href="http://localhost:5001", style={'color':'#fff'})]),
 
-        html.A("ESP", href="http://www.minjusticia.gov.co", style={'color':'#fff'}),
+        dbc.Col([html.A("ESP", href="http://www.minjusticia.gov.co", style={'color':'#fff'})]),
         ]),],
         width={"size": 3, "order": "last", "offset": 5},)
     ],
-    color='#345bc6',
+    color='rgb(51,102,204,1)',
     dark=True,
 ),
 
@@ -89,41 +94,37 @@ dbc.Row(
 	
 	dbc.Col(
     [
-        html.H4("Filters"),
+        #html.H4("Filters"),
         html.Hr(),
          # first group of filters
 html.Div(
     [
      dbc.Card(
         [
-            dbc.CardHeader(
-                html.H2(
-                    dbc.Button(
+            dbc.Button(
                         "+ Reclusion Ubication",
-                        color="light",
+                        style={"background-color": "rgb(51,102,204,1)","text-align" : "left",  "border" : "0px"},
                         id=f"group-1-toggle",
-                    )
-                )
             ),
             dbc.Collapse(
                 dbc.CardBody([html.Div(filter_reclusion_dep),
                     html.Div(filter_reclusion_entity)]),
                 id="collapse-1",
             ),
-        ]
+        ],
+        style={"background-color": "#4573D0",
+        	   "border" : "none", 
+        	   "color": "rgb(255,255,255,1)",
+        	   "size": "100%"}
     ),
 
 
     dbc.Card(
         [
-            dbc.CardHeader(
-                html.H2(
                     dbc.Button(
                         "+ Sociodemographic",
-                        color="light",
+                        style={"background-color": "rgb(51,102,204,1)","text-align" : "left",  "border" : "0px"},
                         id=f"group-2-toggle",
-                    )
-                )
             ),
             dbc.Collapse(
                 dbc.CardBody([html.Div(filter_gender),
@@ -131,20 +132,21 @@ html.Div(
                     html.Div(filter_excep_cond)]),
                 id="collapse-2",
             ),
-        ]
+        ],
+        style={"background-color": "#4573D0",
+        	   "border" : "none", 
+        	   "color": "rgb(255,255,255,1)",
+        	   "size": "100%"}
     ),
 
 
       dbc.Card(
         [
-            dbc.CardHeader(
-                html.H2(
                     dbc.Button(
                         "+ Prison feature",
-                        color="light",
                         id=f"group-3-toggle",
-                    )
-                )
+                        style={"background-color": "rgb(51,102,204,1)","text-align" : "left", "border" : "0px"}
+
             ),
             dbc.Collapse(
                 dbc.CardBody([
@@ -153,7 +155,11 @@ html.Div(
                     html.Div(filter_sentence_type)]),
                 id="collapse-3",
             ),
-        ]
+        ],
+        style={"background-color": "#4573D0",
+        	   "border" : "none", 
+        	   "color": "rgb(255,255,255,1)",
+        	   "size": "100%"}
     ),
 
 ], className="accordion"
@@ -162,20 +168,23 @@ html.Div(
     width={"size": 'auto'#,
 		   #"offset": 1
 		   },
-	style={'margin-left': '20px'},
+	style={'margin-left': '10px', "background-color": "rgb(51,102,204,1)"},
 	#align="center"
 ),
     # create the app content, simply add every tab created in the folder
 dbc.Col([
+	dbc.CardHeader(
     dbc.Tabs(
     [
-        dbc.Tab(tab1_content, label="Overview"),
-        dbc.Tab(tab2_content, label="Socio Demographic"),
-        dbc.Tab(tab3_content, label="Reoffenders Classification"),
-        dbc.Tab(tab4_content, label="Trends"),
+        dbc.Tab(tab1_content, label="Overview", label_style={"width": "300px","font-size":"large"}),
+        dbc.Tab(tab2_content, label="Socio Demographic", label_style={"width": "300px"}),
+        dbc.Tab(tab3_content, label="Reoffenders Classification", label_style={"width": "300px"}),
+        dbc.Tab(tab4_content, label="Trends", label_style={"width": "300px"}),
         #dbc.Tab(tab5_content, label="Predictive"),
-    ]
-)])
+    ],
+    style={"background-color": "rgb(255,171,0,0.5)"}
+),
+    style={"background-color": "rgb(255,171,0,0.5)"},)], style={"background-color": "rgb(255,171,0,0.5)"})
 
 ])])
 
@@ -201,6 +210,17 @@ def toggle_accordion(n1, n2, n3, is_open1, is_open2, is_open3 ):
     elif button_id == "group-3-toggle" and n3:
         return False, False, not is_open3
     return False, False, False
+
+
+
+@app.callback(
+	Output('education_level', 'figure'),
+	[Input("group-1-toggle", "n_clicks"), Input("group-2-toggle", "n_clicks"), Input("group-3-toggle", "n_clicks")],
+)
+def figure_education_level(dept):
+	
+
+
 
 
 # update filters options 
