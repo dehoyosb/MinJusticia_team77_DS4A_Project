@@ -8,10 +8,8 @@ class Encoding():
     def __init__(self, query_obj):
         self.queries = query_obj
         
-    def get_data(self):
-        return self.queries.run('select * from persona \
-                                 left join registro on persona.id_persona = registro.persona_id_persona \
-                                 left join delito on delito.id_delito = registro.delito_id_delito')
+    def get_data(self, sql):
+        return self.queries.run(sql)
     
     def one_hot(self, df):
         

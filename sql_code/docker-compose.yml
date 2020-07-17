@@ -21,6 +21,8 @@ services:
           build: 
            context: ./jupyter
            dockerfile: Dockerfile
+          environment:
+           GRANT_SUDO: "yes"
           volumes:
             - /home:/home/jovyan/work
             #- <ruta a mis documentos>:/home/jovyan/work # En windows

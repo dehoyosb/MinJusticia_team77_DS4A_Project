@@ -11,12 +11,8 @@ filter_reclusion_dep= html.Div([html.P(
         ),
         dcc.Dropdown(
         id='reclusion_dep',
-        options=[
-            {'label': 'New York City', 'value': 'NYC'},
-            {'label': 'Montreal', 'value': 'MTL'},
-            {'label': 'San Francisco', 'value': 'SF'}
-        ],
-        value='NYC'
+        options=[],
+        value=None
     ),])
 
 
@@ -28,12 +24,10 @@ filter_reclusion_entity= html.Div([html.P(
         ),
         dcc.Dropdown(
         id='reclusion_entity',
-        options=[
-            {'label': 'New York City', 'value': 'NYC'},
-            {'label': 'Montreal', 'value': 'MTL'},
-            {'label': 'San Francisco', 'value': 'SF'}
-        ],
-        value='NYC'
+        options=[],
+        value=None,
+        optionHeight=80,
+        style={"width" : "300px", "size":"small"}
     ),])
 
 
@@ -62,12 +56,8 @@ filter_crime=html.Div([html.P(
 					        ),
 							dcc.Dropdown(
 					        id='crime',
-					        options=[
-					            {'label': 'New York City', 'value': 'NYC'},
-					            {'label': 'Montreal', 'value': 'MTL'},
-					            {'label': 'San Francisco', 'value': 'SF'}
-					        ],
-					        value='NYC'
+					        options = [],
+					        value=None
 					    ),])
 
 
