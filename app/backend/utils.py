@@ -36,8 +36,8 @@ class Queries():
                            'etl_select_4':'select * from personas_tmp limit 5',
                            'etl_select_5': 'SELECT public.tcompararpersonas();',
                            'etl_select_6': 'SELECT public.tcompararreg();',
-                           'etl_select_7':'select * from departamento'}
-                            'people_query' : """select id_persona as id_people, 
+                           'etl_select_7':'select * from departamento',
+                           'people_query' : """select id_persona as id_people, 
                             ne.name_eng_group as "education level", 
                             n.pais as "origen country",
                             g.name_eng as gender,
