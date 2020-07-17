@@ -110,11 +110,12 @@ html.Div(
                 dbc.CardBody([html.Div(filter_reclusion_dep),
                     html.Div(filter_reclusion_entity)]),
                 id="collapse-1",
+                style = {"height" : "400px"},
             ),
         ],
         style={"background-color": "#4573D0",
         	   "border" : "none", 
-        	   "color": "rgb(255,255,255,1)",
+        	   #"color": "rgb(255,255,255,1)",
         	   "size": "100%"}
     ),
 
@@ -135,7 +136,7 @@ html.Div(
         ],
         style={"background-color": "#4573D0",
         	   "border" : "none", 
-        	   "color": "rgb(255,255,255,1)",
+        	   #"color": "rgb(255,255,255,1)",
         	   "size": "100%"}
     ),
 
@@ -158,7 +159,7 @@ html.Div(
         ],
         style={"background-color": "#4573D0",
         	   "border" : "none", 
-        	   "color": "rgb(255,255,255,1)",
+        	   #"color": "rgb(255,255,255,1)",
         	   "size": "100%"}
     ),
 
@@ -182,14 +183,17 @@ dbc.Col([
         dbc.Tab(tab4_content, label="Trends", label_style={"width": "300px"}),
         #dbc.Tab(tab5_content, label="Predictive"),
     ],
-    style={"background-color": "rgb(255,171,0,0.5)"}
+    #style={"background-color": "rgb(255,171,0,0.5)"}
 ),
-    style={"background-color": "rgb(255,171,0,0.5)"},)], style={"background-color": "rgb(255,171,0,0.5)"})
+    #style={"background-color": "rgb(255,171,0,0.5)"},
+    )], 
+    #style={"background-color": "rgb(255,171,0,0.5)"}
+    )
 
 ])])
 
 
-
+####  callback for acordion frame for filters options
 @app.callback(
     [Output("collapse-1", "is_open"),Output("collapse-2", "is_open"),Output("collapse-3", "is_open")],
     [Input("group-1-toggle", "n_clicks"), Input("group-2-toggle", "n_clicks"), Input("group-3-toggle", "n_clicks")],
@@ -212,26 +216,79 @@ def toggle_accordion(n1, n2, n3, is_open1, is_open2, is_open3 ):
     return False, False, False
 
 
+# update filters options 
+@app.callback(
+	Output('reclusion_dep', 'options'),
+	[Input("group-1-toggle", "n_clicks")],
+)
+def update_reclusion_dep_dropdown(n):
+	options = queries.run('reclusion_dept')
+	options2 = [{'label': options[options['id_departamento']==i]['nombre'].values[0], 'value': i} for i in options['id_departamento'].values ]
+	return  options2
+
+
+@app.callback(
+	Output('reclusion_entity', 'options'),
+	[Input("reclusion_dep", "value")],
+)
+def update_reclusion_entity_dropdown(dept):
+	options = queries.run('reclusion_entity')
+	if dept is None:
+		options = options
+	else:
+		options = options[options['departamento']==dept]
+	options2 = [{'label': options[options['id_establecimiento']==i]['nombre'].values[0], 'value': i} for i in options['id_establecimiento'].values ]
+	return  options2
+
+
+@app.callback(
+	Output('crime', 'options'),
+	[Input("group-3-toggle", "n_clicks")],
+)
+def update_crime_dropdown(n):
+	options = queries.run('crime_filter')
+	options2 = [{'label': options[options['id_delito']==i]['name_eng'].values[0], 'value': i} for i in options['id_delito'].values ]
+	return  options2
+
+
+
+
+#@app.callback(
+#	Output('sentence_type', 'options'),
+#	[Input("group-3-toggle", "n_clicks")],
+#)
+#def update_sentence_type_dropdown(n):
+#	options = queries.run('sentence_type')
+#	options2 = [{'label': options[options['id_delito']==i]['name_eng'].values[0], 'value': i} for i in options['id_delito'].values ]
+#	return  options2
+
+
+######   figures callback 
 
 @app.callback(
 	Output('education_level', 'figure'),
-	[Input("group-1-toggle", "n_clicks"), Input("group-2-toggle", "n_clicks"), Input("group-3-toggle", "n_clicks")],
+	[Input("reclusion_dep", "value"),Input("reclusion_entity", "value")],
 )
-def figure_education_level(dept):
+def figure_education_level(dept, entity):
+	data_people_0 = queries.run('people_query')
+	if(dept is None):
+		data_people = data_people_0
+	else:
+		data_people = data_people_0[data_people_0['departamento']==dept]
+
+	if(entity is None):
+		data_people = data_people
+	else:
+		data_people = data_people[data_people['establecimiento']==entity]
+
+	education_level_count = data_people[['education level', 'gender','people']].groupby(['education level', 'gender']).sum().reset_index()
+	education_level_count = education_level_count.sort_values('people')
+	fig = px.bar(education_level_count, x='people', y='education level', color='gender', barmode='group', orientation='h')
+	fig.update_traces(marker_line_color='rgb(8,48,107)',
+    	              marker_line_width=1.5, opacity=0.6)
+	fig.update_layout(title_text='Education level')
+	return fig
 	
-
-
-
-
-# update filters options 
-
-#@app.callback(
-#	Output('crime', 'options'),
-#	[Input("group-3-toggle", "n_clicks")],
-#)
-#def update_crime_dropdown(n):
-#		options = queries.run("""select id_delito, nombre, name_eng from delito""")
-#    return [{'label': 'New York City', 'value': 'NYC'},{'label': 'Montreal', 'value': 'MTL'},{'label': 'San Francisco', 'value': 'SF'}]
 
 
 
@@ -253,7 +310,7 @@ def update_result(x):
 if __name__ == "__main__":
     db_engine = DbEngine(user = 'team77', 
                         password = 'mintic2020.',
-                        ip = '172.17.0.3', 
+                        ip = 'localhost', 
                         port = '5432', 
                         db = 'minjusticia')
     engine = db_engine.connect()
