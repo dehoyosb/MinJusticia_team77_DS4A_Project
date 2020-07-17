@@ -44,9 +44,10 @@ class ETL_SDHI():
              'CASANARE':26,
              'CHOCO':12
         }
-        inmate = self.queries.run('select * from departamento')             
+        inmate = self.queries.run('etl_select_7')             
         inmate['shdi_id']= inmate.nombre.apply(lambda x: DEPTO_ESTABLECIMIENTO_key[x] if x != 'tbd' else 0)
-        df = pd.merge(df, inmate, left_on = 'GDLCODE', right_on = 'shdi_id')
+        df['region_norm'] = df['region'].apply(lambda x: x.split('(')[0].strip().upper())
+        df = pd.merge(df, inmate, left_on = 'region_norm', right_on = 'nombre')
         df.to_sql('sdhi_index', con=self.queries.engine)
                 
 
