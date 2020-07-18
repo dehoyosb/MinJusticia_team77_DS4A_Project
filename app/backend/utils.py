@@ -43,7 +43,7 @@ class Queries():
                            'etl_select_5':"""select public.tcompararpersonas();""",
                            'etl_select_6':"""select public.tcompararreg();""",
                            'etl_select_7':"""select * from departamento""",
-                           'etl_select_8':"""select public.tsdhi_registro();""",
+                           'etl_select_9':"""select public.tsdhi_registro();""",
                            
                            'people_query':"""select id_persona as id_people, 
                                                     ne.name_eng_group as "education level", 
