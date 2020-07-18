@@ -11,10 +11,16 @@ from os import path
 sys.path.append(path.join(path.dirname(__file__), '..'))
 from datetime import datetime as dt
 from utils.utils import DbEngine, Queries
+from utils.encoder import Encoding
 import re
 import numpy as np
 import chart_studio.plotly as py
 import plotly.graph_objs as go
+import json
+from urllib.request import urlopen
+import matplotlib.pyplot as plt
+
+plt.style.use('seaborn')
 
 
 
@@ -321,7 +327,8 @@ def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, 
 	fig = px.bar(education_level_count, x='people', y='education level', color='gender', barmode='group', orientation='h')
 	fig.update_traces(marker_line_color='rgb(8,48,107)',
     	              marker_line_width=1.5, opacity=0.6)
-	fig.update_layout(title_text='Education level')
+	#fig.update_layout(title_text='Education level')
+	fig.update_layout(margin = {"r":0, "t":0, "l":0, "b":0})
 	return fig
 	
 
@@ -414,7 +421,61 @@ def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, 
 	               hoverinfo='text',
 	               marker=dict(color = 'Orange')
 	               )])
+	fig.update_layout(margin = {"r":0, "t":0, "l":0, "b":0})
 	return fig
+
+
+@app.callback(
+	Output('map', 'figure'),
+	[Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+	 Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")],
+)
+def figure_map(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	# Get data
+	encoding = Encoding(queries)
+	inmate_df = encoding.get_data('etl_select_8')
+	# Map
+	#----------------------------------------------------------------------------------------------#
+	# Get json file for Departamentos in Colombia
+	jsonCOL = 'https://gist.githubusercontent.com/john-guerra/43c7656821069d00dcbc/raw/be6a6e239cd5b5b803c6e7c2ec405b793a9064dd/Colombia.geo.json'
+
+	with urlopen(jsonCOL) as response:
+	    counties = json.load(response)
+
+	# ID as Departamento name for mapping
+	for loc in counties['features']:
+	    loc['id'] = loc['properties']['NOMBRE_DPT']
+	    
+	# Calculate # of inmates by Departamento of origin in Colombia
+	temp = inmate_df.groupby(['persona_id_persona','nombre']).count().id_registro.reset_index() \
+	             .rename(columns = {'id_registro':'count'}).nombre.value_counts().to_frame().reset_index() \
+	             .rename(columns = {'index':'DEPTO', 'nombre':'ncount'}) 
+
+	# Departamentos names in json file
+	jsonDPTOname = [depto['properties']['NOMBRE_DPT'] for depto in counties['features']]
+
+	# Change departamentos names
+	temp.DEPTO = temp.DEPTO.replace({'BOGOTA D.C.':'SANTAFE DE BOGOTA D.C',
+	                                 'SAN ANDRES Y PROVIDENCIA':'ARCHIPIELAGO DE SAN ANDRES PROVIDENCIA Y SANTA CATALINA'})
+
+	# Map
+	fig = go.Figure(go.Choroplethmapbox(geojson    = counties, 
+	                                    locations  = temp.DEPTO, 
+	                                    z          = temp.ncount, 
+	                                    colorscale = 'Reds', 
+	                                    marker_line_width = 0.3))
+
+	fig.update_layout(mapbox_style  = "carto-positron", 
+	                  mapbox_zoom   = 4.5,
+	                  mapbox_center = {"lat": 4.570868, "lon": -74.2973328}, 
+	                  margin        = {"r":0, "t":0, "l":0, "b":0})
+	return fig
+
+
+
+
+
+
 
 
 

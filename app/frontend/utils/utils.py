@@ -63,6 +63,29 @@ class Queries():
                         left join public.establecimiento est on est.id_establecimiento = reg.establecimiento
                         left join public.municipio munic on est.municipio= munic.id_municipio""",
 
+                        'etl_select_1':"""select * from reconocimiento_etnico""",
+                           'etl_select_2':"""select * from diversidad_sexual""",
+                           'etl_select_3':"""select * from persona where diversidad_sexual = 2""",
+                           
+                           'etl_insert_1':"""INSERT INTO public.persona_diversidad_sexual 
+                                             (id_persona, id_diversidad_sexual) VALUES({});""",
+                           
+                           'etl_select_4':"""select * from personas_tmp limit 5""",
+                           'etl_select_5':"""select public.tcompararpersonas();""",
+                           'etl_select_6':"""select public.tcompararreg();""",
+                           'etl_select_7':"""select * from departamento""",
+                           'etl_select_9':"""select public.tsdhi_registro();""",
+
+                           'etl_select_8':"""select * from registro
+                                             left join (select id_establecimiento, municipio from establecimiento) e
+                                             on registro.establecimiento = e.id_establecimiento 
+                                             left join (select id_municipio, 
+                                                               departamento, 
+                                                               nombre as mun_name from municipio) m 
+                                             on e.municipio = m.id_municipio  
+                                             left join departamento 
+                                             on m.departamento = departamento.id_departamento """,
+
                         'crime_filter': 'select id_delito, nombre, name_eng from delito',
                         'reclusion_dept' : 'select id_departamento, nombre from public.departamento',
                         'reclusion_entity' : 'select id_establecimiento,est.nombre, departamento from public.establecimiento est left join public.municipio munic on est.municipio = munic.id_municipio'}

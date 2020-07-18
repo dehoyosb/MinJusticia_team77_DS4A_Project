@@ -8,10 +8,11 @@ tab2_content = dbc.Card(
 
         	dbc.Row([
         		dbc.Col([
-        			html.Div([dcc.Graph(id='education_level',style={"height" : "400px", "width" : "600px"}),],),
+        			html.Div([dcc.Graph(id='map',style={"height" : "800px", "width" : "600px"}),],),
         			]),
         		dbc.Col([
-        			html.Div([dcc.Graph(id='piramid',style={"height" : "600px", "width" : "500px"}),],),
+        			html.Div([dcc.Graph(id='piramid',style={"height" : "300px", "width" : "500px"}),],),
+                    html.Div([dcc.Graph(id='education_level',style={"height" : "300px", "width" : "500px"}),],),
             		]),]),
         ] ,  #style={"height" : "400px", "width" : "600px"}
     ),
