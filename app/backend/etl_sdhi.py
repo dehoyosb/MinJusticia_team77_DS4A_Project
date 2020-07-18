@@ -51,7 +51,8 @@ class ETL_SDHI():
         df = pd.merge(df, inmate, on='GDLCODE')
         #df = pd.merge(inmate,df,how='left',on= ['year','GDLCODE'])
         #df.to_sql('sdhi_index', con=self.queries.engine)
-        df.to_sql('GDLCODE', con=self.queries.engine)        
+        df.to_sql('GDLCODE', con=self.queries.engine) 
+        self.queries.run('etl_select_9')       
 
 
 
