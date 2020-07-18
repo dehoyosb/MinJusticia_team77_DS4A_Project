@@ -138,8 +138,8 @@ ALTER TABLE persona ADD CONSTRAINT persona_pk PRIMARY KEY ( id_persona );
 
 
 create table persona_diversidad_sexual (
-	id_persona                          INTEGER NOT NULL,
-	id_diversidad_sexual				INTEGER NOT NULL
+    id_persona                          INTEGER NOT NULL,
+    id_diversidad_sexual                INTEGER NOT NULL
 );
 
 
@@ -502,4 +502,46 @@ $function$
 ;
        
 
+
+
+
+-------------------------------------------------------------------------
+--- add human index data
+ALTER TABLE registro ADD COLUMN shdi float;
+ALTER TABLE registro ADD COLUMN healthindex float;
+ALTER TABLE registro ADD COLUMN incindex float;
+ALTER TABLE registro ADD COLUMN edindex float;
+ALTER TABLE registro ADD COLUMN lifexp float;
+ALTER TABLE registro ADD COLUMN gnic float;
+ALTER TABLE registro ADD COLUMN esch float;
+ALTER TABLE registro ADD COLUMN msch float;
+ALTER TABLE registro ADD COLUMN pop float;
+
+
+CREATE OR REPLACE FUNCTION public.tsdhi_registro()
+ RETURNS integer
+ LANGUAGE plpgsql
+AS $function$
+begin
+
+UPDATE public.registro reg
+    SET 
+        shdi=tb1.shdi, 
+        healthindex=tb1.healthindex, 
+        incindex=tb1.incindex, 
+        edindex=tb1.edindex, 
+        lifexp=tb1.lifexp, 
+        gnic=tb1.gnic, 
+        esch=tb1.esch, 
+        msch=tb1.msch, 
+        pop=tb1.pop
+    from (select id_registro, sdhi.shdi, sdhi.healthindex, sdhi.incindex, sdhi.edindex, sdhi.lifexp, sdhi.gnic, sdhi.esch, sdhi.msch, sdhi.pop from public.registro reg
+    left join  public.establecimiento est on reg.establecimiento = est.id_establecimiento
+    left join public.municipio munic on est.municipio= munic.id_municipio
+    left join public."GDLCODE" sdhi on  munic.departamento= sdhi.id_departamento and sdhi.year = extract(year from reg.fecha_ingreso)) tb1
+    WHERE tb1.id_registro = reg.id_registro;
+return 1;
+END;
+$function$
+;
 
