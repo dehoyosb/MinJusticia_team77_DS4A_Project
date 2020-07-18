@@ -14,42 +14,44 @@ class ETL_SDHI():
     def inmate_static_info(self, df):
         # set dictionary for SDHI table 
         DEPTO_ESTABLECIMIENTO_key = {
-             'ANTIOQUIA':1,
-             'CAUCA':8,
-             'CALDAS':6,
-             'QUINDIO':19,
-             'RISARALDA':20,
-             'ATLANTICO':2,
-             'HUILA':13,
-             'VALLE DEL CAUCA':24,
-             'NARIÑO':17,
-             'ARAUCA':25,
-             'BOYACA':5,
-             'SUCRE':22,
-             'CUNDINAMARCA':11,
-             'AMAZONAS':29,
-             'META':16,
-             'CORDOBA':10,
-             'SANTANDER':21,
-             'BOGOTA D.C.':3,
-             'CESAR':9,
-             'BOLIVAR':4,
-             'LA GUAJIRA':14,
-             'CAQUETA':7,
-             'NORTE DE SANTANDER':18,
-             'PUTUMAYO':27,
-             'TOLIMA':23,
-             'SAN ANDRES Y PROVIDENCIA':28,
-             'MAGDALENA':15,
-             'CASANARE':26,
-             'CHOCO':12
+             'ANTIOQUIA':'COLr101',
+             'CAUCA':'COLr108',
+             'CALDAS':'COLr106',
+             'QUINDIO':'COLr119',
+             'RISARALDA':'COLr120',
+             'ATLANTICO':'COLr102',
+             'HUILA':'COLr112',
+             'VALLE DEL CAUCA':'COLr124',
+             'NARIÑO':'COLr117',
+             'ARAUCA':'COLr125',
+             'BOYACA':'COLr105',
+             'SUCRE':'COLr122',
+             'CUNDINAMARCA':'COLr111',
+             'AMAZONAS':'COLr129',
+             'META':'COLr116',
+             'CORDOBA':'COLr110',
+             'SANTANDER':'COLr121',
+             'BOGOTA D.C.':'COLr103',
+             'CESAR':'COLr109',
+             'BOLIVAR':'COLr104',
+             'LA GUAJIRA':'COLr114',
+             'CAQUETA':'COLr107',
+             'NORTE DE SANTANDER':'COLr118',
+             'PUTUMAYO':'COLr127',
+             'TOLIMA':'COLr123',
+             'SAN ANDRES Y PROVIDENCIA':'COLr128',
+             'MAGDALENA':'COLr115',
+             'CASANARE':'COLr126',
+             'CHOCO':'COLr112'
         }
         inmate = self.queries.run('etl_select_7')             
-        inmate['shdi_id']= inmate.nombre.apply(lambda x: DEPTO_ESTABLECIMIENTO_key[x] if x != 'tbd' else 0)
-        df['region_norm'] = df['region'].apply(lambda x: x.split('(')[0].strip().upper())
-        df = pd.merge(df, inmate, left_on = 'region_norm', right_on = 'nombre')
-        df.to_sql('sdhi_index', con=self.queries.engine)
-                
+        inmate['GDLCODE']= inmate.nombre.apply(lambda x: DEPTO_ESTABLECIMIENTO_key[x] if x != 'tbd' else 0)
+        #inmate.FECHA_CAPTURA = pd.to_datetime(inmate.FECHA_CAPTURA)
+        #inmate['year'] = inmate.FECHA_CAPTURA.dt.year
+        df = pd.merge(df, inmate, on='GDLCODE')
+        #df = pd.merge(inmate,df,how='left',on= ['year','GDLCODE'])
+        #df.to_sql('sdhi_index', con=self.queries.engine)
+        df.to_sql('GDLCODE', con=self.queries.engine)        
 
 
 
