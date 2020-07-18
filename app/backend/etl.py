@@ -19,7 +19,7 @@ class ETL():
         data_people = data_people.reset_index(drop=True)
         data_people['CONDIC_EXPECIONAL'] = data_people['CONDIC_EXPECIONAL'].fillna('NINGUNO')
         
-        etnic_recognition = self.queries.run("""select * from reconocimiento_etnico""")
+        etnic_recognition = self.queries.run('etl_select_1')
         data_people['reconocimiento_etnico'] = 'NINGUNO'
         for i in etnic_recognition.index:
             data_people.loc[(data_people['CONDIC_EXPECIONAL'].str.contains(etnic_recognition['nombre'].values[i])),
@@ -30,13 +30,13 @@ class ETL():
         data_people.loc[(data_people['CONDIC_EXPECIONAL'].str.contains('EXTRANJEROS')),'extranjero'] =  'S'
         
         ############## sexual diversity
-        sexual_dive = self.queries.run("""select * from diversidad_sexual""")
+        sexual_dive = self.queries.run('etl_select_2')
         data_people['diversidad_sexual'] = 'N'
         for i in sexual_dive.index:
             data_people.loc[(data_people['CONDIC_EXPECIONAL'].str.contains(sexual_dive['nombre'].values[i])),
                             'diversidad_sexual'] =  'S'
     
-        personas_genero = self.queries.run("""select * from persona where diversidad_sexual = 2""")
+        personas_genero = self.queries.run('etl_select_3')
         for i in personas_genero.index:
             for j in sexual_dive.index:
                 if sexual_dive['nombre'].values[j] in personas_genero['condicion_exepcional'].values[i]:
@@ -46,15 +46,15 @@ class ETL():
         
         ############## people
         data_people.to_sql('personas_tmp', con=self.queries.engine)
-        self.queries.run('select * from personas_tmp limit 5')
-        self.queries.run('SELECT public.tcompararpersonas();')
+        self.queries.run('etl_select_4')
+        self.queries.run('etl_select_5')
         
     def inmate_variable_info(self, data):
         data_reg= data[['INTERNOEN', 'GENERO','DELITO','ESTADO_INGRESO','FECHA_CAPTURA',
                         'FECHA_INGRESO','ESTABLECIMIENTO','TENTATIVA','SUBTITULO_DELITO',
                         'AGRAVADO', 'CALIFICADO','FECHA_SALIDA','EDAD','DEPARTAMENTO', 'CIUDAD',
                         'ACTIVIDADES_TRABAJO', 'ACTIVIDADES_ESTUDIO', 'ACTIVIDADES_ENSEÑANZA',
-                        'HIJOS_MENORES', 'CONDIC_EXPECIONAL','ESTADO','SITUACION_JURIDICA','DELITO','TENTATIVA','AGRAVADO', 'CALIFICADO']]
+                        'HIJOS_MENORES', 'CONDIC_EXPECIONAL','ESTADO','SITUACION_JURIDICA']]
         
         ############## No exceptional condition
         data_reg['CONDIC_EXPECIONAL'] = data_reg['CONDIC_EXPECIONAL'].fillna('NINGUNO')
@@ -79,7 +79,8 @@ class ETL():
         #severity index
 
         # Count number of observations by crime type and category
-        top10 = list(data_reg.DELITO.value_counts().to_frame().reset_index().rename(columns = {'index':'DELITONAME'}).head(10)['DELITONAME'])
+        top10 = list(data_reg['DELITO'].value_counts().to_frame() \
+                     .reset_index().rename(columns = {'index':'DELITONAME'}).head(10)['DELITONAME'])
         #https://leyes.co/codigo_penal.htm
         #values as [min_month,max_month,decree]
         dict_pena ={'HURTO': [16,108,239],
@@ -136,7 +137,7 @@ class ETL():
         ############## registro
         data_reg.to_sql('registros_tmp', con=self.queries.engine)
         #self.queries.run('select * from registros_tmp limit 5')
-        self.queries.run('SELECT public.tcompararreg();')
+        self.queries.run('etl_select_6')
 
 
 
