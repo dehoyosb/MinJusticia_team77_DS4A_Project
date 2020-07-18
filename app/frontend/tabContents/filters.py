@@ -40,8 +40,8 @@ filter_prison_date_range = html.Div([
 							id='prison_date_range',
 							min_date_allowed=dt(2010, 1, 1),
 							max_date_allowed=dt(2021, 1, 1),
-							initial_visible_month=dt(2020, 7, 1)#,
-							#end_date=dt(2020, 7, 15).date()
+							initial_visible_month=dt(2020, 7, 1),
+							end_date=dt.now().date()
 		),])
 
 
@@ -130,7 +130,7 @@ filter_excep_cond = html.Div([html.P(
 		options=[
 			{'label': 'Yes', 'value': '2'},
 		],
-		#value=['1', '2'],
+		value=[],
 		labelStyle={'display': 'inline-block', 'align': 'center', 'padding-left' : '30px'}
 ), ])
 
