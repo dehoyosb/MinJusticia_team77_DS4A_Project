@@ -11,8 +11,7 @@ tab2_content = dbc.Card(
         			html.Div([dcc.Graph(id='education_level',style={"height" : "400px", "width" : "600px"}),],),
         			]),
         		dbc.Col([
-        			html.P("This is tab 2!", className="card-text"),
-            		dbc.Button("Don't click here", color="danger"),
+        			html.Div([dcc.Graph(id='piramid',style={"height" : "600px", "width" : "500px"}),],),
             		]),]),
         ] ,  #style={"height" : "400px", "width" : "600px"}
     ),
