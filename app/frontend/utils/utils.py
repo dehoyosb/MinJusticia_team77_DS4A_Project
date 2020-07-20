@@ -40,7 +40,20 @@ class Queries():
                             reg.fecha_ingreso,
                             reg.delito_id_delito,
                             p.genero,
-                            case when reg.condicion_excepcional like 'NINGUNO' then 1 else 2 end as condicion_excepcional
+                            case when reg.condicion_excepcional like 'NINGUNO' then 1 else 2 end as condicion_excepcional,
+
+                            EXTRACT(YEAR FROM now()) - p.anio_nacimiento as age_calc,
+                                case when (EXTRACT(YEAR FROM now()) - p.anio_nacimiento) <= 20 then 20
+                                     when (EXTRACT(YEAR FROM now()) - p.anio_nacimiento) <= 30 then 30
+                                     when (EXTRACT(YEAR FROM now()) - p.anio_nacimiento) <= 40 then 40
+                                     when (EXTRACT(YEAR FROM now()) - p.anio_nacimiento) <= 50 then 50
+                                     when (EXTRACT(YEAR FROM now()) - p.anio_nacimiento) <= 60 then 60
+                                     when (EXTRACT(YEAR FROM now()) - p.anio_nacimiento) <= 70 then 70
+                                     when (EXTRACT(YEAR FROM now()) - p.anio_nacimiento) <= 80 then 80
+                                     when (EXTRACT(YEAR FROM now()) - p.anio_nacimiento) <= 90 then 90
+                                else 100 end range_age
+
+
                             from persona p 
                         left join (select *, case when id_nivel_educativo in (6,7,8,9,10,11,12) then 'Higher education'
                     else name_eng end as name_eng_group from nivel_educativo) ne on p.nivel_educativo = ne.id_nivel_educativo

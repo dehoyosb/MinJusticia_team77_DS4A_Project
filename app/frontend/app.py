@@ -11,8 +11,10 @@ from os import path
 sys.path.append(path.join(path.dirname(__file__), '..'))
 from datetime import datetime as dt
 from utils.utils import DbEngine, Queries
-
-
+import re
+import numpy as np
+import chart_studio.plotly as py
+import plotly.graph_objs as go
 
 
 
@@ -267,9 +269,10 @@ def update_crime_dropdown(n):
 
 @app.callback(
 	Output('education_level', 'figure'),
-	[Input("reclusion_dep", "value"),Input("reclusion_entity", "value")],
+	[Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+	 Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")],
 )
-def figure_education_level(dept, entity):
+def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
 	data_people_0 = queries.run('people_query')
 	if(dept is None):
 		data_people = data_people_0
@@ -280,6 +283,38 @@ def figure_education_level(dept, entity):
 		data_people = data_people
 	else:
 		data_people = data_people[data_people['establecimiento']==entity]
+
+	if(pris_start_date is None) and (pris_end_date is None):
+		data_people = data_people
+	else:
+		if pris_end_date is None :
+			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
+			data_people = data_people[pd.to_datetime(data_people['fecha_ingreso']) > start_date]
+		if pris_start_date is None :
+			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
+			data_people = data_people[pd.to_datetime(data_people['fecha_ingreso']) < end_date]
+		else:
+			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
+			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
+			data_people = data_people[(data_people['fecha_ingreso'] < end_date)&(data_people['fecha_ingreso'] > start_date)]
+
+
+	if(crime is None):
+		data_people = data_people
+	else:
+		data_people = data_people[data_people['delito_id_delito']==crime]
+
+	if(gender is None):
+		data_people = data_people
+	else:
+		data_people = data_people[data_people['genero'].isin(gender)]
+
+	data_people = data_people[data_people['actual age'].isin(range(range_age[0],range_age[1]))]
+
+	if(excep_cond ==[]):
+		data_people = data_people
+	else:
+		data_people = data_people[data_people['condicion_excepcional'].isin(excep_cond)]
 
 	education_level_count = data_people[['education level', 'gender','people']].groupby(['education level', 'gender']).sum().reset_index()
 	education_level_count = education_level_count.sort_values('people')
@@ -292,6 +327,94 @@ def figure_education_level(dept, entity):
 
 
 
+
+
+
+@app.callback(
+	Output('piramid', 'figure'),
+	[Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+	 Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")],
+)
+def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	data_people_0 = queries.run('people_query')
+	if(dept is None):
+		data_people = data_people_0
+	else:
+		data_people = data_people_0[data_people_0['departamento']==dept]
+
+	if(entity is None):
+		data_people = data_people
+	else:
+		data_people = data_people[data_people['establecimiento']==entity]
+
+	if(pris_start_date is None) and (pris_end_date is None):
+		data_people = data_people
+	else:
+		if pris_end_date is None :
+			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
+			data_people = data_people[pd.to_datetime(data_people['fecha_ingreso']) > start_date]
+		if pris_start_date is None :
+			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
+			data_people = data_people[pd.to_datetime(data_people['fecha_ingreso']) < end_date]
+		else:
+			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
+			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
+			data_people = data_people[(data_people['fecha_ingreso'] < end_date)&(data_people['fecha_ingreso'] > start_date)]
+
+
+	if(crime is None):
+		data_people = data_people
+	else:
+		data_people = data_people[data_people['delito_id_delito']==crime]
+
+	if(gender is None):
+		data_people = data_people
+	else:
+		data_people = data_people[data_people['genero'].isin(gender)]
+
+	data_people = data_people[data_people['actual age'].isin(range(range_age[0],range_age[1]))]
+
+	if(excep_cond ==[]):
+		data_people = data_people
+	else:
+		data_people = data_people[data_people['condicion_excepcional'].isin(excep_cond)]
+
+	piramide_male = data_people[data_people['gender']=='MALE'][['range_age', 'people']].groupby(['range_age']).sum().reset_index()
+	piramide_female = data_people[data_people['gender']=='FEMALE'][['range_age', 'people']].groupby(['range_age']).sum().reset_index()
+	piramide = pd.merge(piramide_male, piramide_female, on = 'range_age')
+	piramide.columns = ['range_age', 'male','female']
+
+	women_bins = np.array(-1 * piramide['female'])
+	men_bins = np.array(piramide['male'])
+
+	y = list(range(10, 100, 10))
+
+	fig = go.Figure(
+	layout = go.Layout(yaxis=go.layout.YAxis(title='Age'),
+	                   xaxis=go.layout.XAxis(
+	                       range=[-1 * (np.array(piramide['female']).max()+5000), (np.array(piramide['male']).max()+5000)],
+	                       tickvals=[-50000, -20000, 0, 20000, 50000],
+	                       ticktext=[50000, 20000, 0, 20000, 50000],
+	                       title='Number'),
+	                   barmode='overlay',
+	                   bargap=0.1),
+
+	data = [go.Bar(y=y,
+	               x=men_bins,
+	               orientation='h',
+	               name='MALE',
+	               hoverinfo='x',
+	               marker=dict(color = 'Royal Blue')
+	               ),
+	        go.Bar(y=y,
+	               x=women_bins,
+	               orientation='h',
+	               name='FEMALE',
+	               text=-1 * women_bins.astype('int'),
+	               hoverinfo='text',
+	               marker=dict(color = 'Orange')
+	               )])
+	return fig
 
 
 
