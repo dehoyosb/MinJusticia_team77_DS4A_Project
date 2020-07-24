@@ -19,9 +19,9 @@ class Encoding():
             
         one_hot = pd.concat([df[['internoen','fecha_ingreso']],
                      pd.get_dummies(df.delito, prefix='delito'),
-                     pd.get_dummies(df.tentativa, prefix='tentativa'),
-                     pd.get_dummies(df.agravado, prefix='agravado'),
-                     pd.get_dummies(df.calificado, prefix='calificado'),
+                     pd.get_dummies(df.tentativa, prefix='tentativa', drop_first = True),
+                     pd.get_dummies(df.agravado, prefix='agravado', drop_first = True),
+                     pd.get_dummies(df.calificado, prefix='calificado', drop_first = True),
                      df.groupby(['internoen','fecha_ingreso'])['severity'].max().reset_index(drop=True).to_frame() \
                     .rename(columns = {'severity':'max_severity'}),
                      df.groupby(['internoen','fecha_ingreso'])['severity'].mean().reset_index(drop=True).to_frame() \
