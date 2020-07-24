@@ -27,13 +27,19 @@ class Encoding():
                      df.groupby(['internoen','fecha_ingreso'])['severity'].mean().reset_index(drop=True).to_frame() \
                     .rename(columns = {'severity':'mean_severity'})],
                      axis = 1)
-        one_hot = one_hot.groupby(['internoen','fecha_ingreso']).max().reset_index()
-        
+        one_hot = one_hot.groupby(['internoen','fecha_ingreso']).max().reset_index() 
         col = df.columns.tolist()
         for c in ['delito_id_delito', 'id_delito', 'name_eng', 'delito', 'id_registro','id_persona',
                   'persona_id_persona','condicion_exepcional','tentativa','agravado','calificado',
                   'fecha_captura','anio_nacimiento', 'situacion_juridica','reincidente','municipio_id_municipio',
                   'id_subtitulo_delito','severity']:
             col.remove(c)
-        
         return df[col].drop_duplicates().merge(one_hot, on = ['internoen','fecha_ingreso'])
+
+    def surv_encode(self, df):
+        df['fecha_salida_anterior'] = df['fecha_salida2'].shift(1)
+        df.loc[df['numero'] == 1,'fecha_salida_anterior'] = np.nan
+        df['tiempo_nuevo_delito'] = (df['fecha_ingreso']-df['fecha_salida_anterior'])/ np.timedelta64(1, 'M')
+        df['event'] = 1
+        df['event'] = df.apply(lambda x: 0 if (x.numero_evento==1)&(x.estado_id_estado==2) else 1, axis=1)
+        return df
