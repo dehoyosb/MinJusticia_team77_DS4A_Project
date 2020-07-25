@@ -43,7 +43,7 @@ class Queries():
                            'etl_select_5':"""select public.tcompararpersonas();""",
                            'etl_select_6':"""select public.tcompararreg();""",
                            'etl_select_7':"""select * from departamento""",
-                           'etl_select_8':"""select public.tsdhi_registro();""",
+                           'etl_select_9':"""select public.tsdhi_registro();""",
                            
                            'people_query':"""select id_persona as id_people, 
                                                     ne.name_eng_group as "education level", 
@@ -77,7 +77,35 @@ class Queries():
                                              on e.municipio = m.id_municipio  
                                              left join departamento 
                                              on m.departamento = departamento.id_departamento
-                                             left join persona on registro.persona_id_persona = persona.id_persona """}
+                                             left join persona on registro.persona_id_persona = persona.id_persona """,
+                           
+                          'recidivism'   :"""select * from registro
+                                             left join (select id_delito, 
+                                                        nombre as crimenme, 
+                                                        name_eng as crimenme_en from delito) d
+                                            on registro.delito_id_delito = d.id_delito 
+                                            left join (select id_establecimiento, 
+                                                       nombre as jailname, 
+                                                       regional from establecimiento) e
+                                            on registro.establecimiento = e.id_establecimiento 
+                                            left join (select id_regional, 
+                                                       nombre as regionalnme from regional) r
+                                            on e.regional = r.id_regional 
+                                            left join (select id_persona, internoen, 
+                                                       genero, nacionalidad, anio_nacimiento, 
+                                                       estado_civil, nivel_educativo, diversidad_sexual from persona) p
+                                            on registro.persona_id_persona = p.id_persona 
+                                            left join (select id_pais, country from nacionalidad) n 
+                                            on p.nacionalidad = n.id_pais
+                                            left join (select id_diversidad_sexual, 
+                                                       nombre as div_sexual from diversidad_sexual) ds
+                                            on p.diversidad_sexual = ds.id_diversidad_sexual
+                                            left join (select id_nivel_educativo, 
+                                                       name_eng as educ_level from nivel_educativo) ne
+                                            on p.nivel_educativo = ne.id_nivel_educativo
+                                            left join (select id_estado_civil, 
+                                                       name_eng as maritalstatus from estado_civil) ec
+                                            on p.estado_civil = ec.id_estado_civil"""}
     
     def run(self, sql):
         result = self.engine.connect().execution_options(isolation_level="AUTOCOMMIT").execute((text(self.query_dict[sql])))
