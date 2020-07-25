@@ -43,3 +43,13 @@ class Encoding():
         df['event'] = 1
         df['event'] = df.apply(lambda x: 0 if (x.numero_evento==1)&(x.estado_id_estado==2) else 1, axis=1)
         return df
+
+    def parallel_encode(self, df, stopwords_list):
+        counts = df['delito'].value_counts().to_frame()
+        counts['%'] = 100*(counts['delito'].cumsum() / counts['delito'].sum())
+        counts = counts[:10]
+        test = df[df['delito'].isin(counts.index.values)]
+        test['titulo'] = test['titulo'].apply(lambda x: ' '.join([word for word in str(x).split() if word not in stopwords_list]))
+        test['subtitulo'] = test['subtitulo'].apply(lambda x: ' '.join([word for word in str(x).split() if word not in stopwords_list]))
+        test['delito'] = test['delito'].apply(lambda x: ' '.join([word for word in str(x).split() if word not in stopwords_list]))
+        return test
