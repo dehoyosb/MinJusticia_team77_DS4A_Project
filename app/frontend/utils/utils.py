@@ -101,7 +101,12 @@ class Queries():
 
                         'crime_filter': 'select id_delito, nombre, name_eng from delito',
                         'reclusion_dept' : 'select id_departamento, nombre from public.departamento',
-                        'reclusion_entity' : 'select id_establecimiento,est.nombre, departamento from public.establecimiento est left join public.municipio munic on est.municipio = munic.id_municipio'}
+                        'reclusion_entity' : 'select id_establecimiento,est.nombre, departamento from public.establecimiento est left join public.municipio munic on est.municipio = munic.id_municipio',
+                        'context_minjusticia':'SELECT year, capacity, population FROM public.context_minjusticia' 
+
+
+
+                        }
     
     def run(self, sql):
         result = self.engine.connect().execution_options(isolation_level="AUTOCOMMIT").execute((text(self.query_dict[sql])))
