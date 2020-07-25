@@ -4,6 +4,13 @@ dash>=1.0.0
 dash_html_components
 dash_core_components
 dash_bootstrap_components
+datetime
+chart_studio
+matplotlib
+lifelines
+seaborn
+unidecode
+psycopg2-binary
 
 # Additional
 colorlover>=0.2.1
@@ -12,3 +19,4 @@ pandas>=0.24.2
 scikit-learn>=0.20.3
 scipy>=1.2.1
 plotly
+plotly.express
