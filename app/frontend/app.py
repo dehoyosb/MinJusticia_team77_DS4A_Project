@@ -62,19 +62,19 @@ def data_people_funct(dept, entity, pris_start_date, pris_end_date, crime, gende
 	else:
 		data_people = data_people[data_people['establecimiento']==entity]
 
-	if(pris_start_date is None) and (pris_end_date is None):
-		data_people = data_people
-	else:
-		if pris_end_date is None :
-			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
-			data_people = data_people[pd.to_datetime(data_people['fecha_ingreso']) > start_date]
-		if pris_start_date is None :
-			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
-			data_people = data_people[pd.to_datetime(data_people['fecha_ingreso']) < end_date]
-		else:
-			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
-			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
-			data_people = data_people[(data_people['fecha_ingreso'] < end_date)&(data_people['fecha_ingreso'] > start_date)]
+#	if(pris_start_date is None) and (pris_end_date is None):
+#		data_people = data_people
+#	else:
+#		if pris_end_date is None :
+#			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
+#			data_people = data_people[pd.to_datetime(data_people['fecha_ingreso']) > start_date]
+#		if pris_start_date is None :
+#			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
+#			data_people = data_people[pd.to_datetime(data_people['fecha_ingreso']) < end_date]
+#		else:
+#			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
+#			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
+#			data_people = data_people[(data_people['fecha_ingreso'] < end_date)&(data_people['fecha_ingreso'] > start_date)]
 
 
 	if(crime is None):
@@ -107,19 +107,19 @@ def inmate_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender,
 	else:
 		inmate_df_filt = inmate_df_filt[inmate_df_filt['id_establecimiento']==entity]
 
-	if(pris_start_date is None) and (pris_end_date is None):
-		inmate_df_filt = inmate_df_filt
-	else:
-		if pris_end_date is None :
-			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
-			inmate_df_filt = inmate_df_filt[pd.to_datetime(inmate_df_filt['fecha_ingreso']) > start_date]
-		if pris_start_date is None :
-			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
-			inmate_df_filt = inmate_df_filt[pd.to_datetime(inmate_df_filt['fecha_ingreso']) < end_date]
-		else:
-			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
-			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
-			inmate_df_filt = inmate_df_filt[(inmate_df_filt['fecha_ingreso'] < end_date)&(inmate_df_filt['fecha_ingreso'] > start_date)]
+#	if(pris_start_date is None) and (pris_end_date is None):
+#		inmate_df_filt = inmate_df_filt
+#	else:
+#		if pris_end_date is None :
+#			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
+#			inmate_df_filt = inmate_df_filt[pd.to_datetime(inmate_df_filt['fecha_ingreso']) > start_date]
+#		if pris_start_date is None :
+#			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
+#			inmate_df_filt = inmate_df_filt[pd.to_datetime(inmate_df_filt['fecha_ingreso']) < end_date]
+#		else:
+#			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
+#			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
+#			inmate_df_filt = inmate_df_filt[(inmate_df_filt['fecha_ingreso'] < end_date)&(inmate_df_filt['fecha_ingreso'] > start_date)]
 
 
 	if(crime is None):
@@ -629,15 +629,20 @@ def update_result(x):
 
 #Initiate the server where the app will work
 if __name__ == "__main__":
-    db_engine = DbEngine(user = 'team77', 
-                        password = 'mintic2020.',
-                        ip = 'localhost', 
+    db_engine = DbEngine(user = 'postgres', 
+                        password = 'YyjnDpcVRtpHDOHHzr58',
+                        ip = 'database-1.cjppulxuzu8c.us-east-2.rds.amazonaws.com', 
                         port = '5432', 
                         db = 'minjusticia')
+#    db_engine = DbEngine(user = 'team77', 
+#                        password = 'mintic2020.',
+#                        ip = 'localhost', 
+#                        port = '5432', 
+#                        db = 'minjusticia')
     engine = db_engine.connect()
     queries = Queries(engine)
     data_people_0 = queries.run('people_query')
     encoding = Encoding(queries)
     inmate_df_0 = encoding.get_data('etl_select_8')
     inmate_df = encoding.surv_encode (inmate_df_0)
-    app.run_server(debug=True,host='0.0.0.0', port=5000)
+    app.run_server(debug=False,host='0.0.0.0', port=5000)
