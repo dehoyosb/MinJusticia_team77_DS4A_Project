@@ -7,9 +7,9 @@ tab4_content = dbc.Card(
         [
             dbc.Row([
         		dbc.Col([
-        			html.Div([dcc.Graph(id='surv_study',style={"height" : "400px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0}),],),
+        			dcc.Graph(id='surv_study',style={"height" : "400px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0}),
         			html.Hr(),
-        			html.Div([dcc.Graph(id='surv_work',style={"height" : "400px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0}),],),
+        			dcc.Graph(id='surv_work',style={"height" : "400px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0}),
         			]),
         		]),
         ]
