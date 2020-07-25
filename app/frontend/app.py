@@ -11,10 +11,19 @@ from os import path
 sys.path.append(path.join(path.dirname(__file__), '..'))
 from datetime import datetime as dt
 from utils.utils import DbEngine, Queries
+from utils.encoder import Encoding
 import re
 import numpy as np
 import chart_studio.plotly as py
 import plotly.graph_objs as go
+import json
+from urllib.request import urlopen
+import matplotlib.pyplot as plt
+from lifelines import KaplanMeierFitter
+kmf = KaplanMeierFitter()
+import plotly.tools as tls 
+
+plt.style.use('seaborn')
 
 
 
@@ -39,6 +48,98 @@ from tabContents.filters import filter_gender
 from tabContents.filters import filter_range_age
 from tabContents.filters import filter_excep_cond
 from tabContents.filters import filter_reclusion_entity
+
+
+#set function for actualice dataset people when update filters
+def data_people_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	if(dept is None):
+		data_people = data_people_0
+	else:
+		data_people = data_people_0[data_people_0['departamento']==dept]
+
+	if(entity is None):
+		data_people = data_people
+	else:
+		data_people = data_people[data_people['establecimiento']==entity]
+
+#	if(pris_start_date is None) and (pris_end_date is None):
+#		data_people = data_people
+#	else:
+#		if pris_end_date is None :
+#			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
+#			data_people = data_people[pd.to_datetime(data_people['fecha_ingreso']) > start_date]
+#		if pris_start_date is None :
+#			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
+#			data_people = data_people[pd.to_datetime(data_people['fecha_ingreso']) < end_date]
+#		else:
+#			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
+#			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
+#			data_people = data_people[(data_people['fecha_ingreso'] < end_date)&(data_people['fecha_ingreso'] > start_date)]
+
+
+	if(crime is None):
+		data_people = data_people
+	else:
+		data_people = data_people[data_people['delito_id_delito']==crime]
+
+	if(gender is None):
+		data_people = data_people
+	else:
+		data_people = data_people[data_people['genero'].isin(gender)]
+
+	data_people = data_people[data_people['actual age'].isin(range(range_age[0],range_age[1]))]
+
+	if(excep_cond ==[]):
+		data_people = data_people
+	else:
+		data_people = data_people[data_people['condicion_excepcional']==2]
+	return data_people
+
+#set function for actualice dataset registry when update filters
+def inmate_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	if(dept is None):
+		inmate_df_filt = inmate_df
+	else:
+		inmate_df_filt = inmate_df[inmate_df['departamento']==dept]
+
+	if(entity is None):
+		inmate_df_filt = inmate_df_filt
+	else:
+		inmate_df_filt = inmate_df_filt[inmate_df_filt['id_establecimiento']==entity]
+
+#	if(pris_start_date is None) and (pris_end_date is None):
+#		inmate_df_filt = inmate_df_filt
+#	else:
+#		if pris_end_date is None :
+#			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
+#			inmate_df_filt = inmate_df_filt[pd.to_datetime(inmate_df_filt['fecha_ingreso']) > start_date]
+#		if pris_start_date is None :
+#			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
+#			inmate_df_filt = inmate_df_filt[pd.to_datetime(inmate_df_filt['fecha_ingreso']) < end_date]
+#		else:
+#			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
+#			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
+#			inmate_df_filt = inmate_df_filt[(inmate_df_filt['fecha_ingreso'] < end_date)&(inmate_df_filt['fecha_ingreso'] > start_date)]
+
+
+	if(crime is None):
+		inmate_df_filt = inmate_df_filt
+	else:
+		inmate_df_filt = inmate_df_filt[inmate_df_filt['delito_id_delito']==crime]
+
+	if(gender is None):
+		inmate_df_filt = inmate_df_filt
+	else:
+		inmate_df_filt = inmate_df_filt[inmate_df_filt['genero'].isin(gender)]
+
+	inmate_df_filt = inmate_df_filt[inmate_df_filt['actual age'].isin(range(range_age[0],range_age[1]))]
+
+	if(excep_cond ==[]):
+		inmate_df_filt = inmate_df_filt
+	else:
+		inmate_df_filt = inmate_df_filt[inmate_df_filt['condicion_excepcional']==2]
+	return inmate_df_filt
+
 
 
 #Create Layout
@@ -225,7 +326,7 @@ def toggle_accordion(n1, n2, n3, is_open1, is_open2, is_open3 ):
 )
 def update_reclusion_dep_dropdown(n):
 	options = queries.run('reclusion_dept')
-	options2 = [{'label': options[options['id_departamento']==i]['nombre'].values[0], 'value': i} for i in options['id_departamento'].values ]
+	options2 = [{'label': options[options['id_departamento']==i]['nombre'].values[0].capitalize(), 'value': i} for i in options['id_departamento'].values ]
 	return  options2
 
 
@@ -239,7 +340,7 @@ def update_reclusion_entity_dropdown(dept):
 		options = options
 	else:
 		options = options[options['departamento']==dept]
-	options2 = [{'label': options[options['id_establecimiento']==i]['nombre'].values[0], 'value': i} for i in options['id_establecimiento'].values ]
+	options2 = [{'label': options[options['id_establecimiento']==i]['nombre'].values[0].capitalize(), 'value': i} for i in options['id_establecimiento'].values ]
 	return  options2
 
 
@@ -249,7 +350,7 @@ def update_reclusion_entity_dropdown(dept):
 )
 def update_crime_dropdown(n):
 	options = queries.run('crime_filter')
-	options2 = [{'label': options[options['id_delito']==i]['name_eng'].values[0], 'value': i} for i in options['id_delito'].values ]
+	options2 = [{'label': options[options['id_delito']==i]['name_eng'].values[0].capitalize(), 'value': i} for i in options['id_delito'].values ]
 	return  options2
 
 
@@ -273,62 +374,22 @@ def update_crime_dropdown(n):
 	 Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")],
 )
 def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
-	data_people_0 = queries.run('people_query')
-	if(dept is None):
-		data_people = data_people_0
-	else:
-		data_people = data_people_0[data_people_0['departamento']==dept]
-
-	if(entity is None):
-		data_people = data_people
-	else:
-		data_people = data_people[data_people['establecimiento']==entity]
-
-	if(pris_start_date is None) and (pris_end_date is None):
-		data_people = data_people
-	else:
-		if pris_end_date is None :
-			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
-			data_people = data_people[pd.to_datetime(data_people['fecha_ingreso']) > start_date]
-		if pris_start_date is None :
-			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
-			data_people = data_people[pd.to_datetime(data_people['fecha_ingreso']) < end_date]
-		else:
-			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
-			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
-			data_people = data_people[(data_people['fecha_ingreso'] < end_date)&(data_people['fecha_ingreso'] > start_date)]
-
-
-	if(crime is None):
-		data_people = data_people
-	else:
-		data_people = data_people[data_people['delito_id_delito']==crime]
-
-	if(gender is None):
-		data_people = data_people
-	else:
-		data_people = data_people[data_people['genero'].isin(gender)]
-
-	data_people = data_people[data_people['actual age'].isin(range(range_age[0],range_age[1]))]
-
-	if(excep_cond ==[]):
-		data_people = data_people
-	else:
-		data_people = data_people[data_people['condicion_excepcional'].isin(excep_cond)]
-
+	data_people = data_people_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
 	education_level_count = data_people[['education level', 'gender','people']].groupby(['education level', 'gender']).sum().reset_index()
 	education_level_count = education_level_count.sort_values('people')
 	fig = px.bar(education_level_count, x='people', y='education level', color='gender', barmode='group', orientation='h')
 	fig.update_traces(marker_line_color='rgb(8,48,107)',
     	              marker_line_width=1.5, opacity=0.6)
-	fig.update_layout(title_text='Education level')
+	fig.update_layout(title_text='Education level', legend_title_text='')
+	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0})
+	fig.update_layout(legend=dict(
+    orientation="h",
+    yanchor="bottom",
+    y=1.02,
+    xanchor="right",
+    x=1))
 	return fig
 	
-
-
-
-
-
 
 @app.callback(
 	Output('piramid', 'figure'),
@@ -336,54 +397,24 @@ def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, 
 	 Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")],
 )
 def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
-	data_people_0 = queries.run('people_query')
-	if(dept is None):
-		data_people = data_people_0
-	else:
-		data_people = data_people_0[data_people_0['departamento']==dept]
-
-	if(entity is None):
-		data_people = data_people
-	else:
-		data_people = data_people[data_people['establecimiento']==entity]
-
-	if(pris_start_date is None) and (pris_end_date is None):
-		data_people = data_people
-	else:
-		if pris_end_date is None :
-			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
-			data_people = data_people[pd.to_datetime(data_people['fecha_ingreso']) > start_date]
-		if pris_start_date is None :
-			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
-			data_people = data_people[pd.to_datetime(data_people['fecha_ingreso']) < end_date]
-		else:
-			end_date = dt.strptime(re.split('T| ', pris_end_date)[0], '%Y-%m-%d').date()
-			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
-			data_people = data_people[(data_people['fecha_ingreso'] < end_date)&(data_people['fecha_ingreso'] > start_date)]
-
-
-	if(crime is None):
-		data_people = data_people
-	else:
-		data_people = data_people[data_people['delito_id_delito']==crime]
-
-	if(gender is None):
-		data_people = data_people
-	else:
-		data_people = data_people[data_people['genero'].isin(gender)]
-
-	data_people = data_people[data_people['actual age'].isin(range(range_age[0],range_age[1]))]
-
-	if(excep_cond ==[]):
-		data_people = data_people
-	else:
-		data_people = data_people[data_people['condicion_excepcional'].isin(excep_cond)]
+	data_people = data_people_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
 
 	piramide_male = data_people[data_people['gender']=='MALE'][['range_age', 'people']].groupby(['range_age']).sum().reset_index()
 	piramide_female = data_people[data_people['gender']=='FEMALE'][['range_age', 'people']].groupby(['range_age']).sum().reset_index()
-	piramide = pd.merge(piramide_male, piramide_female, on = 'range_age')
-	piramide.columns = ['range_age', 'male','female']
+	if len(piramide_male.index) == 0:
+		piramide = piramide_female
+		piramide.columns = ['range_age','female']
+		piramide['male'] = 0
+	else:
+		if len(piramide_female.index) == 0:
+			piramide = piramide_male
+			piramide.columns = ['range_age','male']
+			piramide['female'] = 0
+		else:
+			piramide = pd.merge(piramide_male, piramide_female, on = 'range_age')
+			piramide.columns = ['range_age', 'male','female']
 
+	
 	women_bins = np.array(-1 * piramide['female'])
 	men_bins = np.array(piramide['male'])
 
@@ -392,9 +423,9 @@ def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, 
 	fig = go.Figure(
 	layout = go.Layout(yaxis=go.layout.YAxis(title='Age'),
 	                   xaxis=go.layout.XAxis(
-	                       range=[-1 * (np.array(piramide['female']).max()+5000), (np.array(piramide['male']).max()+5000)],
-	                       tickvals=[-50000, -20000, 0, 20000, 50000],
-	                       ticktext=[50000, 20000, 0, 20000, 50000],
+	                       range=[-1 * (np.array(piramide['male']).max()*(1.2)), (np.array(piramide['male']).max()*(1.2))],
+	                       #tickvals=[-50000, -20000, 0, 20000, 50000],
+	                       #ticktext=[50000, 20000, 0, 20000, 50000],
 	                       title='Number'),
 	                   barmode='overlay',
 	                   bargap=0.1),
@@ -414,6 +445,173 @@ def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, 
 	               hoverinfo='text',
 	               marker=dict(color = 'Orange')
 	               )])
+	fig.update_layout(title_text='population pyramid')
+	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0}, legend_title_text='')
+	fig.update_layout(legend=dict(
+    orientation="h",
+    yanchor="bottom",
+    y=1.02,
+    xanchor="right",
+    x=1))
+	return fig
+
+
+@app.callback(
+	Output('map', 'figure'),
+	[Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+	 Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")],
+)
+def figure_map(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	# Get data
+	inmate_df_1 = inmate_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	# Map
+	#----------------------------------------------------------------------------------------------#
+	# Get json file for Departamentos in Colombia
+	jsonCOL = 'https://gist.githubusercontent.com/john-guerra/43c7656821069d00dcbc/raw/be6a6e239cd5b5b803c6e7c2ec405b793a9064dd/Colombia.geo.json'
+
+	with urlopen(jsonCOL) as response:
+	    counties = json.load(response)
+
+	# ID as Departamento name for mapping
+	for loc in counties['features']:
+	    loc['id'] = loc['properties']['NOMBRE_DPT']
+	    
+	# Calculate # of inmates by Departamento of origin in Colombia
+	temp = inmate_df_1.groupby(['persona_id_persona','nombre']).count().id_registro.reset_index() \
+	             .rename(columns = {'id_registro':'count'}).nombre.value_counts().to_frame().reset_index() \
+	             .rename(columns = {'index':'DEPTO', 'nombre':'ncount'}) 
+
+	# Departamentos names in json file
+	jsonDPTOname = [depto['properties']['NOMBRE_DPT'] for depto in counties['features']]
+
+	# Change departamentos names
+	temp.DEPTO = temp.DEPTO.replace({'BOGOTA D.C.':'SANTAFE DE BOGOTA D.C',
+	                                 'SAN ANDRES Y PROVIDENCIA':'ARCHIPIELAGO DE SAN ANDRES PROVIDENCIA Y SANTA CATALINA'})
+
+	# Map
+	fig = go.Figure(go.Choroplethmapbox(geojson    = counties, 
+	                                    locations  = temp.DEPTO, 
+	                                    z          = temp.ncount, 
+	                                    colorscale = 'Reds', 
+	                                    marker_line_width = 0.3),
+					layout = dict(
+						            title='boh',
+						            autosize=True,
+						        ))
+
+	fig.update_layout(mapbox_style  = "carto-positron", 
+	                  mapbox_zoom   = 4.5,
+	                  mapbox_center = {"lat": 4.570868, "lon": -74.2973328}, 
+	                  margin        = {"r":0, "t":50, "l":0, "b":0})
+	return fig
+
+
+
+
+
+@app.callback(
+    [Output('number_ofenders', 'children')],
+    [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+     Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
+def update_number_ofenders(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	data_people = data_people_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	x = data_people.people.count()
+	return ["{}".format(x)]
+
+
+
+
+
+@app.callback(
+    Output('surv_study', 'figure'),
+    [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+     Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
+def update_surv_study(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	inmate_df_1 = inmate_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	#data_people_receiv = inmate_df_1[~inmate_df_1['fecha_salida_anterior'].isna()]
+	data_people_receiv = inmate_df_1[inmate_df_1['tiempo_nuevo_delito']>0]
+	data_people_receiv = data_people_receiv.reset_index()
+	
+	fig = go.Figure()
+	kmf.fit(data_people_receiv[data_people_receiv['actividades_estudio']==2]['tiempo_nuevo_delito'], 
+	        event_observed=data_people_receiv[data_people_receiv['actividades_estudio']==2]['event'],
+	        label='data')
+	df = kmf.survival_function_
+	df = df.reset_index()
+	fig.add_trace(go.Scatter(x=df["timeline"], y=df["data"],mode='lines', name="With study activities"))
+
+	kmf.fit(data_people_receiv[data_people_receiv['actividades_estudio']==1]['tiempo_nuevo_delito'], 
+	        event_observed=data_people_receiv[data_people_receiv['actividades_estudio']==1]['event'],
+	        label='data')
+	df = kmf.survival_function_
+	df = df.reset_index()
+	fig.add_trace(go.Scatter(x=df["timeline"], y=df["data"],mode='lines', name="Without study activities"))
+	fig.update_layout(title='Recividism survival curve by study activities',
+	                   xaxis_title='Time in months until recidivism',
+	                   yaxis_title='Survival for recidivism')
+	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0}, legend_title_text='')
+	fig.update_layout(legend=dict(
+    yanchor="top",
+    y=1.02,
+    xanchor="right",
+    x=1))
+	return fig
+
+
+@app.callback(
+    Output('surv_work', 'figure'),
+    [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+     Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
+def update_surv_work(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	inmate_df_1 = inmate_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	#data_people_receiv = inmate_df_1[~inmate_df_1['fecha_salida_anterior'].isna()]
+	data_people_receiv = inmate_df_1[inmate_df_1['tiempo_nuevo_delito']>0]
+	data_people_receiv = data_people_receiv.reset_index()
+	
+	fig = go.Figure()
+	kmf.fit(data_people_receiv[data_people_receiv['actividades_trabajo']==2]['tiempo_nuevo_delito'], 
+	        event_observed=data_people_receiv[data_people_receiv['actividades_trabajo']==2]['event'],
+	        label='data')
+	df = kmf.survival_function_
+	df = df.reset_index()
+	fig.add_trace(go.Scatter(x=df["timeline"], y=df["data"],mode='lines', name="With work activities"))
+
+	kmf.fit(data_people_receiv[data_people_receiv['actividades_trabajo']==1]['tiempo_nuevo_delito'], 
+	        event_observed=data_people_receiv[data_people_receiv['actividades_trabajo']==1]['event'],
+	        label='data')
+	df = kmf.survival_function_
+	df = df.reset_index()
+	fig.add_trace(go.Scatter(x=df["timeline"], y=df["data"],mode='lines', name="Without work activities"))
+	fig.update_layout(title='Recividism survival curve by work activities',
+	                   xaxis_title='Time in months until recidivism',
+	                   yaxis_title='Survival for recidivism')
+	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0}, legend_title_text='')
+	fig.update_layout(legend=dict(
+    yanchor="top",
+    y=1.02,
+    xanchor="right",
+    x=1))
+	return fig
+
+
+
+@app.callback(
+    Output('education_level_age', 'figure'),
+    [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+     Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
+def update_education_level_age(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	data_people = data_people_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	education_level_count = data_people[['actual age','education level','people']].groupby(['actual age','education level']).sum().reset_index()
+	#education_level_count = education_level_count.sort_values('people')
+	#fig.add_trace(go.Scatter(x=education_level_count["actual age"], y=education_level_count["people"],mode='lines', name="Education level by actual age"))
+	fig = px.line(education_level_count, x='actual age', y='people', color='education level', title='Education level by actual age')
+	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0})
+	fig.update_layout(title_text='Age by educational level', legend_title_text='')
+	fig.update_layout(legend=dict(
+    yanchor="top",
+    y=1.02,
+    xanchor="right",
+    x=1))
 	return fig
 
 
@@ -431,11 +629,20 @@ def update_result(x):
 
 #Initiate the server where the app will work
 if __name__ == "__main__":
-    db_engine = DbEngine(user = 'team77', 
-                        password = 'mintic2020.',
-                        ip = 'localhost', 
+    db_engine = DbEngine(user = 'postgres', 
+                        password = 'YyjnDpcVRtpHDOHHzr58',
+                        ip = 'database-1.cjppulxuzu8c.us-east-2.rds.amazonaws.com', 
                         port = '5432', 
                         db = 'minjusticia')
+#    db_engine = DbEngine(user = 'team77', 
+#                        password = 'mintic2020.',
+#                        ip = 'localhost', 
+#                        port = '5432', 
+#                        db = 'minjusticia')
     engine = db_engine.connect()
     queries = Queries(engine)
-    app.run_server(debug=True,host='0.0.0.0', port=5000)
+    data_people_0 = queries.run('people_query')
+    encoding = Encoding(queries)
+    inmate_df_0 = encoding.get_data('etl_select_8')
+    inmate_df = encoding.surv_encode (inmate_df_0)
+    app.run_server(debug=False,host='0.0.0.0', port=5000)
