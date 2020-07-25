@@ -670,7 +670,110 @@ def update_parallel_graph(dept, entity, pris_start_date, pris_end_date, crime, g
 
 
 
+@app.callback(
+    Output('context_minj_graph', 'figure'),
+    [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+     Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
+def update_context_minj_graph(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	people = data_people_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	people.fecha_ingreso = pd.to_datetime(people.fecha_ingreso)
+	people['year'] = people.fecha_ingreso.dt.year
+	people = people[['year','people']].groupby('year').count()
+	people = people.reset_index()
+	people.columns = ['year','reoffenders']
+	df_merge = pd.merge(context_minjusticia_df,people, how='left',on ='year')
+	df_merge.set_index('year',inplace=True)
+	df_merge['reoffenders'] = df_merge['reoffenders']/1000
+	df_merge = df_merge.reset_index()
+	temp = df_merge.melt(id_vars='year', value_vars= ['population', 'capacity', 'reoffenders'])
+	labels = ['population', 'capacity', 'reoffenders']
+	x_data_temp =[]
+	y_data_temp = []
+	for i,var in enumerate(labels):
+	    x_data_temp.append(temp[temp.variable==var]['year'].values)
+	    y_data_temp.append(temp[temp.variable==var]['value'].values)
 
+	title = 'Jail Population in Colombia'
+	labels = ['Population', 'Capacity', 'Reoffenders']
+	colors = ['rgb(67,67,67)', 'rgb(168, 50, 50)', 'rgb(49,130,189)']
+	percentages = ['149','100','11']
+	mode_size = [10, 10, 10]
+	line_size = [3, 3, 5]
+	x_data = x_data_temp
+	y_data = y_data_temp
+	fig = go.Figure()
+
+	for i in range(0, 3):
+	    fig.add_trace(go.Scatter(x=x_data[i], y=y_data[i], mode='lines',
+	        name=labels[i],
+	        line=dict(color=colors[i], width=line_size[i]),
+	        connectgaps=True,
+	    ))
+	    # endpoints
+	    fig.add_trace(go.Scatter(
+	        x=[x_data[i][0], x_data[i][-1]],
+	        y=[y_data[i][0], y_data[i][-1]],
+	        mode='markers',
+	        marker=dict(color=colors[i], size=mode_size[i])
+	    ))
+	fig.update_layout(
+	    xaxis=dict(
+	        showline=True,
+	        showgrid=False,
+	        showticklabels=True,
+	        linecolor='rgb(204, 204, 204)',
+	        linewidth=2,
+	        ticks='outside',
+	        tickfont=dict(
+	            family='Arial',
+	            size=11,
+	            color='rgb(82, 82, 82)',
+	        ),
+	    ),
+	    yaxis=dict(
+	        showgrid=False,
+	        zeroline=False,
+	        showline=False,
+	        showticklabels=True,
+	    ),
+	    autosize=True,
+	    margin=dict(
+	        autoexpand=True,
+	        l=100,
+	        r=20,
+	        t=110,
+	    ),
+	    showlegend=False,
+	    plot_bgcolor='white'
+	)
+	annotations = []
+	# Adding labels
+	for y_trace, label, color, percentage in zip(y_data, labels, colors, percentages):
+	    annotations.append(dict(xref='paper', x=0.75, y=y_trace[-1],
+	                                  xanchor='left', yanchor='bottom',
+	                                  text=label+': {}k, ({}%)'.format(int(y_trace[-1]),percentage),
+	                                  font=dict(family='Work Sans',
+	                                            size=14.5),
+	                                  showarrow=False))
+	# Title
+	annotations.append(dict(xref='paper', yref='paper', x=0.3, y=1,
+	                              xanchor='left', yanchor='bottom',
+	                              text=title,
+	                              font=dict(family='Work Sans',
+	                                        size=25,
+	                                        color='rgb(37,37,37)'),
+	                              showarrow=False))
+	# Source
+	annotations.append(dict(xref='paper', yref='paper', x=0.5, y=-0.1,
+	                              xanchor='center', yanchor='top',
+	                              text='Source: INPEC & datos.gov.co',
+	                              font=dict(family='Work Sans',
+	                                        size=12,
+	                                        color='rgb(150,150,150)'),
+	                              showarrow=False))
+	fig.update_layout(annotations=annotations)
+
+	return fig
 
 
 
@@ -697,4 +800,5 @@ if __name__ == "__main__":
     inmate_df_0 = encoding.get_data('etl_select_8')
     inmate_df = encoding.surv_encode (inmate_df_0)
     parallel_df = encoding.parallel_encode(inmate_df_0, stopwords_list)
+    context_minjusticia_df = queries.run('context_minjusticia')
     app.run_server(debug=True,host='0.0.0.0', port=5000)
