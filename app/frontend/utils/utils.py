@@ -51,8 +51,10 @@ class Queries():
                                      when (EXTRACT(YEAR FROM now()) - p.anio_nacimiento) <= 70 then 70
                                      when (EXTRACT(YEAR FROM now()) - p.anio_nacimiento) <= 80 then 80
                                      when (EXTRACT(YEAR FROM now()) - p.anio_nacimiento) <= 90 then 90
-                                else 100 end range_age
-
+                                else 100 end range_age,
+                                case when fecha_salida is null then now()::date else fecha_salida end as fecha_salida, 
+                            row_number() OVER (PARTITION BY id_persona ORDER BY fecha_salida desc) AS numero_evento,
+                            row_number() OVER (PARTITION BY id_persona ORDER BY fecha_salida asc) AS numero
 
                             from persona p 
                         left join (select *, case when id_nivel_educativo in (6,7,8,9,10,11,12) then 'Higher education'
@@ -62,6 +64,37 @@ class Queries():
                         left join (select distinct on (persona_id_persona) * from registro) reg on reg.persona_id_persona= p.id_persona
                         left join public.establecimiento est on est.id_establecimiento = reg.establecimiento
                         left join public.municipio munic on est.municipio= munic.id_municipio""",
+
+                        'etl_select_1':"""select * from reconocimiento_etnico""",
+                           'etl_select_2':"""select * from diversidad_sexual""",
+                           'etl_select_3':"""select * from persona where diversidad_sexual = 2""",
+                           
+                           'etl_insert_1':"""INSERT INTO public.persona_diversidad_sexual 
+                                             (id_persona, id_diversidad_sexual) VALUES({});""",
+                           
+                           'etl_select_4':"""select * from personas_tmp limit 5""",
+                           'etl_select_5':"""select public.tcompararpersonas();""",
+                           'etl_select_6':"""select public.tcompararreg();""",
+                           'etl_select_7':"""select * from departamento""",
+                           'etl_select_9':"""select public.tsdhi_registro();""",
+
+                           'etl_select_8':"""select *, 2020-anio_nacimiento as "actual age" , 
+                                                case when registro.condicion_excepcional like 'NINGUNO' then 1 else 2 
+                                                    end as condicion_excepcional,
+                                             case when fecha_salida is null then now()::date else fecha_salida end as fecha_salida2, 
+                                             row_number() OVER (PARTITION BY id_persona ORDER BY fecha_salida desc) AS numero_evento,
+                                             row_number() OVER (PARTITION BY id_persona ORDER BY fecha_salida asc) AS numero
+
+                                             from registro
+                                             left join (select id_establecimiento, municipio from establecimiento) e
+                                             on registro.establecimiento = e.id_establecimiento 
+                                             left join (select id_municipio, 
+                                                               departamento, 
+                                                               nombre as mun_name from municipio) m 
+                                             on e.municipio = m.id_municipio  
+                                             left join departamento 
+                                             on m.departamento = departamento.id_departamento
+                                             left join persona on registro.persona_id_persona = persona.id_persona """,
 
                         'crime_filter': 'select id_delito, nombre, name_eng from delito',
                         'reclusion_dept' : 'select id_departamento, nombre from public.departamento',

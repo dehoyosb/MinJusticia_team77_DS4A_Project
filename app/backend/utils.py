@@ -61,7 +61,14 @@ class Queries():
                                              left join genero g 
                                              on p.genero = g.id_genero""",
                            
-                           'etl_select_8':"""select * from registro
+                           'etl_select_8':"""select *, 2020-anio_nacimiento as "actual age" , 
+                                                case when registro.condicion_excepcional like 'NINGUNO' then 1 else 2 
+                                                    end as condicion_excepcional,
+                                             case when fecha_salida is null then now()::date else fecha_salida end as fecha_salida2, 
+                                             row_number() OVER (PARTITION BY id_persona ORDER BY fecha_salida desc) AS numero_evento,
+                                             row_number() OVER (PARTITION BY id_persona ORDER BY fecha_salida asc) AS numero
+
+                                             from registro
                                              left join (select id_establecimiento, municipio from establecimiento) e
                                              on registro.establecimiento = e.id_establecimiento 
                                              left join (select id_municipio, 
@@ -69,7 +76,8 @@ class Queries():
                                                                nombre as mun_name from municipio) m 
                                              on e.municipio = m.id_municipio  
                                              left join departamento 
-                                             on m.departamento = departamento.id_departamento """,
+                                             on m.departamento = departamento.id_departamento
+                                             left join persona on registro.persona_id_persona = persona.id_persona """,
                            
                           'recidivism'   :"""select * from registro
                                              left join (select id_delito, 
