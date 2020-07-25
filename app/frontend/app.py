@@ -20,8 +20,12 @@ import json
 from urllib.request import urlopen
 import matplotlib.pyplot as plt
 from lifelines import KaplanMeierFitter
-kmf = KaplanMeierFitter()
+
 import plotly.tools as tls 
+import nltk
+from nltk.corpus import stopwords
+
+
 
 plt.style.use('seaborn')
 
@@ -121,6 +125,37 @@ def inmate_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender,
 #			start_date = dt.strptime(re.split('T| ', pris_start_date)[0], '%Y-%m-%d').date()
 #			inmate_df_filt = inmate_df_filt[(inmate_df_filt['fecha_ingreso'] < end_date)&(inmate_df_filt['fecha_ingreso'] > start_date)]
 
+
+	if(crime is None):
+		inmate_df_filt = inmate_df_filt
+	else:
+		inmate_df_filt = inmate_df_filt[inmate_df_filt['delito_id_delito']==crime]
+
+	if(gender is None):
+		inmate_df_filt = inmate_df_filt
+	else:
+		inmate_df_filt = inmate_df_filt[inmate_df_filt['genero'].isin(gender)]
+
+	inmate_df_filt = inmate_df_filt[inmate_df_filt['actual age'].isin(range(range_age[0],range_age[1]))]
+
+	if(excep_cond ==[]):
+		inmate_df_filt = inmate_df_filt
+	else:
+		inmate_df_filt = inmate_df_filt[inmate_df_filt['condicion_excepcional']==2]
+	return inmate_df_filt
+
+
+
+def parallel_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	if(dept is None):
+		inmate_df_filt = parallel_df
+	else:
+		inmate_df_filt = inmate_df[inmate_df['departamento']==dept]
+
+	if(entity is None):
+		inmate_df_filt = inmate_df_filt
+	else:
+		inmate_df_filt = inmate_df_filt[inmate_df_filt['id_establecimiento']==entity]
 
 	if(crime is None):
 		inmate_df_filt = inmate_df_filt
@@ -616,33 +651,50 @@ def update_education_level_age(dept, entity, pris_start_date, pris_end_date, cri
 
 
 
-
 @app.callback(
-    [Output('result', 'children'),
-    Output('result2', 'children')],
-    [Input('reclusion_dep','value')])
-def update_result(x):
-    return ["The value is; {}".format(x), "The value 2 is; {}".format(x)]
+    Output('parallel_graph', 'figure'),
+    [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+     Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
+def update_parallel_graph(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	df=parallel_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	fig = px.parallel_categories(
+                             df, 
+                             dimensions=['titulo', 'subtitulo', 'delito'],
+                             labels={'titulo':'Titulo', 
+                                     'subtitulo':'Subtitulo', 
+                                     'delito':'Delito'}#,
+                             #width=1000, 
+                             #height=800
+                             )
+	return fig
+
+
+
+
 
 
 
 
 #Initiate the server where the app will work
 if __name__ == "__main__":
-    db_engine = DbEngine(user = 'postgres', 
-                        password = 'YyjnDpcVRtpHDOHHzr58',
-                        ip = 'database-1.cjppulxuzu8c.us-east-2.rds.amazonaws.com', 
-                        port = '5432', 
-                        db = 'minjusticia')
-#    db_engine = DbEngine(user = 'team77', 
-#                        password = 'mintic2020.',
-#                        ip = 'localhost', 
+#    db_engine = DbEngine(user = 'postgres', 
+#                        password = 'YyjnDpcVRtpHDOHHzr58',
+#                        ip = 'database-1.cjppulxuzu8c.us-east-2.rds.amazonaws.com', 
 #                        port = '5432', 
 #                        db = 'minjusticia')
+    db_engine = DbEngine(user = 'team77', 
+                        password = 'mintic2020.',
+                        ip = 'localhost', 
+                        port = '5432', 
+                        db = 'minjusticia')
+    nltk.download('stopwords')
+    stopwords_list = stopwords.words('english')
+    kmf = KaplanMeierFitter()
     engine = db_engine.connect()
     queries = Queries(engine)
     data_people_0 = queries.run('people_query')
     encoding = Encoding(queries)
     inmate_df_0 = encoding.get_data('etl_select_8')
     inmate_df = encoding.surv_encode (inmate_df_0)
-    app.run_server(debug=False,host='0.0.0.0', port=5000)
+    parallel_df = encoding.parallel_encode(inmate_df_0, stopwords_list)
+    app.run_server(debug=True,host='0.0.0.0', port=5000)

@@ -5,12 +5,12 @@ import dash_bootstrap_components as dbc
 tab1_content = dbc.Card(
     dbc.CardBody(
         [
-            html.P("This is tab 1!", className="card-text"),
-            dbc.Button("Click here", color="success", id="button1"),
-            html.Div(id='result'),
-            html.Div(id='result2'),
-
-
+        dbc.Col([
+        	dbc.Row([html.H3('Primera fila')]),
+        	dbc.Row([html.H3('Segunda fila')]),
+        	dbc.Row([dcc.Graph(id='parallel_graph',style={"height" : "600px", "width" : "auto"})]),
+        ])
+        
         ]
     ),
     className="mt-3",
