@@ -11,12 +11,8 @@ filter_reclusion_dep= html.Div([html.P(
         ),
         dcc.Dropdown(
         id='reclusion_dep',
-        options=[
-            {'label': 'New York City', 'value': 'NYC'},
-            {'label': 'Montreal', 'value': 'MTL'},
-            {'label': 'San Francisco', 'value': 'SF'}
-        ],
-        value='NYC'
+        options=[],
+        value=None
     ),])
 
 
@@ -28,12 +24,10 @@ filter_reclusion_entity= html.Div([html.P(
         ),
         dcc.Dropdown(
         id='reclusion_entity',
-        options=[
-            {'label': 'New York City', 'value': 'NYC'},
-            {'label': 'Montreal', 'value': 'MTL'},
-            {'label': 'San Francisco', 'value': 'SF'}
-        ],
-        value='NYC'
+        options=[],
+        value=None,
+        optionHeight=80,
+        style={"width" : "300px", "size":"small"}
     ),])
 
 
@@ -46,8 +40,8 @@ filter_prison_date_range = html.Div([
 							id='prison_date_range',
 							min_date_allowed=dt(2010, 1, 1),
 							max_date_allowed=dt(2021, 1, 1),
-							initial_visible_month=dt(2020, 7, 1)#,
-							#end_date=dt(2020, 7, 15).date()
+							initial_visible_month=dt(2020, 7, 1),
+							end_date=dt.now().date()
 		),])
 
 
@@ -63,7 +57,7 @@ filter_crime=html.Div([html.P(
 							dcc.Dropdown(
 					        id='crime',
 					        options = [],
-					        value=[]
+					        value=None
 					    ),])
 
 
@@ -136,7 +130,7 @@ filter_excep_cond = html.Div([html.P(
 		options=[
 			{'label': 'Yes', 'value': '2'},
 		],
-		#value=['1', '2'],
+		value=[],
 		labelStyle={'display': 'inline-block', 'align': 'center', 'padding-left' : '30px'}
 ), ])
 
