@@ -11,6 +11,8 @@ lifelines
 seaborn
 unidecode
 psycopg2-binary
+sqlalchemy
+nltk
 
 # Additional
 colorlover>=0.2.1
@@ -20,3 +22,4 @@ scikit-learn>=0.20.3
 scipy>=1.2.1
 plotly
 plotly.express
+

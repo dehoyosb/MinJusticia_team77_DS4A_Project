@@ -242,7 +242,7 @@ html.Div(
             dbc.Button(
                         "+ Reclusion Ubication",
                         style={"background-color": "rgb(51,102,204,1)","text-align" : "left",  "border" : "0px"},
-                        id=f"group-1-toggle",
+                        id="group-1-toggle"
             ),
             dbc.Collapse(
                 dbc.CardBody([html.Div(filter_reclusion_dep),
@@ -263,7 +263,7 @@ html.Div(
                     dbc.Button(
                         "+ Sociodemographic",
                         style={"background-color": "rgb(51,102,204,1)","text-align" : "left",  "border" : "0px"},
-                        id=f"group-2-toggle",
+                        id="group-2-toggle"
             ),
             dbc.Collapse(
                 dbc.CardBody([html.Div(filter_gender),
@@ -283,7 +283,7 @@ html.Div(
         [
                     dbc.Button(
                         "+ Prison feature",
-                        id=f"group-3-toggle",
+                        id="group-3-toggle",
                         style={"background-color": "rgb(51,102,204,1)","text-align" : "left", "border" : "0px"}
 
             ),
@@ -666,6 +666,7 @@ def update_parallel_graph(dept, entity, pris_start_date, pris_end_date, crime, g
                              #width=1000, 
                              #height=800
                              )
+	fig.update_layout(margin= {"r":20, "t":50, "l":20, "b":0}, legend_title_text='')
 	return fig
 
 
@@ -772,6 +773,7 @@ def update_context_minj_graph(dept, entity, pris_start_date, pris_end_date, crim
 	                                        color='rgb(150,150,150)'),
 	                              showarrow=False))
 	fig.update_layout(annotations=annotations)
+	fig.update_layout(margin= {"r":20, "t":50, "l":0, "b":0}, legend_title_text='')
 
 	return fig
 
@@ -780,16 +782,16 @@ def update_context_minj_graph(dept, entity, pris_start_date, pris_end_date, crim
 
 #Initiate the server where the app will work
 if __name__ == "__main__":
-#    db_engine = DbEngine(user = 'postgres', 
-#                        password = 'YyjnDpcVRtpHDOHHzr58',
-#                        ip = 'database-1.cjppulxuzu8c.us-east-2.rds.amazonaws.com', 
-#                        port = '5432', 
-#                        db = 'minjusticia')
-    db_engine = DbEngine(user = 'team77', 
-                        password = 'mintic2020.',
-                        ip = 'localhost', 
+    db_engine = DbEngine(user = 'postgres', 
+                        password = 'YyjnDpcVRtpHDOHHzr58',
+                        ip = 'database-1.cjppulxuzu8c.us-east-2.rds.amazonaws.com', 
                         port = '5432', 
                         db = 'minjusticia')
+#    db_engine = DbEngine(user = 'team77', 
+#                        password = 'mintic2020.',
+#                        ip = 'localhost', 
+#                        port = '5432', 
+#                        db = 'minjusticia')
     nltk.download('stopwords')
     stopwords_list = stopwords.words('english')
     kmf = KaplanMeierFitter()
@@ -802,3 +804,5 @@ if __name__ == "__main__":
     parallel_df = encoding.parallel_encode(inmate_df_0, stopwords_list)
     context_minjusticia_df = queries.run('context_minjusticia')
     app.run_server(debug=True,host='0.0.0.0', port=5000)
+
+    # mintic2020_ds4a.
