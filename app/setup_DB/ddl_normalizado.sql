@@ -551,3 +551,56 @@ $function$
 ---- add context data
 
 CREATE TABLE context_minjusticia (year int, capacity int, population int);
+
+
+
+
+
+--- views to simplify the scripts 
+
+create view etl_select_8 as
+select registro.persona_id_persona, m.departamento ,registro.delito_id_delito, registro.estado_ingreso,
+                            registro.id_registro, registro.fecha_captura, registro.fecha_ingreso, registro.establecimiento, 
+                            registro.fecha_salida, registro.edad, registro.municipio_id_municipio, registro.estado_id_estado, 
+                            registro.situacion_juridica, registro.severity, registro.shdi, 
+                            
+                            persona.id_persona, persona.genero, persona.internoen, persona.nivel_educativo,
+                           departamento.nombre, delito.name_eng as delito, sd.name_eng as subtitulo, 
+                           td.name_eng as titulo , 2020-anio_nacimiento as "actual age" , 
+                                                case when registro.condicion_excepcional like 'NINGUNO' then 1 else 2 
+                                                    end as condicion_excepcional,
+                                             case when fecha_salida is null then now()::date else fecha_salida end as fecha_salida2, 
+                                             row_number() OVER (PARTITION BY id_persona ORDER BY fecha_salida desc) AS numero_evento,
+                                             row_number() OVER (PARTITION BY id_persona ORDER BY fecha_salida asc) AS numero,
+
+                                            actividades_estudio.nombre  as actividades_estudio, 
+                                            actividades_trabajo.nombre as actividades_trabajo, 
+                                            actividades_enseñanza.nombre  as actividades_enseñanza, 
+                                            hijos_menores.nombre  as hijos_menores, 
+                                            madre_gestante.nombre as madre_gestante, 
+                                            madre_lactante.nombre  as madre_lactante, 
+                                            discapacidad.nombre  as discapacidad, 
+                                            adulto_mayor.nombre  as adulto_mayor,
+                                            sd.name_eng as subtitulo_delito
+
+                                             from registro
+                                             left join (select id_establecimiento, municipio from establecimiento) e
+                                             on registro.establecimiento = e.id_establecimiento 
+                                             left join (select id_municipio, 
+                                                               departamento, 
+                                                               nombre as mun_name from municipio) m 
+                                             on e.municipio = m.id_municipio  
+                                             left join departamento 
+                                             on m.departamento = departamento.id_departamento
+                                             left join persona on registro.persona_id_persona = persona.id_persona 
+                                             left join delito on registro.delito_id_delito = delito.id_delito
+                                             left join public.subtitulo_delito sd on delito.id_subtitulo_delito= sd.id_subtitulo_delito
+                                             left join public.titulo_delito td on sd.id_titulo_delito = td.id_titulo_delito
+                                             left join public.si_no actividades_estudio on actividades_estudio.id_si_no =registro.actividades_estudio 
+                                            left join public.si_no actividades_trabajo on actividades_trabajo.id_si_no =registro.actividades_trabajo 
+                                            left join public.si_no actividades_enseñanza on actividades_enseñanza.id_si_no =registro.actividades_enseñanza 
+                                            left join public.si_no hijos_menores on hijos_menores.id_si_no =registro.hijos_menores 
+                                            left join public.si_no madre_gestante on madre_gestante.id_si_no =registro.madre_gestante 
+                                            left join public.si_no madre_lactante on madre_lactante.id_si_no =registro.madre_lactante 
+                                            left join public.si_no discapacidad on discapacidad.id_si_no =registro.discapacidad 
+                                            left join public.si_no adulto_mayor on adulto_mayor.id_si_no =registro.adulto_mayor

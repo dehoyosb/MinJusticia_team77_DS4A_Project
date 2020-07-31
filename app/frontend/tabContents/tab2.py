@@ -21,6 +21,11 @@ tab2_content = dbc.Card(
                     dcc.Graph(id='education_level',style={"height" : "300px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0}),
             		]),
                 dbc.Col([
+                    dbc.Card([
+                     html.H2("Number of Inmates", className="card-title", style = {'color': 'rgb(255,255,255,1)', 'font-weight': 'bold'}),
+                     html.H3(html.Div(id='number_inmates')),
+                    ], className="w-75 mb-3",style = {'background-color': 'rgb(51,102,204,1)', 'font-weight': 'bold', 'color':'#fff'}),
+                    html.Hr(),
                     dcc.Graph(id='education_level_age',style={"height" : "300px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0}),
                     ]),
 
