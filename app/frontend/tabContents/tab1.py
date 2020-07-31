@@ -6,9 +6,11 @@ tab1_content = dbc.Card(
     dbc.CardBody(
         [
         dbc.Col([
-        	dbc.Row([html.H3('Primera fila')]),
-        	dbc.Row([dcc.Graph(id='context_minj_graph',style={"height" : "400px", "width" : "auto"})]),
-        	dcc.Graph(id='parallel_graph',style={"height" : "500px", "width" : "80%"})
+        	dbc.Row([
+        		dbc.Col([dcc.Graph(id='context_minj_graph',style={"height" : "400px", "width" : "auto"}),]),
+        		dbc.Col([dcc.Graph(id='top_crimes',style={"height" : "400px", "width" : "auto"}),]),
+        		]),
+        	dcc.Graph(id='parallel_graph',style={"height" : "500px", "width" : "auto"})
         ])
         
         ]

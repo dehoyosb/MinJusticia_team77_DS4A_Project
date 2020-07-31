@@ -42,6 +42,20 @@ class Encoding():
         df['tiempo_nuevo_delito'] = (df['fecha_ingreso']-df['fecha_salida_anterior'])/ np.timedelta64(1, 'M')
         df['event'] = 1
         df['event'] = df.apply(lambda x: 0 if (x.numero_evento==1)&(x.estado_id_estado==2) else 1, axis=1)
+        one_hot = pd.concat([df[['id_persona','fecha_ingreso']],
+                     pd.get_dummies(df.actividades_estudio, prefix='estudio'),
+                     pd.get_dummies(df.actividades_trabajo, prefix='trabajo'),
+                     pd.get_dummies(df.actividades_enseñanza, prefix='enseñanza'),
+                     pd.get_dummies(df.madre_gestante, prefix='madre_gestante'),
+                     pd.get_dummies(df.madre_lactante, prefix='madre_lactante'),
+                     pd.get_dummies(df.discapacidad, prefix='discapacidad'),
+                     pd.get_dummies(df.adulto_mayor, prefix='adulto_mayor'),
+                     df.groupby(['id_persona','fecha_ingreso'])['severity'].max().reset_index(drop=True).to_frame() \
+                    .rename(columns = {'severity':'max_severity'}),
+                     df.groupby(['id_persona','fecha_ingreso'])['severity'].mean().reset_index(drop=True).to_frame() \
+                    .rename(columns = {'severity':'mean_severity'})],
+                     axis = 1)
+        df = df.merge(one_hot, on = ['id_persona','fecha_ingreso'])
         return df
 
     def parallel_encode(self, df, stopwords_list):

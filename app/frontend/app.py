@@ -24,8 +24,11 @@ from lifelines import KaplanMeierFitter
 import plotly.tools as tls 
 import nltk
 from nltk.corpus import stopwords
-
-
+import random
+import plotly.figure_factory as ff
+from lifelines import CoxPHFitter
+import dash_table
+from dash_table import DataTable
 
 plt.style.use('seaborn')
 
@@ -146,6 +149,39 @@ def inmate_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender,
 
 
 
+# def inmate_df0_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+# 	if(dept is None):
+# 		inmate_df_filt = inmate_df0
+# 	else:
+# 		inmate_df_filt = inmate_df0[inmate_df0['departamento']==dept]
+
+# 	if(entity is None):
+# 		inmate_df_filt = inmate_df_filt
+# 	else:
+# 		inmate_df_filt = inmate_df_filt[inmate_df_filt['id_establecimiento']==entity]
+
+# 	if(crime is None):
+# 		inmate_df_filt = inmate_df_filt
+# 	else:
+# 		inmate_df_filt = inmate_df_filt[inmate_df_filt['delito_id_delito']==crime]
+
+# 	if(gender is None):
+# 		inmate_df_filt = inmate_df_filt
+# 	else:
+# 		inmate_df_filt = inmate_df_filt[inmate_df_filt['genero'].isin(gender)]
+
+# 	inmate_df_filt = inmate_df_filt[inmate_df_filt['actual age'].isin(range(range_age[0],range_age[1]))]
+
+# 	if(excep_cond ==[]):
+# 		inmate_df_filt = inmate_df_filt
+# 	else:
+# 		inmate_df_filt = inmate_df_filt[inmate_df_filt['condicion_excepcional']==2]
+# 	return inmate_df_filt
+
+
+
+
+
 def parallel_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
 	if(dept is None):
 		inmate_df_filt = parallel_df
@@ -215,7 +251,7 @@ app.layout = html.Div([
 #                    color= '#fff',
 #                    toggle_style={"color": "white"}
  #       ),
- 		dbc.Col([html.A("Development Team", href="http://localhost:5001", style={'color':'#fff'})]),
+ 		dbc.Col([html.A("Development Team", href="http://23.98.146.239:5001", style={'color':'#fff'})]),
 
         dbc.Col([html.A("ESP", href="http://www.minjusticia.gov.co", style={'color':'#fff'})]),
         ]),],
@@ -318,7 +354,7 @@ dbc.Col([
         dbc.Tab(tab1_content, label="Overview", label_style={"width": "300px","font-size":"large"}),
         dbc.Tab(tab2_content, label="Socio Demographic", label_style={"width": "300px"}),
         dbc.Tab(tab3_content, label="Reoffenders Classification", label_style={"width": "300px"}),
-        dbc.Tab(tab4_content, label="Trends", label_style={"width": "300px"}),
+        dbc.Tab(tab4_content, label="Recividism Risk", label_style={"width": "300px"}),
         #dbc.Tab(tab5_content, label="Predictive"),
     ],
     #style={"background-color": "rgb(255,171,0,0.5)"}
@@ -417,6 +453,30 @@ def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, 
     	              marker_line_width=1.5, opacity=0.6)
 	fig.update_layout(title_text='Education level', legend_title_text='')
 	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0})
+	fig.update_layout(legend=dict(
+    orientation="h",
+    yanchor="bottom",
+    y=1.02,
+    xanchor="right",
+    x=1))
+	return fig
+
+@app.callback(
+	Output('top_crimes', 'figure'),
+	[Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+	 Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")],
+)
+def figure_top_crimes(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	#df = inmate_df0_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	df = inmate_df_0
+	table = df[['subtitulo_delito', 'persona_id_persona']].groupby('subtitulo_delito').count().reset_index()
+	table = table.sort_values('persona_id_persona', ascending=False)
+	table = table.head(10)
+	table.columns = ['crime category','number of cases']
+	fig = px.bar(table, y='crime category', x='number of cases', orientation='h')
+	fig.update_traces(marker_line_color='rgb(8,48,107)',
+	                 marker_line_width=1.5, opacity=0.6)
+	fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
 	fig.update_layout(legend=dict(
     orientation="h",
     yanchor="bottom",
@@ -554,7 +614,15 @@ def update_number_ofenders(dept, entity, pris_start_date, pris_end_date, crime, 
 	return ["{}".format(x)]
 
 
-
+@app.callback(
+    [Output('number_inmates', 'children')],
+    [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+     Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
+def update_number_inmates(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	#data_people = inmate_df0_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	data_people=inmate_df_0
+	x = data_people.genero.count()
+	return ["{}".format(x)]
 
 
 @app.callback(
@@ -568,15 +636,15 @@ def update_surv_study(dept, entity, pris_start_date, pris_end_date, crime, gende
 	data_people_receiv = data_people_receiv.reset_index()
 	
 	fig = go.Figure()
-	kmf.fit(data_people_receiv[data_people_receiv['actividades_estudio']==2]['tiempo_nuevo_delito'], 
-	        event_observed=data_people_receiv[data_people_receiv['actividades_estudio']==2]['event'],
+	kmf.fit(data_people_receiv[data_people_receiv['actividades_estudio']=='SI']['tiempo_nuevo_delito'], 
+	        event_observed=data_people_receiv[data_people_receiv['actividades_estudio']=='SI']['event'],
 	        label='data')
 	df = kmf.survival_function_
 	df = df.reset_index()
 	fig.add_trace(go.Scatter(x=df["timeline"], y=df["data"],mode='lines', name="With study activities"))
 
-	kmf.fit(data_people_receiv[data_people_receiv['actividades_estudio']==1]['tiempo_nuevo_delito'], 
-	        event_observed=data_people_receiv[data_people_receiv['actividades_estudio']==1]['event'],
+	kmf.fit(data_people_receiv[data_people_receiv['actividades_estudio']=='NO']['tiempo_nuevo_delito'], 
+	        event_observed=data_people_receiv[data_people_receiv['actividades_estudio']=='NO']['event'],
 	        label='data')
 	df = kmf.survival_function_
 	df = df.reset_index()
@@ -604,15 +672,15 @@ def update_surv_work(dept, entity, pris_start_date, pris_end_date, crime, gender
 	data_people_receiv = data_people_receiv.reset_index()
 	
 	fig = go.Figure()
-	kmf.fit(data_people_receiv[data_people_receiv['actividades_trabajo']==2]['tiempo_nuevo_delito'], 
-	        event_observed=data_people_receiv[data_people_receiv['actividades_trabajo']==2]['event'],
+	kmf.fit(data_people_receiv[data_people_receiv['actividades_trabajo']=='SI']['tiempo_nuevo_delito'], 
+	        event_observed=data_people_receiv[data_people_receiv['actividades_trabajo']=='SI']['event'],
 	        label='data')
 	df = kmf.survival_function_
 	df = df.reset_index()
 	fig.add_trace(go.Scatter(x=df["timeline"], y=df["data"],mode='lines', name="With work activities"))
 
-	kmf.fit(data_people_receiv[data_people_receiv['actividades_trabajo']==1]['tiempo_nuevo_delito'], 
-	        event_observed=data_people_receiv[data_people_receiv['actividades_trabajo']==1]['event'],
+	kmf.fit(data_people_receiv[data_people_receiv['actividades_trabajo']=='NO']['tiempo_nuevo_delito'], 
+	        event_observed=data_people_receiv[data_people_receiv['actividades_trabajo']=='NO']['event'],
 	        label='data')
 	df = kmf.survival_function_
 	df = df.reset_index()
@@ -620,6 +688,63 @@ def update_surv_work(dept, entity, pris_start_date, pris_end_date, crime, gender
 	fig.update_layout(title='Recividism survival curve by work activities',
 	                   xaxis_title='Time in months until recidivism',
 	                   yaxis_title='Survival for recidivism')
+	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0}, legend_title_text='')
+	fig.update_layout(legend=dict(
+    yanchor="top",
+    y=1.02,
+    xanchor="right",
+    x=1))
+	return fig
+
+
+@app.callback(
+    Output('hazard_severity', 'figure'),
+    [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+     Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
+def update_hazard_severity(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	inmate_df_1 = inmate_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	#data_people_receiv = inmate_df_1[~inmate_df_1['fecha_salida_anterior'].isna()]
+	data_people_receiv = inmate_df_1[inmate_df_1['tiempo_nuevo_delito']>0]
+	data_people_receiv = data_people_receiv.reset_index()
+	columns = ['tiempo_nuevo_delito','event', 'estudio_SI','trabajo_SI','enseñanza_SI', 
+           'max_severity','shdi']
+
+	cph = CoxPHFitter()
+	cph.fit(data_people_receiv[~(data_people_receiv.shdi.isnull() | data_people_receiv.max_severity.isnull())][columns], duration_col='tiempo_nuevo_delito', event_col='event')
+	df_pred = data_people_receiv
+	df_pred['part_hazard'] = cph.predict_partial_hazard(data_people_receiv[columns])
+	fig = px.scatter(df_pred.sort_values(['max_severity','part_hazard']), 
+                 x='max_severity', y='part_hazard', trendline="lowess",
+                 title='Hazard by Severity')
+	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0}, legend_title_text='')
+	fig.update_layout(legend=dict(
+    yanchor="top",
+    y=1.02,
+    xanchor="right",
+    x=1))
+	return fig
+
+
+
+@app.callback(
+    Output('hazard_shdi', 'figure'),
+    [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+     Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
+def update_hazard_shdi(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	inmate_df_1 = inmate_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	#data_people_receiv = inmate_df_1[~inmate_df_1['fecha_salida_anterior'].isna()]
+	data_people_receiv = inmate_df_1[inmate_df_1['tiempo_nuevo_delito']>0]
+	data_people_receiv = data_people_receiv.reset_index()
+	columns = ['tiempo_nuevo_delito','event', 'estudio_SI','trabajo_SI','enseñanza_SI', 
+           'max_severity','shdi']
+
+	cph = CoxPHFitter()
+	cph.fit(data_people_receiv[~(data_people_receiv.shdi.isnull() | data_people_receiv.max_severity.isnull())][columns], duration_col='tiempo_nuevo_delito', event_col='event')
+	df_pred = data_people_receiv
+	df_pred['part_hazard'] = cph.predict_partial_hazard(data_people_receiv[columns])
+	fig = px.scatter(df_pred.sort_values(['shdi','part_hazard']), 
+                 x='shdi', y='part_hazard', trendline="lowess",
+                 title='Hazard by Human Development Index')
 	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0}, legend_title_text='')
 	fig.update_layout(legend=dict(
     yanchor="top",
@@ -778,6 +903,104 @@ def update_context_minj_graph(dept, entity, pris_start_date, pris_end_date, crim
 	return fig
 
 
+@app.callback(
+   Output('recividism_risk', 'figure'),
+   [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+    Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
+def update_recividism_risk(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	df = reoffender_models_df
+	idxs = random.sample(range(df.shape[0]), round(0.1*df.shape[0]))
+	temp = df.iloc[idxs]
+
+	#Group data together
+	hist_data    = [temp.yhat18, temp.yhat24]
+	group_labels = ['18 months', '24 months']
+
+	#Create distplot with custom bin_size
+	fig = ff.create_distplot(hist_data, group_labels, bin_size = 0.02, colors = ['#3366CC','#FFAB00'])
+	fig.update_layout(title_text = 'Recidivism risk in within 2 years')
+	return fig
+
+
+@app.callback(
+	Output('map_risk', 'figure'),
+	[Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+	 Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")],
+)
+def figure_map_risk(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	df = reoffender_models_df
+
+		# Get json file for Departamentos in Colombia
+	jsonCOL = 'https://gist.githubusercontent.com/john-guerra/43c7656821069d00dcbc/raw/be6a6e239cd5b5b803c6e7c2ec405b793a9064dd/Colombia.geo.json'
+
+	with urlopen(jsonCOL) as response:
+	    counties = json.load(response)
+
+	# ID as Departamento name for mapping
+	for loc in counties['features']:
+	    loc['id'] = loc['properties']['NOMBRE_DPT']
+	    
+	# Calculate # of inmates by Departamento of origin in Colombia
+	temp = df.groupby(['INTERNOEN','nombre']) \
+	         .mean()[['yhat24','timejail_day','SEVERITY','ESCH']] \
+	         .reset_index().rename(columns = {'yhat24':'prob'}) \
+	         .groupby('nombre').mean().reset_index() 
+
+	# Departamentos names in json file
+	jsonDPTOname = [depto['properties']['NOMBRE_DPT'] for depto in counties['features']]
+
+	# Change departamentos names
+	temp.nombre = temp.nombre.replace({'BOGOTA D.C.':'SANTAFE DE BOGOTA D.C',
+	                                 'SAN ANDRES Y PROVIDENCIA':'ARCHIPIELAGO DE SAN ANDRES PROVIDENCIA Y SANTA CATALINA'})
+
+	# Replace 0 in Departamentos without values 
+	temp = temp.append({'nombre':'GUAINIA' ,'prob':0}, ignore_index = True)
+	temp = temp.append({'nombre':'GUAVIARE','prob':0}, ignore_index = True)
+	temp = temp.append({'nombre':'VAUPES'  ,'prob':0}, ignore_index = True)
+	temp = temp.append({'nombre':'VICHADA' ,'prob':0}, ignore_index = True)
+
+	# Create text by Departamento
+	temp['text'] = temp.nombre.apply(lambda x: 'Departamento: {} <br>'.format(x.title())) + \
+	               temp.prob.map('Risk score: {:,.2f} <br>'.format) + \
+	               temp.timejail_day.apply(lambda x: 'Time in jail (years): {:,.1f} <br>'.format(x/365)) + \
+	               temp.SEVERITY.apply(lambda x: 'Severity score: {:,.1f} <br>'.format(x)) + \
+	               temp.ESCH.apply(lambda x: 'Expected years of schooling: {:,.1f} <br>'.format(x))
+	        
+	# Map
+	fig = go.Figure(go.Choroplethmapbox(geojson    = counties, 
+	                                    locations  = temp.nombre, 
+	                                    z          = temp.prob, 
+	                                    colorscale = 'blues', 
+	                                    text = temp.text,
+	                                    hovertemplate = '<b>%{text}</b>',
+	                                    marker_line_width = 0.3),
+								layout = dict(
+						            title='Risk Map',
+						            autosize=True,
+						        ))
+	fig.update_layout(mapbox_style  = "carto-positron", 
+	                  mapbox_zoom   = 4.5,
+	                  mapbox_center = {"lat": 4.570868, "lon": -74.2973328}, 
+	                  margin        = {"r":0, "t":50, "l":0, "b":0})
+	return fig
+
+
+@app.callback(
+	[Output("risk_table", "data"), Output('risk_table', 'columns')],
+	[Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+	 Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")],
+)
+def figure_risk_table(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	df = reoffender_models_df
+	df['age'] = 2020 - df.ANIO_NACIMIENTO
+	table = df.drop(columns = ['yhat18','ANIO_NACIMIENTO']).groupby('LABEL').mean().reset_index()
+	columns = [ 'Group', 'yhat24', 'Time in Jail', 'Severity',
+       'Gender', 'Recidivism days', 'DELITO_COMP_HOMICIDE',
+       'ESCH', 'DELITO_COMP_AGRA_CALF_THEFT', 'Marital status single',
+       'minor children', 'income date', 'age']
+	return table.to_dict('LABEL'), [{'name': col, 'id': col} for col in table.columns]
+
+
 
 
 #Initiate the server where the app will work
@@ -785,13 +1008,11 @@ if __name__ == "__main__":
     db_engine = DbEngine(user = 'postgres', 
                         password = 'YyjnDpcVRtpHDOHHzr58',
                         ip = 'database-1.cjppulxuzu8c.us-east-2.rds.amazonaws.com', 
-                        port = '5432', 
-                        db = 'minjusticia')
 #    db_engine = DbEngine(user = 'team77', 
 #                        password = 'mintic2020.',
 #                        ip = 'localhost', 
-#                        port = '5432', 
-#                        db = 'minjusticia')
+                        port = '5432', 
+                        db = 'minjusticia')
     nltk.download('stopwords')
     stopwords_list = stopwords.words('english')
     kmf = KaplanMeierFitter()
@@ -803,6 +1024,7 @@ if __name__ == "__main__":
     inmate_df = encoding.surv_encode (inmate_df_0)
     parallel_df = encoding.parallel_encode(inmate_df_0, stopwords_list)
     context_minjusticia_df = queries.run('context_minjusticia')
-    app.run_server(debug=True,host='0.0.0.0', port=5000)
+    reoffender_models_df = queries.run('reoffender_models')
+    app.run_server(debug=False,host='0.0.0.0', port=5000)
 
     # mintic2020_ds4a.

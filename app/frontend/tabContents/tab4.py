@@ -2,6 +2,7 @@ import dash_html_components as html
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 
+
 tab4_content = dbc.Card(
     dbc.CardBody(
         [
@@ -11,6 +12,11 @@ tab4_content = dbc.Card(
         			html.Hr(),
         			dcc.Graph(id='surv_work',style={"height" : "400px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0}),
         			]),
+                dbc.Col([
+                    dcc.Graph(id='hazard_severity',style={"height" : "400px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0}),
+                    html.Hr(),
+                    dcc.Graph(id='hazard_shdi',style={"height" : "400px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0}),
+                    ]),
         		]),
         ]
     ),
