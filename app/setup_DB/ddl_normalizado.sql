@@ -545,3 +545,9 @@ END;
 $function$
 ;
 
+
+
+
+---- add context data
+
+CREATE TABLE context_minjusticia (year int, capacity int, population int);

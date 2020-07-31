@@ -1,5 +1,6 @@
 import numpy as np
-from sklearn.metrics import accuracy_score, precision_score, recall_score, precision_recall_curve, confusion_matrix, f1_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, cohen_kappa_score
+from sklearn.metrics import precision_recall_curve, confusion_matrix, 
 
 # Evaluation 
 # t: threshold 
@@ -28,4 +29,9 @@ def recall_t(y, y_hat, t):
 def f1_t(y, y_hat, t):
     y_pred = binprob(y_hat, t)
     score  = f1_score(y, y_pred)
+    return score
+
+def baseline_t(y, y_hat, t):
+    y_pred = binprob(y_hat, t)
+    score  = cohen_kappa_score(y, y_pred)
     return score

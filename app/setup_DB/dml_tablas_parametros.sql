@@ -757,3 +757,32 @@ INSERT INTO public.reconocimiento_etnico (id_reconocimiento_etnico, nombre, name
 
 
 
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (1991,28319,29355);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (1992,28294,27016);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (1993,28084,28260);
+INSERT INTO public.context_minjusticia( year, population) VALUES (1994,29338);
+INSERT INTO public.context_minjusticia( year, population) VALUES (1995,31960);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (1996,28332,38063);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (1997,29239,41405);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (1998,33009,43259);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (1999,33090,46322);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2000,35969,49816);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2001,40037,52181);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2002,44373,51276);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2003,46399,58894);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2004,48916,66474);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2005,49763,69365);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2006,52115,62906);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2007,52504,61543);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2008,53784,67812);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2009,55019,74277);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2010,61100,81095);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2011,73451,94267);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2012,75679,109822);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2013,75797,117987);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2014,76677,117731);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2015,78420,120444);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2016,79211,118532);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2017,80227,114750);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2018,80260,118513);
+INSERT INTO public.context_minjusticia( year, capacity, population) VALUES (2019,80156,118769);

@@ -78,7 +78,7 @@ class Queries():
                            'etl_select_7':"""select * from departamento""",
                            'etl_select_9':"""select public.tsdhi_registro();""",
 
-                           'etl_select_8':"""select *, 2020-anio_nacimiento as "actual age" , 
+                           'etl_select_8':"""select registro.*, persona.*,departamento.*, delito.name_eng as delito, sd.name_eng as subtitulo, td.name_eng as titulo , 2020-anio_nacimiento as "actual age" , 
                                                 case when registro.condicion_excepcional like 'NINGUNO' then 1 else 2 
                                                     end as condicion_excepcional,
                                              case when fecha_salida is null then now()::date else fecha_salida end as fecha_salida2, 
@@ -94,11 +94,19 @@ class Queries():
                                              on e.municipio = m.id_municipio  
                                              left join departamento 
                                              on m.departamento = departamento.id_departamento
-                                             left join persona on registro.persona_id_persona = persona.id_persona """,
+                                             left join persona on registro.persona_id_persona = persona.id_persona 
+                                             left join delito on registro.delito_id_delito = delito.id_delito
+                                             left join public.subtitulo_delito sd on delito.id_subtitulo_delito= sd.id_subtitulo_delito
+                                             left join public.titulo_delito td on sd.id_titulo_delito = td.id_titulo_delito""",
 
                         'crime_filter': 'select id_delito, nombre, name_eng from delito',
                         'reclusion_dept' : 'select id_departamento, nombre from public.departamento',
-                        'reclusion_entity' : 'select id_establecimiento,est.nombre, departamento from public.establecimiento est left join public.municipio munic on est.municipio = munic.id_municipio'}
+                        'reclusion_entity' : 'select id_establecimiento,est.nombre, departamento from public.establecimiento est left join public.municipio munic on est.municipio = munic.id_municipio',
+                        'context_minjusticia':'SELECT year, capacity, population FROM public.context_minjusticia' 
+
+
+
+                        }
     
     def run(self, sql):
         result = self.engine.connect().execution_options(isolation_level="AUTOCOMMIT").execute((text(self.query_dict[sql])))
