@@ -147,7 +147,33 @@ def inmate_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender,
 		inmate_df_filt = inmate_df_filt[inmate_df_filt['condicion_excepcional']==2]
 	return inmate_df_filt
 
+def inmate_df_funct_surv(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+	if(dept is None):
+		inmate_df_filt = inmate_df_surv
+	else:
+		inmate_df_filt = inmate_df[inmate_df['departamento']==dept]
 
+	if(entity is None):
+		inmate_df_filt = inmate_df_filt
+	else:
+		inmate_df_filt = inmate_df_filt[inmate_df_filt['id_establecimiento']==entity]
+	if(crime is None):
+		inmate_df_filt = inmate_df_filt
+	else:
+		inmate_df_filt = inmate_df_filt[inmate_df_filt['delito_id_delito']==crime]
+
+	if(gender is None):
+		inmate_df_filt = inmate_df_filt
+	else:
+		inmate_df_filt = inmate_df_filt[inmate_df_filt['genero'].isin(gender)]
+
+	inmate_df_filt = inmate_df_filt[inmate_df_filt['actual age'].isin(range(range_age[0],range_age[1]))]
+
+	if(excep_cond ==[]):
+		inmate_df_filt = inmate_df_filt
+	else:
+		inmate_df_filt = inmate_df_filt[inmate_df_filt['condicion_excepcional']==2]
+	return inmate_df_filt
 
 # def inmate_df0_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
 # 	if(dept is None):
@@ -212,13 +238,26 @@ def parallel_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gende
 	return inmate_df_filt
 
 
-
 #Create Layout
 app.layout = html.Div([
+	dbc.Modal(
+            [
+                dbc.ModalHeader("Recividism in Colombia"),
+                dbc.ModalBody([html.Img(src=app.get_asset_url("qrcode.jpg"), height="300px", style = {'display': 'block','margin-left': 'auto','margin-right': 'auto'}), 
+                	html.P("""In recent years, the rate of criminal recidivism in Colombia has increased dramatically.
+                 This is an important issue for government agencies, which raises questions such as: what is the best strategy to reduce these cases? what are the inmates’ 
+                 characteristics? and how can we contribute to a better policy-making through data-driven analysis?""")]),
+                dbc.ModalFooter(
+                    dbc.Button("Close", id="close", className="ml-auto", active = True)
+                ),
+            ],
+            id="modal", size="xl", is_open=True
+        ),
         html.Link(
             rel='stylesheet',
             href='/assets/css/styles.css'
         ),
+
     # create the navbar, the first bar
     dbc.Navbar(
     [
@@ -254,6 +293,7 @@ app.layout = html.Div([
  		dbc.Col([html.A("Development Team", href="http://23.98.146.239:5001", style={'color':'#fff'})]),
 
         dbc.Col([html.A("ESP", href="http://www.minjusticia.gov.co", style={'color':'#fff'})]),
+        dbc.Button("About", id="open",style={"background-color": "rgb(51,102,204,1)","text-align" : "left",  "border" : "0px"}),
         ]),],
         width={"size": 3, "order": "last", "offset": 5},)
     ],
@@ -318,8 +358,10 @@ html.Div(
       dbc.Card(
         [
                     dbc.Button(
-                        "+ Prison feature",
+                        #"+ Prison feature",
+                        "",
                         id="group-3-toggle",
+                        disabled = True,
                         style={"background-color": "rgb(51,102,204,1)","text-align" : "left", "border" : "0px"}
 
             ),
@@ -352,9 +394,9 @@ dbc.Col([
     dbc.Tabs(
     [
         dbc.Tab(tab1_content, label="Overview", label_style={"width": "300px","font-size":"large"}),
-        dbc.Tab(tab2_content, label="Socio Demographic", label_style={"width": "300px"}),
+        dbc.Tab(tab2_content, label="Sociodemographic", label_style={"width": "300px"}),
         dbc.Tab(tab3_content, label="Reoffenders Classification", label_style={"width": "300px"}),
-        dbc.Tab(tab4_content, label="Recividism Risk", label_style={"width": "300px"}),
+        dbc.Tab(tab4_content, label="Expected Recidivism", label_style={"width": "300px"}),
         #dbc.Tab(tab5_content, label="Predictive"),
     ],
     #style={"background-color": "rgb(255,171,0,0.5)"}
@@ -437,6 +479,8 @@ def update_crime_dropdown(n):
 #	return  options2
 
 
+#'#3772FF''#FFAB00'
+
 ######   figures callback 
 
 @app.callback(
@@ -448,11 +492,44 @@ def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, 
 	data_people = data_people_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
 	education_level_count = data_people[['education level', 'gender','people']].groupby(['education level', 'gender']).sum().reset_index()
 	education_level_count = education_level_count.sort_values('people')
-	fig = px.bar(education_level_count, x='people', y='education level', color='gender', barmode='group', orientation='h')
-	fig.update_traces(marker_line_color='rgb(8,48,107)',
-    	              marker_line_width=1.5, opacity=0.6)
-	fig.update_layout(title_text='Education level', legend_title_text='')
-	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0})
+
+	education_level_count_male = data_people[data_people['gender']=='MALE'][['education level', 'people']].groupby(['education level']).sum().reset_index()
+	education_level_count_female = data_people[data_people['gender']=='FEMALE'][['education level', 'people']].groupby(['education level']).sum().reset_index()
+	if len(education_level_count_male.index) == 0:
+		education_level_count = education_level_count_female
+		education_level_count.columns = ['education level','female']
+		education_level_count['male'] = 0
+	else:
+		if len(education_level_count_female.index) == 0:
+			education_level_count = education_level_count_male
+			education_level_count.columns = ['education level','male']
+			education_level_count['female'] = 0
+		else:
+			education_level_count = pd.merge(education_level_count_male, education_level_count_female, on = 'education level')
+			education_level_count.columns = ['education level', 'male','female']
+	
+	fig = go.Figure()
+	fig.add_trace(go.Bar(
+	    y=education_level_count['education level'],
+	    x=education_level_count.male,
+	    orientation='h',
+	    name='MALE',
+	    marker_color='#3772FF'
+	))
+	fig.add_trace(go.Bar(
+	    y=education_level_count['education level'],
+	    x=education_level_count.female,
+	    orientation='h',
+	    name='FEMALE',
+	    marker_color='#FFAB00'
+	))
+
+	fig.update_layout(title={
+        'text': "Education level",
+        'font':{'family':'Work Sans',
+        		'size':25,
+        		'color':'rgb(37,37,37)'}}, legend_title_text='')
+	fig.update_layout(margin= {"r":10, "t":50, "l":50, "b":0})
 	fig.update_layout(legend=dict(
     orientation="h",
     yanchor="bottom",
@@ -469,20 +546,58 @@ def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, 
 def figure_top_crimes(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
 	#df = inmate_df0_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
 	df = inmate_df_0
-	table = df[['subtitulo_delito', 'persona_id_persona']].groupby('subtitulo_delito').count().reset_index()
-	table = table.sort_values('persona_id_persona', ascending=False)
-	table = table.head(10)
-	table.columns = ['crime category','number of cases']
-	fig = px.bar(table, y='crime category', x='number of cases', orientation='h')
-	fig.update_traces(marker_line_color='rgb(8,48,107)',
-	                 marker_line_width=1.5, opacity=0.6)
-	fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
-	fig.update_layout(legend=dict(
-    orientation="h",
-    yanchor="bottom",
-    y=1.02,
-    xanchor="right",
-    x=1))
+	count_crime = df[['delito', 'persona_id_persona']].groupby('delito').count().reset_index()
+	count_crime = count_crime.sort_values('persona_id_persona', ascending=False)
+	count_crime.columns = ['persona_id_persona', 'freq']
+	## Columns Auxiliary
+	count_crime['Percentage'] = count_crime.freq.apply(lambda x : np.round((x*100/count_crime.freq.sum()),2))
+	count_crime['CrimeName'] = count_crime.persona_id_persona.apply(lambda x: x[:int(len(x)/2 + 2)] + '<br>' + x[int(len(x)/2 + 2):] if len(x) > 20 else x)
+
+	## Top 10 Crimes types
+	top_crime = count_crime.head(10).sort_values(by = 'freq', ascending = True)
+
+	import plotly.graph_objects as go
+	x = top_crime.freq
+	y = top_crime.CrimeName
+	z = top_crime.Percentage
+
+	fig = go.Figure(
+	    layout = go.Layout(xaxis=go.layout.XAxis(
+	                       range=[0, x.max() * 1.1],
+	                      ), 
+	                       yaxis=dict(
+	                       showgrid=False,
+	                       showline=False,
+	                       showticklabels=False,
+	                       zeroline=False,
+	                       autorange = True,
+	                      ),
+	                       title='<b>Top Crimes types</b> (%.2f %%)' % (top_crime.freq.sum()*100/count_crime.freq.sum()),
+	                       margin=dict(l=300, r=10, t=80, b=80),
+	                       showlegend = False,),                      
+	    
+	    data =  go.Bar(
+	            x = x,
+	            y = y,
+	            orientation='h',
+	            text = z ))
+
+	fig.update_traces(texttemplate = '%{text:.2f}' + '%', textposition='outside',textfont_size=12)
+	fig.update_layout(uniformtext_minsize=6, uniformtext_mode='hide')
+
+	annotations = []
+
+	for yd, xd in zip(y, x):
+	   # labeling the y-axis
+	 annotations.append(dict(xref='paper', yref='y',
+	                          x=0, y=yd,
+	                          xanchor='right',
+	                          text=str(yd),
+	                          font=dict(family='Arial', size=10,
+	                                 color='rgb(67, 67, 67)'),
+	                           showarrow=False, align='right',))
+	fig.update_layout(annotations=annotations)
+	fig.update_layout(margin= {"r":40, "t":50, "l":300, "b":0}, legend_title_text='')
 	return fig
 	
 
@@ -518,7 +633,7 @@ def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, 
 	fig = go.Figure(
 	layout = go.Layout(yaxis=go.layout.YAxis(title='Age'),
 	                   xaxis=go.layout.XAxis(
-	                       range=[-1 * (np.array(piramide['male']).max()*(1.2)), (np.array(piramide['male']).max()*(1.2))],
+	                       range=[-1 * (np.array(piramide['female']).max()*(2)), (np.array(piramide['male']).max()*(1.4))],
 	                       #tickvals=[-50000, -20000, 0, 20000, 50000],
 	                       #ticktext=[50000, 20000, 0, 20000, 50000],
 	                       title='Number'),
@@ -530,7 +645,7 @@ def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, 
 	               orientation='h',
 	               name='MALE',
 	               hoverinfo='x',
-	               marker=dict(color = 'Royal Blue')
+	               marker=dict(color = '#3772FF')
 	               ),
 	        go.Bar(y=y,
 	               x=women_bins,
@@ -538,10 +653,16 @@ def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, 
 	               name='FEMALE',
 	               text=-1 * women_bins.astype('int'),
 	               hoverinfo='text',
-	               marker=dict(color = 'Orange')
+	               marker=dict(color = '#FFAB00')
 	               )])
-	fig.update_layout(title_text='population pyramid')
-	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0}, legend_title_text='')
+
+	#fig.update_layout(title_text='Population Pyramid')
+	fig.update_layout(title={
+        'text': "Population Pyramid",
+        'font':{'family':'Work Sans',
+        		'size':25,
+        		'color':'rgb(37,37,37)'}})
+	fig.update_layout(margin= {"r":5, "t":50, "l":10, "b":0}, legend_title_text='')
 	fig.update_layout(legend=dict(
     orientation="h",
     yanchor="bottom",
@@ -590,9 +711,14 @@ def figure_map(dept, entity, pris_start_date, pris_end_date, crime, gender, rang
 	                                    colorscale = 'Reds', 
 	                                    marker_line_width = 0.3),
 					layout = dict(
-						            title='boh',
+						            #title='Inmates by region',
 						            autosize=True,
 						        ))
+	fig.update_layout(title={
+        'text': "Inmates by region",
+        'font':{'family':'Work Sans',
+        		'size':25,
+        		'color':'rgb(37,37,37)'}})
 
 	fig.update_layout(mapbox_style  = "carto-positron", 
 	                  mapbox_zoom   = 4.5,
@@ -630,7 +756,7 @@ def update_number_inmates(dept, entity, pris_start_date, pris_end_date, crime, g
     [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
      Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
 def update_surv_study(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
-	inmate_df_1 = inmate_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	inmate_df_1 = inmate_df_funct_surv(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
 	#data_people_receiv = inmate_df_1[~inmate_df_1['fecha_salida_anterior'].isna()]
 	data_people_receiv = inmate_df_1[inmate_df_1['tiempo_nuevo_delito']>0]
 	data_people_receiv = data_people_receiv.reset_index()
@@ -649,10 +775,15 @@ def update_surv_study(dept, entity, pris_start_date, pris_end_date, crime, gende
 	df = kmf.survival_function_
 	df = df.reset_index()
 	fig.add_trace(go.Scatter(x=df["timeline"], y=df["data"],mode='lines', name="Without study activities"))
-	fig.update_layout(title='Recividism survival curve by study activities',
+	fig.update_layout(#title='Recividism survival curve by study activities',
 	                   xaxis_title='Time in months until recidivism',
 	                   yaxis_title='Survival for recidivism')
 	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0}, legend_title_text='')
+	fig.update_layout(title={
+        'text': "Recividism survival curve by study activities",
+        'font':{'family':'Work Sans',
+        		'size':25,
+        		'color':'rgb(37,37,37)'}})
 	fig.update_layout(legend=dict(
     yanchor="top",
     y=1.02,
@@ -666,7 +797,7 @@ def update_surv_study(dept, entity, pris_start_date, pris_end_date, crime, gende
     [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
      Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
 def update_surv_work(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
-	inmate_df_1 = inmate_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	inmate_df_1 = inmate_df_funct_surv(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
 	#data_people_receiv = inmate_df_1[~inmate_df_1['fecha_salida_anterior'].isna()]
 	data_people_receiv = inmate_df_1[inmate_df_1['tiempo_nuevo_delito']>0]
 	data_people_receiv = data_people_receiv.reset_index()
@@ -689,6 +820,11 @@ def update_surv_work(dept, entity, pris_start_date, pris_end_date, crime, gender
 	                   xaxis_title='Time in months until recidivism',
 	                   yaxis_title='Survival for recidivism')
 	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0}, legend_title_text='')
+	fig.update_layout(title={
+        'text': "Recividism survival curve by work activities",
+        'font':{'family':'Work Sans',
+        		'size':25,
+        		'color':'rgb(37,37,37)'}})
 	fig.update_layout(legend=dict(
     yanchor="top",
     y=1.02,
@@ -702,7 +838,7 @@ def update_surv_work(dept, entity, pris_start_date, pris_end_date, crime, gender
     [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
      Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
 def update_hazard_severity(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
-	inmate_df_1 = inmate_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	inmate_df_1 = inmate_df_funct_surv(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
 	#data_people_receiv = inmate_df_1[~inmate_df_1['fecha_salida_anterior'].isna()]
 	data_people_receiv = inmate_df_1[inmate_df_1['tiempo_nuevo_delito']>0]
 	data_people_receiv = data_people_receiv.reset_index()
@@ -713,15 +849,47 @@ def update_hazard_severity(dept, entity, pris_start_date, pris_end_date, crime, 
 	cph.fit(data_people_receiv[~(data_people_receiv.shdi.isnull() | data_people_receiv.max_severity.isnull())][columns], duration_col='tiempo_nuevo_delito', event_col='event')
 	df_pred = data_people_receiv
 	df_pred['part_hazard'] = cph.predict_partial_hazard(data_people_receiv[columns])
-	fig = px.scatter(df_pred.sort_values(['max_severity','part_hazard']), 
-                 x='max_severity', y='part_hazard', trendline="lowess",
-                 title='Hazard by Severity')
-	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0}, legend_title_text='')
-	fig.update_layout(legend=dict(
-    yanchor="top",
-    y=1.02,
-    xanchor="right",
-    x=1))
+	table1 = df_pred[['max_severity','part_hazard']].sort_values(['max_severity','part_hazard']).groupby('max_severity').mean().reset_index()
+	table2 = df_pred[['max_severity','part_hazard']].sort_values(['max_severity','part_hazard']).groupby('max_severity').quantile(0.25).reset_index()
+	table3 = df_pred[['max_severity','part_hazard']].sort_values(['max_severity','part_hazard']).groupby('max_severity').quantile(0.75).reset_index()
+
+	table = pd.merge(table1, table2, on='max_severity')
+	table = pd.merge(table, table3, on='max_severity')
+	table.columns = ['max_severity','avg','li','ls']
+
+	fig = go.Figure()
+	fig.add_trace(go.Scatter(
+	                            x=table.max_severity, 
+	                             y=table.ls,
+	                           #fill='tonexty', # fill area between trace0 and trace1
+	                            mode='lines', 
+	                            line_color='#ECC467',
+	                            name = '3st Quantile'
+	                        ))
+	fig.add_trace(go.Scatter(
+	                            x=table.max_severity, 
+	                             y=table.avg,
+	                            fill='tozeroy', # fill area between trace0 and trace1
+	                            mode='lines', 
+	                            line_color='#069169',
+	                            name = 'Average'
+	                        ))
+	fig.add_trace(go.Scatter(
+	                             x=table.max_severity, 
+	                             y=table.li,
+	                            # fill='tonexty',
+	                             mode='lines',
+	                             line_color='#81ABFF',
+	                             name = '1th Quantile'
+	                            ))
+	fig.update_layout(    xaxis_title = 'Max crime severity ',
+	                      yaxis_title = 'Partial Hazard')
+	fig.update_layout(title={
+	        'text': "Partial Hazard by Crime Severity",
+	        'font':{'family':'Work Sans',
+	        		'size':25,
+	        		'color':'rgb(37,37,37)'}})
+	fig.update_layout(margin= {"r":20, "t":50, "l":0, "b":20}, legend_title_text='')
 	return fig
 
 
@@ -731,7 +899,7 @@ def update_hazard_severity(dept, entity, pris_start_date, pris_end_date, crime, 
     [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
      Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
 def update_hazard_shdi(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
-	inmate_df_1 = inmate_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	inmate_df_1 = inmate_df_funct_surv(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
 	#data_people_receiv = inmate_df_1[~inmate_df_1['fecha_salida_anterior'].isna()]
 	data_people_receiv = inmate_df_1[inmate_df_1['tiempo_nuevo_delito']>0]
 	data_people_receiv = data_people_receiv.reset_index()
@@ -742,37 +910,76 @@ def update_hazard_shdi(dept, entity, pris_start_date, pris_end_date, crime, gend
 	cph.fit(data_people_receiv[~(data_people_receiv.shdi.isnull() | data_people_receiv.max_severity.isnull())][columns], duration_col='tiempo_nuevo_delito', event_col='event')
 	df_pred = data_people_receiv
 	df_pred['part_hazard'] = cph.predict_partial_hazard(data_people_receiv[columns])
-	fig = px.scatter(df_pred.sort_values(['shdi','part_hazard']), 
-                 x='shdi', y='part_hazard', trendline="lowess",
-                 title='Hazard by Human Development Index')
-	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0}, legend_title_text='')
-	fig.update_layout(legend=dict(
-    yanchor="top",
-    y=1.02,
-    xanchor="right",
-    x=1))
+	table1 = df_pred[['shdi','part_hazard']].sort_values(['shdi','part_hazard']).groupby('shdi').mean().reset_index()
+	table2 = df_pred[['shdi','part_hazard']].sort_values(['shdi','part_hazard']).groupby('shdi').quantile(0.25).reset_index()
+	table3 = df_pred[['shdi','part_hazard']].sort_values(['shdi','part_hazard']).groupby('shdi').quantile(0.75).reset_index()
+
+	table = pd.merge(table1, table2, on='shdi')
+	table = pd.merge(table, table3, on='shdi')
+	table.columns = ['shdi','avg','li','ls']
+	table
+
+	fig = go.Figure()
+	fig.add_trace(go.Scatter(
+	                            x=table.shdi, 
+	                             y=table.ls,
+	                          # fill='tonexty', # fill area between trace0 and trace1
+	                            mode='lines', 
+	                            line_color='#ECC467',
+	                            name = '3st Quantile'
+	                        ))
+	fig.add_trace(go.Scatter(
+	                            x=table.shdi, 
+	                             y=table.avg,
+	                            fill='tonexty', # fill area between trace0 and trace1
+	                            mode='lines', 
+	                            line_color='#ECC467',
+	                            name = 'Average'
+	                        ))
+	fig.add_trace(go.Scatter(
+	                             x=table.shdi, 
+	                             y=table.li,
+	                             #fill='tonexty',
+	                             mode='lines',
+	                             line_color='#81ABFF',
+	                             name = '1st Quantile'
+	                            ))
+	fig.update_layout(    xaxis_title = 'SHDI ',
+	                      yaxis_title = 'Partial Hazard')
+	fig.update_layout(title={
+	        'text': "Partial Hazard by SHDI",
+	        'font':{'family':'Work Sans',
+	        		'size':25,
+	        		'color':'rgb(37,37,37)'}})
+	fig.update_layout(margin= {"r":20, "t":50, "l":0, "b":20}, legend_title_text='')
+	    
 	return fig
 
 
 
-@app.callback(
-    Output('education_level_age', 'figure'),
-    [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
-     Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
-def update_education_level_age(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
-	data_people = data_people_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
-	education_level_count = data_people[['actual age','education level','people']].groupby(['actual age','education level']).sum().reset_index()
-	#education_level_count = education_level_count.sort_values('people')
-	#fig.add_trace(go.Scatter(x=education_level_count["actual age"], y=education_level_count["people"],mode='lines', name="Education level by actual age"))
-	fig = px.line(education_level_count, x='actual age', y='people', color='education level', title='Education level by actual age')
-	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0})
-	fig.update_layout(title_text='Age by educational level', legend_title_text='')
-	fig.update_layout(legend=dict(
-    yanchor="top",
-    y=1.02,
-    xanchor="right",
-    x=1))
-	return fig
+# @app.callback(
+#     Output('education_level_age', 'figure'),
+#     [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+#      Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
+# def update_education_level_age(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+# 	data_people = data_people_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+# 	education_level_count = data_people[['actual age','education level','people']].groupby(['actual age','education level']).sum().reset_index()
+# 	#education_level_count = education_level_count.sort_values('people')
+# 	#fig.add_trace(go.Scatter(x=education_level_count["actual age"], y=education_level_count["people"],mode='lines', name="Education level by actual age"))
+# 	fig = px.line(education_level_count, x='actual age', y='people', color='education level', title='Education level by actual age')
+# 	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0})
+# 	fig.update_layout(title={
+#         'text': "Age by educational level",
+#         'font':{'family':'Work Sans',
+#         		'size':25,
+#         		'color':'rgb(37,37,37)'}})
+# 	#fig.update_layout(title_text='Age by educational level', legend_title_text='')
+# 	fig.update_layout(legend=dict(
+#     yanchor="top",
+#     y=1.02,
+#     xanchor="right",
+#     x=1))
+# 	return fig
 
 
 
@@ -782,16 +989,25 @@ def update_education_level_age(dept, entity, pris_start_date, pris_end_date, cri
      Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
 def update_parallel_graph(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
 	df=parallel_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	df['titulo'] = df['titulo'].apply(lambda x: x[:int(len(x)/2 + 2)] + '<br>' + x[int(len(x)/2 + 2):] if len(x) > 30 else x)
+	df['subtitulo'] = df['subtitulo'].apply(lambda x: x[:int(len(x)/2 + 2)] + '<br>' + x[int(len(x)/2 + 2):] if len(x) > 30 else x)
+	df['delito'] = df['delito'].apply(lambda x: x[:int(len(x)/2 + 2)] + '<br>' + x[int(len(x)/2 + 2):] if len(x) > 30 else x)
+
 	fig = px.parallel_categories(
                              df, 
                              dimensions=['titulo', 'subtitulo', 'delito'],
-                             labels={'titulo':'Titulo', 
-                                     'subtitulo':'Subtitulo', 
-                                     'delito':'Delito'}#,
+                             labels={'titulo':'Title', 
+                                     'subtitulo':'Subtitle', 
+                                     'delito':'Crime'}#,
                              #width=1000, 
                              #height=800
                              )
-	fig.update_layout(margin= {"r":20, "t":50, "l":20, "b":0}, legend_title_text='')
+	fig.update_layout(title={
+        'text': "Top 10 Crime hierarchy",
+        'font':{'family':'Work Sans',
+        		'size':25,
+        		'color':'rgb(37,37,37)'}})
+	fig.update_layout(margin= {"r":200, "t":50, "l":200, "b":0}, legend_title_text='')
 	return fig
 
 
@@ -801,10 +1017,10 @@ def update_parallel_graph(dept, entity, pris_start_date, pris_end_date, crime, g
     [Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
      Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
 def update_context_minj_graph(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
-	people = data_people_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
+	people = inmate_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
 	people.fecha_ingreso = pd.to_datetime(people.fecha_ingreso)
 	people['year'] = people.fecha_ingreso.dt.year
-	people = people[['year','people']].groupby('year').count()
+	people = people[['year','persona_id_persona']].groupby('year').count()
 	people = people.reset_index()
 	people.columns = ['year','reoffenders']
 	df_merge = pd.merge(context_minjusticia_df,people, how='left',on ='year')
@@ -898,8 +1114,7 @@ def update_context_minj_graph(dept, entity, pris_start_date, pris_end_date, crim
 	                                        color='rgb(150,150,150)'),
 	                              showarrow=False))
 	fig.update_layout(annotations=annotations)
-	fig.update_layout(margin= {"r":20, "t":50, "l":0, "b":0}, legend_title_text='')
-
+	fig.update_layout(margin= {"r":80, "t":50, "l":0, "b":0}, legend_title_text='')
 	return fig
 
 
@@ -909,7 +1124,7 @@ def update_context_minj_graph(dept, entity, pris_start_date, pris_end_date, crim
     Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")])
 def update_recividism_risk(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
 	df = reoffender_models_df
-	idxs = random.sample(range(df.shape[0]), round(0.1*df.shape[0]))
+	idxs = random.sample(range(df.shape[0]), round(0.05*df.shape[0]))
 	temp = df.iloc[idxs]
 
 	#Group data together
@@ -917,8 +1132,28 @@ def update_recividism_risk(dept, entity, pris_start_date, pris_end_date, crime, 
 	group_labels = ['18 months', '24 months']
 
 	#Create distplot with custom bin_size
-	fig = ff.create_distplot(hist_data, group_labels, bin_size = 0.02, colors = ['#3366CC','#FFAB00'])
-	fig.update_layout(title_text = 'Recidivism risk in within 2 years')
+	#fig = ff.create_distplot(hist_data, group_labels, bin_size = 0.02, colors = ['#3366CC','#FFAB00'])
+	fig = go.Figure()
+	fig.add_trace(go.Histogram(x = temp.yhat18, name = '12 months', nbinsx = 50, marker = {'color': '#3366CC'}))
+	fig.add_trace(go.Histogram(x = temp.yhat24, name = '24 months', nbinsx = 50, marker = {'color': '#FFAB00'}))
+
+	fig.update_layout(barmode = 'stack')
+	fig.update_traces(opacity = 0.80)
+
+
+
+	#fig.update_layout(title_text = 'Recidivism risk in within 2 years')
+	fig.update_layout(title={
+        'text': "Recidivism risk in within 2 years",
+        'font':{'family':'Work Sans',
+        		'size':25,
+        		'color':'rgb(37,37,37)'}})
+	fig.update_layout(margin= {"r":20, "t":50, "l":0, "b":0}, legend_title_text='')
+	fig.update_layout(legend=dict(
+    yanchor="top",
+    y=1.02,
+    xanchor="right",
+    x=1))
 	return fig
 
 
@@ -975,9 +1210,14 @@ def figure_map_risk(dept, entity, pris_start_date, pris_end_date, crime, gender,
 	                                    hovertemplate = '<b>%{text}</b>',
 	                                    marker_line_width = 0.3),
 								layout = dict(
-						            title='Risk Map',
+						            #title='Risk Map',
 						            autosize=True,
 						        ))
+	fig.update_layout(title={
+        'text': "Risk Map by region",
+        'font':{'family':'Work Sans',
+        		'size':25,
+        		'color':'rgb(37,37,37)'}})
 	fig.update_layout(mapbox_style  = "carto-positron", 
 	                  mapbox_zoom   = 4.5,
 	                  mapbox_center = {"lat": 4.570868, "lon": -74.2973328}, 
@@ -985,20 +1225,23 @@ def figure_map_risk(dept, entity, pris_start_date, pris_end_date, crime, gender,
 	return fig
 
 
-@app.callback(
-	[Output("risk_table", "data"), Output('risk_table', 'columns')],
-	[Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
-	 Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")],
-)
-def figure_risk_table(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
-	df = reoffender_models_df
-	df['age'] = 2020 - df.ANIO_NACIMIENTO
-	table = df.drop(columns = ['yhat18','ANIO_NACIMIENTO']).groupby('LABEL').mean().reset_index()
-	columns = [ 'Group', 'yhat24', 'Time in Jail', 'Severity',
-       'Gender', 'Recidivism days', 'DELITO_COMP_HOMICIDE',
-       'ESCH', 'DELITO_COMP_AGRA_CALF_THEFT', 'Marital status single',
-       'minor children', 'income date', 'age']
-	return table.to_dict('LABEL'), [{'name': col, 'id': col} for col in table.columns]
+# @app.callback(
+# 	Output("risk_table", "figure"),
+# 	[Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+# 	 Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")],
+# )
+# def figure_risk_table(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+# 	df = reoffender_models_df
+# 	df['age'] = 2020 - df.ANIO_NACIMIENTO
+# 	table = df.drop(columns = ['yhat18','ANIO_NACIMIENTO']).groupby('LABEL').mean()
+# 	table = table.drop(columns = ['index'])
+# 	fig = go.Figure(data=go.Heatmap(
+#                    z=table.values,
+#                    x=table.columns,
+#                    y=table.index,
+#                    hoverongaps = False))
+# 	fig.update_layout(margin= {"r":20, "t":50, "l":0, "b":0}, legend_title_text='')
+# 	return fig
 
 
 
@@ -1010,6 +1253,7 @@ def figure_risk_table(dept, entity, pris_start_date, pris_end_date, crime, gende
 )
 def figure_radar_plot(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
     df = radar_plot_data_df
+    log = False
     categories = df['feature_name'].tolist()
     fig = go.Figure()
     for label in df.label.unique():
@@ -1030,11 +1274,25 @@ def figure_radar_plot(dept, entity, pris_start_date, pris_end_date, crime, gende
         )),
       showlegend=False
     )
+    fig.update_layout(title={
+        'text': "Feature importance by cluster",
+        'font':{'family':'Work Sans',
+        		'size':25,
+        		'color':'rgb(37,37,37)'}})
+    fig.update_layout(margin= {"r":20, "t":50, "l":0, "b":20}, legend_title_text='')
     return fig
 
 
 
-
+@app.callback(
+    Output("modal", "is_open"),
+    [Input("open", "n_clicks"), Input("close", "n_clicks")],
+    [State("modal", "is_open")],
+)
+def toggle_modal(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+    return is_open
 
 
 #Initiate the server where the app will work
@@ -1053,9 +1311,11 @@ if __name__ == "__main__":
     engine = db_engine.connect()
     queries = Queries(engine)
     data_people_0 = queries.run('people_query')
+    data_surv_0 = queries.run('surv_view')
     encoding = Encoding(queries)
     inmate_df_0 = encoding.get_data('etl_select_8')
     inmate_df = encoding.surv_encode (inmate_df_0)
+    inmate_df_surv = encoding.surv_encode (data_surv_0)
     parallel_df = encoding.parallel_encode(inmate_df_0, stopwords_list)
     context_minjusticia_df = queries.run('context_minjusticia')
     reoffender_models_df = queries.run('reoffender_models')

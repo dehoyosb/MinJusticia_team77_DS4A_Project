@@ -609,3 +609,72 @@ select registro.persona_id_persona, m.departamento ,registro.delito_id_delito, r
                                             ;
 
 create table radar_plot_data (id int, feature_name varchar(200), feature_importance int , "label" int);
+
+
+CREATE OR REPLACE VIEW public.surv_view AS
+select * , row_number() OVER (PARTITION BY id_persona ORDER BY fecha_salida2 DESC) AS numero_evento,
+    row_number() OVER (PARTITION BY id_persona ORDER BY fecha_salida2) AS numero from (
+ SELECT  distinct on (persona_id_persona, fecha_salida2) registro.persona_id_persona,
+    m.departamento,
+    registro.delito_id_delito,
+    registro.estado_ingreso,
+    registro.id_registro,
+    registro.fecha_captura,
+    registro.fecha_ingreso,
+    registro.establecimiento,
+    registro.fecha_salida,
+    registro.edad,
+    registro.municipio_id_municipio,
+    registro.estado_id_estado,
+    registro.situacion_juridica,
+    registro.severity,
+    registro.shdi,
+    persona.id_persona,
+    persona.genero,
+    persona.internoen,
+    persona.nivel_educativo,
+    departamento.nombre,
+    delito.name_eng AS delito,
+    sd.name_eng AS subtitulo,
+    td.name_eng AS titulo,
+    2020 - persona.anio_nacimiento AS "actual age",
+        CASE
+            WHEN registro.condicion_excepcional ~~ 'NINGUNO'::text THEN 1
+            ELSE 2
+        END AS condicion_excepcional,
+        CASE
+            WHEN registro.fecha_salida IS NULL THEN now()::date
+            ELSE registro.fecha_salida
+        END AS fecha_salida2,
+    actividades_estudio.nombre AS actividades_estudio,
+    actividades_trabajo.nombre AS actividades_trabajo,
+    "actividades_enseñanza".nombre AS "actividades_enseñanza",
+    hijos_menores.nombre AS hijos_menores,
+    madre_gestante.nombre AS madre_gestante,
+    madre_lactante.nombre AS madre_lactante,
+    discapacidad.nombre AS discapacidad,
+    adulto_mayor.nombre AS adulto_mayor,
+    sd.name_eng AS subtitulo_delito
+   FROM registro
+     LEFT JOIN ( SELECT establecimiento.id_establecimiento,
+            establecimiento.municipio
+           FROM establecimiento) e ON registro.establecimiento = e.id_establecimiento
+     LEFT JOIN ( SELECT municipio.id_municipio,
+            municipio.departamento,
+            municipio.nombre AS mun_name
+           FROM municipio) m ON e.municipio = m.id_municipio
+     LEFT JOIN departamento ON m.departamento = departamento.id_departamento
+     LEFT JOIN persona ON registro.persona_id_persona = persona.id_persona
+     LEFT JOIN delito ON registro.delito_id_delito = delito.id_delito
+     LEFT JOIN subtitulo_delito sd ON delito.id_subtitulo_delito = sd.id_subtitulo_delito
+     LEFT JOIN titulo_delito td ON sd.id_titulo_delito = td.id_titulo_delito
+     LEFT JOIN si_no actividades_estudio ON actividades_estudio.id_si_no = registro.actividades_estudio
+     LEFT JOIN si_no actividades_trabajo ON actividades_trabajo.id_si_no = registro.actividades_trabajo
+     LEFT JOIN si_no "actividades_enseñanza" ON "actividades_enseñanza".id_si_no = registro."actividades_enseñanza"
+     LEFT JOIN si_no hijos_menores ON hijos_menores.id_si_no = registro.hijos_menores
+     LEFT JOIN si_no madre_gestante ON madre_gestante.id_si_no = registro.madre_gestante
+     LEFT JOIN si_no madre_lactante ON madre_lactante.id_si_no = registro.madre_lactante
+     LEFT JOIN si_no discapacidad ON discapacidad.id_si_no = registro.discapacidad
+     LEFT JOIN si_no adulto_mayor ON adulto_mayor.id_si_no = registro.adulto_mayor) tb1;
+
+

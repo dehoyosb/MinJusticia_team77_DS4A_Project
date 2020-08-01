@@ -55,7 +55,7 @@ class Encoding():
                      df.groupby(['id_persona','fecha_ingreso'])['severity'].mean().reset_index(drop=True).to_frame() \
                     .rename(columns = {'severity':'mean_severity'})],
                      axis = 1)
-        df = df.merge(one_hot, on = ['id_persona','fecha_ingreso'])
+        df = df.merge(one_hot, on = ['id_persona','fecha_ingreso'], how = 'left')
         return df
 
     def parallel_encode(self, df, stopwords_list):
