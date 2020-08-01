@@ -10,6 +10,8 @@ tab3_content = dbc.Card(
         		dbc.Col([dcc.Graph(id='map_risk',style={"height" : "600px", "width" : "auto"}),]),
         		dbc.Col([
         			dcc.Graph(id='recividism_risk',style={"height" : "500px", "width" : "auto"}),
+        			dcc.Graph(id='radar_plot',style={"height" : "500px", "width" : "auto"}),
+        			
         			DataTable(id='risk_table'),
 
         			]),

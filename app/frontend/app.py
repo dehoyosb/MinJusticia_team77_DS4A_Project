@@ -1003,14 +1003,48 @@ def figure_risk_table(dept, entity, pris_start_date, pris_end_date, crime, gende
 
 
 
+@app.callback(
+	Output("radar_plot", "figure"),
+	[Input("reclusion_dep", "value"),Input("reclusion_entity", "value"),Input("prison_date_range", "start_date"),Input("prison_date_range", "end_date"),
+	 Input("crime", "value"),Input("gender", "value"),Input("range_age", "value"),Input("excep_cond", "value")],
+)
+def figure_radar_plot(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
+    df = radar_plot_data_df
+    categories = df['feature_name'].tolist()
+    fig = go.Figure()
+    for label in df.label.unique():
+        data = np.log(df[df['label'] == label]['feature_importance'] + 0.00001) if log \
+               else df[df['label'] == label]['feature_importance']
+        fig.add_trace(go.Scatterpolar(
+              r = data,
+              theta=categories,
+              fill='toself',
+              name='Cluster {}'.format(label)
+        ))
+
+    fig.update_layout(
+      polar=dict(
+        radialaxis=dict(
+          visible=True,
+          #range=[data_plot['feature_importance'].min(), data_plot['feature_importance'].max()]
+        )),
+      showlegend=False
+    )
+    return fig
+
+
+
+
+
+
 #Initiate the server where the app will work
 if __name__ == "__main__":
-    db_engine = DbEngine(user = 'postgres', 
-                        password = 'YyjnDpcVRtpHDOHHzr58',
-                        ip = 'database-1.cjppulxuzu8c.us-east-2.rds.amazonaws.com', 
-#    db_engine = DbEngine(user = 'team77', 
-#                        password = 'mintic2020.',
-#                        ip = 'localhost', 
+#    db_engine = DbEngine(user = 'postgres', 
+#                        password = 'YyjnDpcVRtpHDOHHzr58',
+#                        ip = 'database-1.cjppulxuzu8c.us-east-2.rds.amazonaws.com', 
+    db_engine = DbEngine(user = 'team77', 
+                        password = 'mintic2020.',
+                        ip = 'localhost', 
                         port = '5432', 
                         db = 'minjusticia')
     nltk.download('stopwords')
@@ -1025,6 +1059,8 @@ if __name__ == "__main__":
     parallel_df = encoding.parallel_encode(inmate_df_0, stopwords_list)
     context_minjusticia_df = queries.run('context_minjusticia')
     reoffender_models_df = queries.run('reoffender_models')
-    app.run_server(debug=False,host='0.0.0.0', port=5000)
+    radar_plot_data_df = queries.run('radar_plot_data')
+    
+    app.run_server(debug=True,host='0.0.0.0', port=5000)
 
     # mintic2020_ds4a.

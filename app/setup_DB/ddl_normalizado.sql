@@ -604,3 +604,8 @@ select registro.persona_id_persona, m.departamento ,registro.delito_id_delito, r
                                             left join public.si_no madre_lactante on madre_lactante.id_si_no =registro.madre_lactante 
                                             left join public.si_no discapacidad on discapacidad.id_si_no =registro.discapacidad 
                                             left join public.si_no adulto_mayor on adulto_mayor.id_si_no =registro.adulto_mayor
+
+
+                                            ;
+
+create table radar_plot_data (id int, feature_name varchar(200), feature_importance int , "label" int);

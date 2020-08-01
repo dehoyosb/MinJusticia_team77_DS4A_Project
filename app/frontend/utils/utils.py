@@ -84,7 +84,8 @@ class Queries():
                         'reclusion_dept' : 'select id_departamento, nombre from public.departamento',
                         'reclusion_entity' : 'select id_establecimiento,est.nombre, departamento from public.establecimiento est left join public.municipio munic on est.municipio = munic.id_municipio',
                         'context_minjusticia':'SELECT year, capacity, population FROM public.context_minjusticia',
-                        'reoffender_models' : 'select * from reoffender_models' 
+                        'reoffender_models' : 'select * from reoffender_models',
+                        'radar_plot_data': 'select * from radar_plot_data'
 
 
 
