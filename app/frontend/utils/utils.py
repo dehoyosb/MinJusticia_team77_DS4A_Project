@@ -79,6 +79,7 @@ class Queries():
                            'etl_select_9':"""select public.tsdhi_registro();""",
 
                            'etl_select_8':"""select * from etl_select_8""",
+                           'surv_view':"""select * from surv_view""",
 
                         'crime_filter': 'select id_delito, nombre, name_eng from delito',
                         'reclusion_dept' : 'select id_departamento, nombre from public.departamento',

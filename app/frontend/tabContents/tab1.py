@@ -7,10 +7,10 @@ tab1_content = dbc.Card(
         [
         dbc.Col([
         	dbc.Row([
-        		dbc.Col([dcc.Graph(id='context_minj_graph',style={"height" : "400px", "width" : "auto"}),]),
-        		dbc.Col([dcc.Graph(id='top_crimes',style={"height" : "400px", "width" : "auto"}),]),
+        		dbc.Col([dcc.Graph(id='context_minj_graph',style={"height" : "400px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0, 'border-color':'rgb(51,102,204,1)'}),]),
+        		dbc.Col([dcc.Graph(id='top_crimes',style={"height" : "400px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0, 'border-color':'rgb(51,102,204,1)'}),]),
         		]),
-        	dcc.Graph(id='parallel_graph',style={"height" : "500px", "width" : "auto"})
+        	dcc.Graph(id='parallel_graph',style={"height" : "500px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0, 'border-color':'rgb(51,102,204,1)' })
         ])
         
         ]
