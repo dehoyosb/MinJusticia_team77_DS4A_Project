@@ -1,6 +1,6 @@
 # Predicting and characterizing recidivism in Colombia between 2010 and 2019
 
-#### [Correlation Once - Data Science for All](https://www.correlation-one.com/)
+#### [Correlation One - Data Science for All](https://www.correlation-one.com/)
 #### [Ministerio de Tecnologías, Información y Comunicación](https://www.mintic.gov.co/portal/inicio/)
 
 #### Authors:
