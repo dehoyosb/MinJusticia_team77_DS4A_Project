@@ -1,0 +1,7 @@
+flask
+flask-bootstrap
+psycopg2
+ldap3
+wtforms
+flask_wtf
+flask_babel

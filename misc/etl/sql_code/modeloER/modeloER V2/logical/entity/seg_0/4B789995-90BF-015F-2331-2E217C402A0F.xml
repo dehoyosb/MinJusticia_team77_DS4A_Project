@@ -1,0 +1,76 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="4B789995-90BF-015F-2331-2E217C402A0F" name="departamento">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:00 UTC</createdTime>
+<generatorID>60510334-67CE-7683-BDC6-70EA3335859E</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id departamento" id="9EAE8A92-18D2-F20E-DBE9-AD3215030129">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:00 UTC</createdTime>
+<generatorID>7CBAE1C4-634F-B53F-4FDF-4CAADE23472A</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>31BC5F62-8397-B7C4-A260-B59F56AEF2E5</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="codigo dane" id="8A7FE6D1-49C0-F86D-FB5C-8D85A310CFBE">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:00 UTC</createdTime>
+<generatorID>2FBDCF30-C08A-AE85-E444-F9132783EF20</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>00070253-F41A-E8D3-950D-2B11A776D308</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nombre" id="E97FEC47-A931-0B6C-BA6F-85B1C548BE7C">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:00 UTC</createdTime>
+<generatorID>D66FF803-EEF5-2EB3-EDED-C1E6B9B06802</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>25CD8D09-585A-F0A6-3B27-E55BB6323159</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="0375F22C-1509-8FE8-B352-03CB7CD7D55D" name="departamento pk">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:33:00 UTC</createdTime>
+<generatorID>120F0830-5EBF-A611-6969-134EAF1ED86C</generatorID>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<engineerTo>
+<item key="EE28DC1F-61E8-D4D3-D115-581D8EE422DF" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>9EAE8A92-18D2-F20E-DBE9-AD3215030129</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

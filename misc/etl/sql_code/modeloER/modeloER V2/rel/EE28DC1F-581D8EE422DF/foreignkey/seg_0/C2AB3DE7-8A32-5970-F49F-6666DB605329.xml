@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="C2AB3DE7-8A32-5970-F49F-6666DB605329" containerWithKeyObject="C1ED77C2-B1F1-6B1E-0794-568A83BBFC4C" localFKIndex="4549325A-E654-C998-6D99-AF1B8571B4CE" name="sociodemografico_registros_registro_fk">
+<sourceDDLFile>ddl_normalizado.sql</sourceDDLFile>
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<importedID>0C747BC7-52BD-4B5D-B6A8-3E711D22EEC3</importedID>
+<referredTableLongName>registro</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>1D11AC16-7C1F-31BE-E3B4-73890FA77C56</referredTableID>
+<keyObject>B1575450-E396-7EA8-5A0C-CC8E18D1260F</keyObject>
+<referredKeyID>B1575450-E396-7EA8-5A0C-CC8E18D1260F</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_registro</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

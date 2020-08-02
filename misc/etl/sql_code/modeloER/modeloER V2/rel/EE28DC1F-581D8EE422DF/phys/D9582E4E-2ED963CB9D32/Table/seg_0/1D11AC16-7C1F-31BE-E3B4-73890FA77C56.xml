@@ -1,0 +1,198 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.TableProxyOraclev10g" name="registro" directorySegmentName="seg_0" id="1D11AC16-7C1F-31BE-E3B4-73890FA77C56">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="situacion_juridica" id="063CB689-2DC1-7D60-844B-75DE945F3906">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="actividades_estudio" id="10F4D49D-F1D2-7352-CE4B-F4971CAB59ED">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="actividades_trabajo" id="11B2BBFD-C450-1BDF-B1F3-178630F03060">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="calificado" id="15FE072D-8184-C9B8-1FFD-49D1D8082EED">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="establecimiento" id="40824AA8-EB6B-FA80-962D-054912B2D03A">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="estado_ingreso" id="45B4988A-0238-BF15-1089-92DB4D807312">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="delito_id_delito" id="4743DBDE-F949-F511-2794-22DEB0D86007">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="municipio_id_municipio" id="499B3C56-94CD-99AD-3AC7-48DE9A3C08AB">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="fecha_salida" id="4A545AD9-C64B-F4A6-ED6A-87AF9759BCF4">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="agravado" id="5EB99A57-0529-AF76-CE58-3FDAC6A7AC02">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="actividades_enseñanza" id="6917F55E-7F90-EE23-43E3-88B9E378EDE0">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="hijos_menores" id="6F9F1561-6601-879B-A654-54DA111D975C">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="edad" id="80BEF1FD-425A-C4B6-2FE6-FF663BE605B8">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="tentativa" id="8FD91FFF-06F8-F8B4-5D47-30AD6B361D55">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="persona_id_persona" id="A426D463-D204-4090-7C84-50D83A7F62A7">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="fecha_captura" id="AA6D310D-D3E7-A352-96EC-1B8E90903526">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="estado_id_estado" id="B7A36800-B4AA-0BCC-581F-B412E4AA3B56">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="id_registro" id="C3F962CF-32CC-C41A-A310-F134361F20BC">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="condicion_excepcional" id="D70F3A39-6F68-37EB-C2C9-1C0906A067B2">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="fecha_ingreso" id="FC133041-13A7-6181-16D8-83F925602E45">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="registro_estado_fk" id="28779138-8D04-C3AD-031B-947EBAB4D5B0">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="registro_persona_fk" id="4D96BC19-8EA5-0F2C-04DA-243F2FA67BC2">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="registro_estado_ingreso_fk" id="51B02A5F-C360-F82B-36B6-7619243755AC">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="registro_si_no_fkv3" id="5A262FD1-EDB9-63B5-E836-510E71427950">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="registro_si_no_fkv6" id="6E66ECB5-D983-038B-4E82-876E10FA0137">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="registro_situacion_juridica_fk" id="75AB20CF-9447-DB23-1305-74C988A96F21">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="registro_delito_fk" id="8977E764-2681-E71B-8460-8C8EAD331A00">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="registro_si_no_fk" id="8F7281F9-B64F-1B04-1D23-1ED9FBFE2435">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="registro_condicion_excepcional_fk" id="8FDA62F5-4928-F2F5-7074-82D3AA2B4A6F">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="registro_municipio_fk" id="C016A6FE-213D-4289-16B8-ABA6DDF78A50">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="registro_establecimiento_fk" id="C23FCAAF-0C05-1981-8F1F-60ABB1E196E4">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="registro_si_no_fkv7" id="C80D6732-36FA-188F-548E-6F4C00A54091">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="registro_si_no_fkv2" id="CAFD34F5-CE4B-9680-B926-9AE11DA57FDB">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="registro_si_no_fkv4" id="E4EA0133-FCC8-F22E-8E63-76F3DB05DAF0">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="registro_si_no_fkv5" id="EE64F684-40E0-81FF-9B4F-36785C2EC850">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="registro_pk" id="B1575450-E396-7EA8-5A0C-CC8E18D1260F">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev10g>

@@ -1,0 +1,78 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="C8B6C160-26A5-35B2-E1ED-35CB151797C6" name="delito">
+<sourceDDLFile>ddl_normalizado.sql</sourceDDLFile>
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<importedID>9E7645F4-544B-C62C-A5DF-E37B69A8EC4D</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_delito" id="18907089-FD0A-9EBB-0249-5766CDC51DF0">
+<sourceDDLFile>ddl_normalizado.sql</sourceDDLFile>
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<importedID>048555E3-A5F4-A8D5-85B3-B1C99582639A</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>31BC5F62-8397-B7C4-A260-B59F56AEF2E5</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="id_subtitulo_delito" id="020D0D83-4E1F-6F17-4BC0-BAA6EC8174D2">
+<sourceDDLFile>ddl_normalizado.sql</sourceDDLFile>
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<importedID>09903446-DA0E-9AE9-3902-58444F4A0FD0</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>31BC5F62-8397-B7C4-A260-B59F56AEF2E5</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D0C81BC9-2026-A209-C7DA-70F4BD06E1F3" referredColumn="03AB1765-76B4-0580-501D-D82257C76CE4"/>
+</associations>
+</Column>
+<Column name="nombre" id="0AD5A916-7492-6570-515C-3344BADBB1A3">
+<sourceDDLFile>ddl_normalizado.sql</sourceDDLFile>
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<importedID>A031FB17-0311-E055-0E18-99C4FC0562DA</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>FA072A2A-9C74-F5C6-EF48-D82521AC6CA0</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B6C689B6-CE38-FDB3-D351-79E6A402F988" name="delito_pk">
+<sourceDDLFile>ddl_normalizado.sql</sourceDDLFile>
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<importedID>42928CB9-3D35-D6E9-B4AB-164FB011FDA9</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="18907089-FD0A-9EBB-0249-5766CDC51DF0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0884A1C9-BC10-93C0-9C63-1B6D58BAAE7E" name="delito_subtitulo_delito_fk">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-20 11:32:51 UTC</createdTime>
+<ownerDesignName>modeloER V2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="020D0D83-4E1F-6F17-4BC0-BAA6EC8174D2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
