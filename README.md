@@ -4,11 +4,11 @@
 #### [Ministerio de Tecnologías, Información y Comunicación](https://www.mintic.gov.co/portal/inicio/)
 
 #### Authors:
-- [Katerin Lopez](https://www.linkedin.com/in/kaylopezal/)
 - [Sergio Bernal](https://www.linkedin.com/in/sergionbernal/)
-- [Esneyder Guerrero](https://www.linkedin.com/in/esneyder-guerrero-88282262/)
 - [Laura Goyeneche](https://www.linkedin.com/in/goyenechelaura/)
+- [Esneyder Guerrero](https://www.linkedin.com/in/esneyder-guerrero-88282262/)
 - [Daniel Hoyos](https://www.linkedin.com/in/daniel-hoyos-2b3a07a1/)
+- [Katerin Lopez](https://www.linkedin.com/in/kaylopezal/)
 
 
 #### Context
