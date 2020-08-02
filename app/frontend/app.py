@@ -240,32 +240,31 @@ def parallel_df_funct(dept, entity, pris_start_date, pris_end_date, crime, gende
 
 #Create Layout
 app.layout = html.Div([
-	dbc.Modal(
+#	 html.Link(
+#            rel='stylesheet',
+#            href='/assets/css/styles.css'
+#        ),
+	 dbc.Modal(
             [
-                dbc.ModalHeader("Recividism in Colombia"),
-                dbc.ModalBody([html.Img(src=app.get_asset_url("qrcode.jpg"), height="300px", style = {'display': 'block','margin-left': 'auto','margin-right': 'auto'}), 
-                	html.P("""In recent years, the rate of criminal recidivism in Colombia has increased dramatically.
-                 This is an important issue for government agencies, which raises questions such as: what is the best strategy to reduce these cases? what are the inmates’ 
-                 characteristics? and how can we contribute to a better policy-making through data-driven analysis?""")]),
-                dbc.ModalFooter(
-                    dbc.Button("Close", id="close", className="ml-auto", active = True)
-                ),
-            ],
-            id="modal", size="xl", is_open=True
-        ),
-        html.Link(
-            rel='stylesheet',
-            href='/assets/css/styles.css'
-        ),
-
+                 dbc.ModalHeader("Recividism in Colombia", style={'background-color':'#FFAB00', 'font-size':'2.25rem'}),
+                 dbc.ModalBody([html.Img(src=app.get_asset_url("qrcode.jpg"), height="200px", style = {'display': 'block','margin-left': 'auto','margin-right': 'auto'}), 
+                 	html.P("""In recent years, the rate of criminal recidivism in Colombia has increased dramatically.
+                  This is an important issue for government agencies, which raises questions such as: what is the best strategy to reduce these cases? what are the inmates’ 
+                  characteristics? and how can we contribute to a better policy-making through data-driven analysis?""")]),
+                 dbc.ModalFooter(
+                     dbc.Button("Close", id="close", className="ml-auto", active = True)
+                 ),
+             ],
+             id="modal", size="xl", is_open=True
+         ),
     # create the navbar, the first bar
     dbc.Navbar(
     [
         html.A(
             dbc.Row(
                 [
-                    dbc.Col(html.Img(src=app.get_asset_url("minjusticia_logo.jpg"), height="40px")),
-                    dbc.Col(dbc.NavbarBrand("Recividism in Colombia", className="ml-2")),
+                    dbc.Col(html.Img(src=app.get_asset_url("minjusticia_logo.jpg"), height="30px")),
+                    dbc.Col(dbc.NavbarBrand("Recividism in Colombia", className="ml-3")),
                 ],
                 align="center",
                 no_gutters=True,
@@ -290,9 +289,9 @@ app.layout = html.Div([
 #                    color= '#fff',
 #                    toggle_style={"color": "white"}
  #       ),
- 		dbc.Col([html.A("Development Team", href="http://23.98.146.239:5001", style={'color':'#fff'})]),
+ 		dbc.Col([html.A("Team", href="http://23.98.146.239:5001", style={'color':'#fff'})]),
 
-        dbc.Col([html.A("ESP", href="http://www.minjusticia.gov.co", style={'color':'#fff'})]),
+        #dbc.Col([html.A("ESP", href="http://www.minjusticia.gov.co", style={'color':'#fff'})]),
         dbc.Button("About", id="open",style={"background-color": "rgb(51,102,204,1)","text-align" : "left",  "border" : "0px"}),
         ]),],
         width={"size": 3, "order": "last", "offset": 5},)
@@ -309,6 +308,7 @@ dbc.Row(
 	dbc.Col(
     [
         #html.H4("Filters"),
+        dbc.Col(html.Img(src=app.get_asset_url("logoApp.jpeg"), height="30px")),
         html.Hr(),
          # first group of filters
 html.Div(
@@ -316,8 +316,8 @@ html.Div(
      dbc.Card(
         [
             dbc.Button(
-                        "+ Reclusion Ubication",
-                        style={"background-color": "rgb(51,102,204,1)","text-align" : "left",  "border" : "0px"},
+                        "+ Jail Location",
+                        style={"background-color": "rgb(51,102,204,1)","text-align" : "left",  "border" : "0px", 'font':'Open Sans'},
                         id="group-1-toggle"
             ),
             dbc.Collapse(
@@ -338,7 +338,7 @@ html.Div(
         [
                     dbc.Button(
                         "+ Sociodemographic",
-                        style={"background-color": "rgb(51,102,204,1)","text-align" : "left",  "border" : "0px"},
+                        style={"background-color": "rgb(51,102,204,1)","text-align" : "left",  "border" : "0px", 'font':'Open Sans'},
                         id="group-2-toggle"
             ),
             dbc.Collapse(
@@ -385,7 +385,7 @@ html.Div(
     width={"size": 'auto'#,
 		   #"offset": 1
 		   },
-	style={'margin-left': '10px', "background-color": "rgb(51,102,204,1)"},
+	style={'margin-left': '3px', "background-color": "rgb(51,102,204,1)"},
 	#align="center"
 ),
     # create the app content, simply add every tab created in the folder
@@ -393,10 +393,10 @@ dbc.Col([
 	dbc.CardHeader(
     dbc.Tabs(
     [
-        dbc.Tab(tab1_content, label="Overview", label_style={"width": "300px","font-size":"large"}),
-        dbc.Tab(tab2_content, label="Sociodemographic", label_style={"width": "300px"}),
-        dbc.Tab(tab3_content, label="Reoffenders Classification", label_style={"width": "300px"}),
-        dbc.Tab(tab4_content, label="Expected Recidivism", label_style={"width": "300px"}),
+        dbc.Tab(tab1_content, label="Overview", label_style={"width": "250px","font-size":"large"}),
+        dbc.Tab(tab2_content, label="Sociodemographic", label_style={"width": "250px"}),
+        dbc.Tab(tab3_content, label="Reoffenders Classification", label_style={"width": "250px"}),
+        dbc.Tab(tab4_content, label="Expected Recidivism", label_style={"width": "250px"}),
         #dbc.Tab(tab5_content, label="Predictive"),
     ],
     #style={"background-color": "rgb(255,171,0,0.5)"}
@@ -526,8 +526,8 @@ def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, 
 
 	fig.update_layout(title={
         'text': "Education level",
-        'font':{'family':'Work Sans',
-        		'size':25,
+        'font':{'family':'Open Sans',
+        		'size':16,
         		'color':'rgb(37,37,37)'}}, legend_title_text='')
 	fig.update_layout(margin= {"r":10, "t":50, "l":50, "b":0})
 	fig.update_layout(legend=dict(
@@ -572,7 +572,7 @@ def figure_top_crimes(dept, entity, pris_start_date, pris_end_date, crime, gende
 	                       zeroline=False,
 	                       autorange = True,
 	                      ),
-	                       title='<b>Top Crimes types</b> (%.2f %%)' % (top_crime.freq.sum()*100/count_crime.freq.sum()),
+	                       title='Top Crimes types (%.2f %%)' % (top_crime.freq.sum()*100/count_crime.freq.sum()),
 	                       margin=dict(l=300, r=10, t=80, b=80),
 	                       showlegend = False,),                      
 	    
@@ -582,8 +582,11 @@ def figure_top_crimes(dept, entity, pris_start_date, pris_end_date, crime, gende
 	            orientation='h',
 	            text = z ))
 
-	fig.update_traces(texttemplate = '%{text:.2f}' + '%', textposition='outside',textfont_size=12)
-	fig.update_layout(uniformtext_minsize=6, uniformtext_mode='hide')
+#	fig.update_traces(texttemplate = '%{text:.2f}' + '%', textposition='outside',textfont_size=12)
+#	fig.update_layout(uniformtext_minsize=6, uniformtext_mode='hide')
+
+	fig.update_traces(texttemplate = '%{text:.2f}' + '%', textposition='outside',textfont_size=16,)
+	fig.update_layout(uniformtext_minsize=2, uniformtext_mode='hide',title_font_family="Open Sans",)
 
 	annotations = []
 
@@ -593,11 +596,11 @@ def figure_top_crimes(dept, entity, pris_start_date, pris_end_date, crime, gende
 	                          x=0, y=yd,
 	                          xanchor='right',
 	                          text=str(yd),
-	                          font=dict(family='Arial', size=10,
+	                          font=dict(family='Open Sans', size=10,
 	                                 color='rgb(67, 67, 67)'),
 	                           showarrow=False, align='right',))
 	fig.update_layout(annotations=annotations)
-	fig.update_layout(margin= {"r":40, "t":50, "l":300, "b":0}, legend_title_text='')
+	fig.update_layout(margin= {"r":10, "t":50, "l":200, "b":0}, legend_title_text='')
 	return fig
 	
 
@@ -659,8 +662,8 @@ def figure_education_level(dept, entity, pris_start_date, pris_end_date, crime, 
 	#fig.update_layout(title_text='Population Pyramid')
 	fig.update_layout(title={
         'text': "Population Pyramid",
-        'font':{'family':'Work Sans',
-        		'size':25,
+        'font':{'family':'Open Sans',
+        		'size':16,
         		'color':'rgb(37,37,37)'}})
 	fig.update_layout(margin= {"r":5, "t":50, "l":10, "b":0}, legend_title_text='')
 	fig.update_layout(legend=dict(
@@ -716,8 +719,8 @@ def figure_map(dept, entity, pris_start_date, pris_end_date, crime, gender, rang
 						        ))
 	fig.update_layout(title={
         'text': "Inmates by region",
-        'font':{'family':'Work Sans',
-        		'size':25,
+        'font':{'family':'Open Sans',
+        		'size':16,
         		'color':'rgb(37,37,37)'}})
 
 	fig.update_layout(mapbox_style  = "carto-positron", 
@@ -737,7 +740,7 @@ def figure_map(dept, entity, pris_start_date, pris_end_date, crime, gender, rang
 def update_number_ofenders(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond):
 	data_people = data_people_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
 	x = data_people.people.count()
-	return ["{}".format(x)]
+	return ["{:,.0f}".format(x,  ",d")]
 
 
 @app.callback(
@@ -748,7 +751,7 @@ def update_number_inmates(dept, entity, pris_start_date, pris_end_date, crime, g
 	#data_people = inmate_df0_funct(dept, entity, pris_start_date, pris_end_date, crime, gender, range_age, excep_cond)
 	data_people=inmate_df_0
 	x = data_people.genero.count()
-	return ["{}".format(x)]
+	return ["{:,.0f}".format(x)]
 
 
 @app.callback(
@@ -781,8 +784,8 @@ def update_surv_study(dept, entity, pris_start_date, pris_end_date, crime, gende
 	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0}, legend_title_text='')
 	fig.update_layout(title={
         'text': "Recividism survival curve by study activities",
-        'font':{'family':'Work Sans',
-        		'size':25,
+        'font':{'family':'Open Sans',
+        		'size':16,
         		'color':'rgb(37,37,37)'}})
 	fig.update_layout(legend=dict(
     yanchor="top",
@@ -822,8 +825,8 @@ def update_surv_work(dept, entity, pris_start_date, pris_end_date, crime, gender
 	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0}, legend_title_text='')
 	fig.update_layout(title={
         'text': "Recividism survival curve by work activities",
-        'font':{'family':'Work Sans',
-        		'size':25,
+        'font':{'family':'Open Sans',
+        		'size':16,
         		'color':'rgb(37,37,37)'}})
 	fig.update_layout(legend=dict(
     yanchor="top",
@@ -869,7 +872,7 @@ def update_hazard_severity(dept, entity, pris_start_date, pris_end_date, crime, 
 	fig.add_trace(go.Scatter(
 	                            x=table.max_severity, 
 	                             y=table.avg,
-	                            fill='tozeroy', # fill area between trace0 and trace1
+	                            #fill='tonexty', # fill area between trace0 and trace1
 	                            mode='lines', 
 	                            line_color='#069169',
 	                            name = 'Average'
@@ -877,7 +880,7 @@ def update_hazard_severity(dept, entity, pris_start_date, pris_end_date, crime, 
 	fig.add_trace(go.Scatter(
 	                             x=table.max_severity, 
 	                             y=table.li,
-	                            # fill='tonexty',
+	                             #fill='tonexty',
 	                             mode='lines',
 	                             line_color='#81ABFF',
 	                             name = '1th Quantile'
@@ -886,10 +889,15 @@ def update_hazard_severity(dept, entity, pris_start_date, pris_end_date, crime, 
 	                      yaxis_title = 'Partial Hazard')
 	fig.update_layout(title={
 	        'text': "Partial Hazard by Crime Severity",
-	        'font':{'family':'Work Sans',
-	        		'size':25,
+	        'font':{'family':'Open Sans',
+	        		'size':16,
 	        		'color':'rgb(37,37,37)'}})
 	fig.update_layout(margin= {"r":20, "t":50, "l":0, "b":20}, legend_title_text='')
+	fig.update_layout(legend=dict(
+    yanchor="top",
+    y=1.02,
+    xanchor="right",
+    x=1))
 	return fig
 
 
@@ -939,20 +947,24 @@ def update_hazard_shdi(dept, entity, pris_start_date, pris_end_date, crime, gend
 	fig.add_trace(go.Scatter(
 	                             x=table.shdi, 
 	                             y=table.li,
-	                             #fill='tonexty',
+	                             fill='tonexty',
 	                             mode='lines',
 	                             line_color='#81ABFF',
-	                             name = '1st Quantile'
+	                             name = '1th Quantile'
 	                            ))
 	fig.update_layout(    xaxis_title = 'SHDI ',
 	                      yaxis_title = 'Partial Hazard')
 	fig.update_layout(title={
 	        'text': "Partial Hazard by SHDI",
-	        'font':{'family':'Work Sans',
-	        		'size':25,
+	        'font':{'family':'Open Sans',
+	        		'size':16,
 	        		'color':'rgb(37,37,37)'}})
 	fig.update_layout(margin= {"r":20, "t":50, "l":0, "b":20}, legend_title_text='')
-	    
+	fig.update_layout(legend=dict(
+    yanchor="top",
+    y=1.02,
+    xanchor="right",
+    x=1))	    
 	return fig
 
 
@@ -970,7 +982,7 @@ def update_hazard_shdi(dept, entity, pris_start_date, pris_end_date, crime, gend
 # 	fig.update_layout(margin= {"r":0, "t":50, "l":0, "b":0})
 # 	fig.update_layout(title={
 #         'text': "Age by educational level",
-#         'font':{'family':'Work Sans',
+#         'font':{'family':'Open Sans',
 #         		'size':25,
 #         		'color':'rgb(37,37,37)'}})
 # 	#fig.update_layout(title_text='Age by educational level', legend_title_text='')
@@ -1004,8 +1016,8 @@ def update_parallel_graph(dept, entity, pris_start_date, pris_end_date, crime, g
                              )
 	fig.update_layout(title={
         'text': "Top 10 Crime hierarchy",
-        'font':{'family':'Work Sans',
-        		'size':25,
+        'font':{'family':'Open Sans',
+        		'size':16,
         		'color':'rgb(37,37,37)'}})
 	fig.update_layout(margin= {"r":200, "t":50, "l":200, "b":0}, legend_title_text='')
 	return fig
@@ -1025,7 +1037,7 @@ def update_context_minj_graph(dept, entity, pris_start_date, pris_end_date, crim
 	people.columns = ['year','reoffenders']
 	df_merge = pd.merge(context_minjusticia_df,people, how='left',on ='year')
 	df_merge.set_index('year',inplace=True)
-	df_merge['reoffenders'] = df_merge['reoffenders']/1000
+	df_merge['reoffenders'] = df_merge['reoffenders']
 	df_merge = df_merge.reset_index()
 	temp = df_merge.melt(id_vars='year', value_vars= ['population', 'capacity', 'reoffenders'])
 	labels = ['population', 'capacity', 'reoffenders']
@@ -1091,25 +1103,26 @@ def update_context_minj_graph(dept, entity, pris_start_date, pris_end_date, crim
 	annotations = []
 	# Adding labels
 	for y_trace, label, color, percentage in zip(y_data, labels, colors, percentages):
-	    annotations.append(dict(xref='paper', x=0.75, y=y_trace[-1],
+	    annotations.append(dict(xref='paper', x=0.65, y=y_trace[-1],
 	                                  xanchor='left', yanchor='bottom',
 	                                  text=label+': {}k, ({}%)'.format(int(y_trace[-1]),percentage),
-	                                  font=dict(family='Work Sans',
+	                                  font=dict(family='Open Sans',
 	                                            size=14.5),
 	                                  showarrow=False))
 	# Title
-	annotations.append(dict(xref='paper', yref='paper', x=0.3, y=1,
+	annotations.append(dict(
+		xref='paper', yref='paper', x=0, y=1,
 	                              xanchor='left', yanchor='bottom',
 	                              text=title,
-	                              font=dict(family='Work Sans',
-	                                        size=25,
+	                              font=dict(family='Open Sans',
+	                                        size=18,
 	                                        color='rgb(37,37,37)'),
 	                              showarrow=False))
 	# Source
 	annotations.append(dict(xref='paper', yref='paper', x=0.5, y=-0.1,
 	                              xanchor='center', yanchor='top',
 	                              text='Source: INPEC & datos.gov.co',
-	                              font=dict(family='Work Sans',
+	                              font=dict(family='Open Sans',
 	                                        size=12,
 	                                        color='rgb(150,150,150)'),
 	                              showarrow=False))
@@ -1145,8 +1158,8 @@ def update_recividism_risk(dept, entity, pris_start_date, pris_end_date, crime, 
 	#fig.update_layout(title_text = 'Recidivism risk in within 2 years')
 	fig.update_layout(title={
         'text': "Recidivism risk in within 2 years",
-        'font':{'family':'Work Sans',
-        		'size':25,
+        'font':{'family':'Open Sans',
+        		'size':16,
         		'color':'rgb(37,37,37)'}})
 	fig.update_layout(margin= {"r":20, "t":50, "l":0, "b":0}, legend_title_text='')
 	fig.update_layout(legend=dict(
@@ -1215,8 +1228,8 @@ def figure_map_risk(dept, entity, pris_start_date, pris_end_date, crime, gender,
 						        ))
 	fig.update_layout(title={
         'text': "Risk Map by region",
-        'font':{'family':'Work Sans',
-        		'size':25,
+        'font':{'family':'Open Sans',
+        		'size':16,
         		'color':'rgb(37,37,37)'}})
 	fig.update_layout(mapbox_style  = "carto-positron", 
 	                  mapbox_zoom   = 4.5,
@@ -1276,8 +1289,8 @@ def figure_radar_plot(dept, entity, pris_start_date, pris_end_date, crime, gende
     )
     fig.update_layout(title={
         'text': "Feature importance by cluster",
-        'font':{'family':'Work Sans',
-        		'size':25,
+        'font':{'family':'Open Sans',
+        		'size':16,
         		'color':'rgb(37,37,37)'}})
     fig.update_layout(margin= {"r":20, "t":50, "l":0, "b":20}, legend_title_text='')
     return fig
@@ -1297,12 +1310,12 @@ def toggle_modal(n1, n2, is_open):
 
 #Initiate the server where the app will work
 if __name__ == "__main__":
-#    db_engine = DbEngine(user = 'postgres', 
-#                        password = 'YyjnDpcVRtpHDOHHzr58',
-#                        ip = 'database-1.cjppulxuzu8c.us-east-2.rds.amazonaws.com', 
-    db_engine = DbEngine(user = 'team77', 
-                        password = 'mintic2020.',
-                        ip = 'localhost', 
+    db_engine = DbEngine(user = 'postgres', 
+                        password = 'YyjnDpcVRtpHDOHHzr58',
+                        ip = 'database-1.cjppulxuzu8c.us-east-2.rds.amazonaws.com', 
+#    db_engine = DbEngine(user = 'team77', 
+#                        password = 'mintic2020.',
+#                        ip = 'localhost', 
                         port = '5432', 
                         db = 'minjusticia')
     nltk.download('stopwords')
@@ -1314,13 +1327,13 @@ if __name__ == "__main__":
     data_surv_0 = queries.run('surv_view')
     encoding = Encoding(queries)
     inmate_df_0 = encoding.get_data('etl_select_8')
-    inmate_df = encoding.surv_encode (inmate_df_0)
+    inmate_df = inmate_df_0
     inmate_df_surv = encoding.surv_encode (data_surv_0)
     parallel_df = encoding.parallel_encode(inmate_df_0, stopwords_list)
     context_minjusticia_df = queries.run('context_minjusticia')
     reoffender_models_df = queries.run('reoffender_models')
     radar_plot_data_df = queries.run('radar_plot_data')
     
-    app.run_server(debug=True,host='0.0.0.0', port=5000)
+    app.run_server(debug=False,host='0.0.0.0', port=5000)
 
     # mintic2020_ds4a.

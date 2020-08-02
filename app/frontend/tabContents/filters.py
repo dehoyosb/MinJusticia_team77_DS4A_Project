@@ -27,7 +27,7 @@ filter_reclusion_entity= html.Div([html.P(
         options=[],
         value=None,
         optionHeight=80,
-        style={"width" : "300px", "size":"small"}
+        style={"width" : "150px", "size":"small"}
     ),])
 
 
@@ -131,7 +131,7 @@ filter_excep_cond = html.Div([html.P(
 			{'label': 'Yes', 'value': '2'},
 		],
 		value=[],
-		labelStyle={'display': 'inline-block', 'align': 'center', 'padding-left' : '30px'}
+		labelStyle={'display': 'inline-block', 'align': 'center', 'padding-left' : '20px'}
 ), ])
 
 
