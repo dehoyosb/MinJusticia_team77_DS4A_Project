@@ -1,8 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<SequenceOraclev10g class="oracle.dbtools.crest.model.design.storage.oracle.v10g.SequenceOraclev10g" name="personas_seq" directorySegmentName="seg_0" id="3D015C06-140E-DE0A-1EF7-9F0DDAA4E6D2">
-<sourceDDLFile>ddl_normalizado.sql</sourceDDLFile>
-<createdBy>esneyder</createdBy>
-<createdTime>2020-06-20 11:32:41 UTC</createdTime>
-<ownerDesignName>modeloER V2</ownerDesignName>
-<user>PUBLIC</user>
-</SequenceOraclev10g>
