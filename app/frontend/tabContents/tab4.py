@@ -8,14 +8,14 @@ tab4_content = dbc.Card(
         [
             dbc.Row([
         		dbc.Col([
-        			dcc.Graph(id='surv_study',style={"height" : "400px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0,'border-color':'rgb(51,102,204,1)'}),
+        			dcc.Graph(id='surv_study',style={"height" : "300px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0,'border-color':'rgb(51,102,204,1)'}),
         			html.Hr(),
-        			dcc.Graph(id='surv_work',style={"height" : "400px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0,'border-color':'rgb(51,102,204,1)'}),
+        			dcc.Graph(id='surv_work',style={"height" : "300px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0,'border-color':'rgb(51,102,204,1)'}),
         			]),
                 dbc.Col([
-                    dcc.Graph(id='hazard_severity',style={"height" : "400px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0,'border-color':'rgb(51,102,204,1)'}),
+                    dcc.Graph(id='hazard_severity',style={"height" : "300px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0,'border-color':'rgb(51,102,204,1)'}),
                     html.Hr(),
-                    dcc.Graph(id='hazard_shdi',style={"height" : "400px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0,'border-color':'rgb(51,102,204,1)'}),
+                    dcc.Graph(id='hazard_shdi',style={"height" : "300px", "width" : "auto",'margin':5,'border':'1px solid', 'border-radius': 0,'border-color':'rgb(51,102,204,1)'}),
                     ]),
         		]),
         ]
