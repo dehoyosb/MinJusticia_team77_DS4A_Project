@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="12968BAB-8A22-AE30-4EEF-12B39B6BE42F" containerWithKeyObject="B7E61557-69D5-2691-6225-192BF72C9EDE" localFKIndex="82618EE4-2CB7-ADDD-9C88-C89B4ADCF3B2" name="sociodemografico_registros_sociodemograficos_FK">
+<createdBy>esneyder</createdBy>
+<createdTime>2020-06-09 21:38:24 UTC</createdTime>
+<generatorID>124F8909-A2B1-B356-03E7-0ABD73CA305A</generatorID>
+<ownerDesignName>modeloER</ownerDesignName>
+<referredTableLongName>sociodemograficos</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>326EDBD1-551C-E1AB-8261-83A9D0D40517</referredTableID>
+<keyObject>7EBFAB71-F08C-58F3-BD10-D8BB39820AAA</keyObject>
+<referredKeyID>7EBFAB71-F08C-58F3-BD10-D8BB39820AAA</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id_sociodemografico</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>
