@@ -264,7 +264,7 @@ app.layout = html.Div([
             dbc.Row(
                 [
                     dbc.Col(html.Img(src=app.get_asset_url("minjusticia_logo.jpg"), height="30px")),
-                    dbc.Col(dbc.NavbarBrand("Recividism in Colombia", className="ml-3")),
+                    dbc.Col(dbc.NavbarBrand("Recividism in Colombia", className="ml-3", style={'font-size':'2.25rem'})),
                 ],
                 align="center",
                 no_gutters=True,
